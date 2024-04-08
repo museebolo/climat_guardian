@@ -1,5 +1,4 @@
-const SampleContext = {
+export const SampleContext = {
     url: "",
     token: ""
 }
-export default SampleContext;

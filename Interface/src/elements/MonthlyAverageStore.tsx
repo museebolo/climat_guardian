@@ -1,13 +1,8 @@
 import { ChartElement } from "./ChartElement.tsx";
-
 import {useEffect, useState} from "react";
 import {SampleContext} from "@/contexts/SampleContext.tsx";
+import {Data} from "@/contexts/lib.tsx";
 
-interface Data {
-    temperature: number;
-    humidity: number;
-    timestamp: number;
-}
 export function MonthlyAverageStore() {
 
 	const apiAuthToken = SampleContext.token;
