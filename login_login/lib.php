@@ -2,6 +2,15 @@
 
 use JetBrains\PhpStorm\NoReturn;
 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Accept, Authorization");
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
+
 #[NoReturn] function output(array $messages, int $code = 200): void {
 	header('Content-Type: application/json');
 	http_response_code($code);

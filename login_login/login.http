@@ -1,7 +1,7 @@
 ### Authentificate as admin
 # @no-cookie-jar
 # @no-log
-GET http://localhost:8080/login.php?username=toto&password=IamToto
+GET http://localhost:5173/login.php?username=toto&password=IamToto
 
 
 ### Create a new user "toto" with password "IamToto"
