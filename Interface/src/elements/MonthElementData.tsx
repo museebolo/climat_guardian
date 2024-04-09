@@ -7,7 +7,7 @@ export default function MonthElementData() {
     const [data, setData] = useState<AverageData[]>([]);
 
     useEffect(() => {
-        const url = `${SampleContext.url}/rpc/avg_date?delta=month&order=date.desc&limit=2`;
+        const url = `${SampleContext.urlData}/rpc/avg_date?delta=month&order=date&limit=2`;
         fetch(url, {"headers": {"Authorization": `Bearer ${SampleContext.token}`}})
             .then(response => response.json())
             .then((apiData: AverageData[]) => {

@@ -1,7 +1,7 @@
 ### Authentificate as admin
 # @no-cookie-jar
 # @no-log
-GET http://localhost:8080/login.php?username=admin&password=admin
+GET http://localhost:8080/login.php?username=toto&password=IamToto
 
 
 ### Create a new user "toto" with password "IamToto"
@@ -28,5 +28,5 @@ GET http://localhost:8080/login.php?username=toto&password=IamToto
 # @no-cookie-jar
 # @no-log
 GET http://192.168.1.66:3000/data?order=timestamp.desc,ip&limit=20
-Authorization: Bearer
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoid2ViX3VzZXIiLCJpZCI6MTQsImV4cCI6MTcxMjYyMDgwMH0.pktJqmndIWsyPFcMXpiDwsLp_inQdu--ohNuQKx3fWc
 

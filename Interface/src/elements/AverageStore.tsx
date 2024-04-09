@@ -7,7 +7,7 @@ export function AverageStore({ precision, beginning, end }: { precision: string;
     const [data, setData] = useState<AverageData[]>([]);
 
     useEffect(() => {
-        const url = `${SampleContext.url}/rpc/avg_date?delta=${precision}&and=(date.gte.${beginning},date.lt.${end})`;
+        const url = `${SampleContext.urlData}/rpc/avg_date?delta=${precision}&and=(date.gte.${beginning},date.lt.${end})`;
         console.log(url);
         fetch(url, {"headers": {"Authorization": `Bearer ${SampleContext.token}`}})
             .then(response => response.json())

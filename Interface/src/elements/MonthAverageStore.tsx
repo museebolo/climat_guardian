@@ -12,7 +12,7 @@ export function MonthAverageStore({select}:{select:string}) {
     const [dailyAverages, setDailyAverages] = useState<{ temperature: number; humidity: number; }[]>([]);
 
     useEffect(() => {
-        fetch(`${SampleContext.url}/data`, {"headers": {"Authorization": `Bearer ${apiAuthToken}`}})
+        fetch(`${SampleContext.urlData}/data`, {"headers": {"Authorization": `Bearer ${apiAuthToken}`}})
             .then(response => response.json())
             .then((apiData: Data[]) => {
                 setData(apiData);

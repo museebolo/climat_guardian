@@ -15,7 +15,7 @@ export function MonthlyAverageStore() {
 
 
     useEffect(() => {
-        fetch(`${SampleContext.url}/data`, {"headers": {"Authorization": `Bearer ${apiAuthToken}`}})
+        fetch(`${SampleContext.urlData}/data`, {"headers": {"Authorization": `Bearer ${apiAuthToken}`}})
             .then(response => response.json())
             .then((apiData: Data[]) => {
                 setData(apiData);

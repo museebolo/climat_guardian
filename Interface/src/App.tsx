@@ -25,8 +25,6 @@ function App() {
             <div className="w-1/4">
                 <SideBarElement/>
             </div>
-
-
             <div className="w-3/4">
                 <Outlet/>
             </div>

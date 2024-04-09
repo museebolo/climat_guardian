@@ -4,21 +4,21 @@ import {AverageData, getMonthName} from "@/contexts/lib.tsx";
 export default function MonthElement({data}: { data: AverageData }) {
 
     return (
-        <Card className="bg-white p-4 dark:bg-slate-800 w-full">
+        <Card className="bg-white p-4 dark:bg-slate-800 w-full mt-6">
             <div className="flex">
                 <CardHeader>
                     <CardTitle className="text-gray-500 dark:text-white">{getMonthName(new Date(data.date))} average</CardTitle>
                 </CardHeader>
-                <div className="mt-12 text-center flex">
+                <div className="mt-6 flex">
                     <div>
-                        <h1 className="font-bold text-2xl mr-16 dark:text-white">
+                        <p className="font-bold text-2xl ml-32 dark:text-white">
                             {data.avg_temperature.toFixed(2)}°C
-                        </h1>
+                        </p>
                     </div>
                     <div>
-                        <h1 className="font-bold text-2xl mr-16 dark:text-white">
-                            {data.avg_temperature.toFixed(2)}%
-                        </h1>
+                        <p className="font-bold text-right ml-4 text-2xl dark:text-white">
+                            {data.avg_humidity.toFixed(2)}%
+                        </p>
                     </div>
                 </div>
             </div>

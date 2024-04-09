@@ -7,13 +7,14 @@ import {Data} from "@/contexts/lib.tsx";
 export default function CircularElementData() {
     const [data, setData] = useState<Data>();
 
-    const url = `${SampleContext.url}/data?limit=1&order=timestamp.desc`
+    const url = `${SampleContext.urlData}/data?limit=1&order=timestamp.desc`
     useEffect(() => {
         fetch(url, {"headers": {"Authorization": `Bearer ${SampleContext.token}`}})
             .then(response => response.json())
             .then(apiData => {
                 setData(apiData[0]);
                 console.log(data)
+                console.log(url)
             })
             .catch(error => console.error('Erreur lors de la récupération des données de l\'API :', error));
     }, []);
