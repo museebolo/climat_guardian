@@ -1,4 +1,7 @@
 import { FormEvent, useState } from "react";
+import {SampleContext} from "@/contexts/SampleContext.tsx";
+import * as url from "url";
+import {log10} from "chart.js/helpers";
 
 export default function LoginElement() {
     const [username, setUsername] = useState('');
@@ -7,20 +10,23 @@ export default function LoginElement() {
 
     const submit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:8080/login.php?username=${username}&password=${password}`, {
-            method: 'GET',
+
+        await fetch(`${SampleContext.urlLogin}/login.php?username=${username}&password=${password}`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        });
-
-        if (response.ok) {
-            const content = await response.json();
-            console.log(content);
-        } else {
-            setError('Identifiant ou mot de passe incorrect.');
-        }
+        })
+            .then(response => response.json())
+            .then(reponse => {
+                console.log(reponse)
+                if (reponse.error) {
+                    setError(reponse.error);
+                }
+            })
+            .catch(e => {
+                console.log(e)
+            });
     };
 
     return (
@@ -28,7 +34,7 @@ export default function LoginElement() {
             <section className="h-screen">
                 <div className="flex h-full items-center justify-center">
                     <div className="md:w-8/12 lg:ml-6 lg:w-5/12 shadow-2xl p-12 bg-white rounded-xl">
-                        <form method="post" onSubmit={submit}>
+                        <form method="get" onSubmit={submit}>
                             <div className="relative mb-6">
                                 <input
                                     type="text"

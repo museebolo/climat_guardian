@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {SampleContext} from "@/contexts/SampleContext.tsx";
-import MonthElement from "@/elements/MonthElement.tsx";
+import MonthElement from "@/elements/LastMonthElement.tsx";
 import {AverageData} from "@/contexts/lib.tsx";
 
 export default function MonthElementData() {

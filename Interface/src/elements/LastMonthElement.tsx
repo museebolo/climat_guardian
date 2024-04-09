@@ -1,7 +1,7 @@
 import {Card, CardHeader, CardTitle} from '@/components/ui/card';
 import {AverageData, getMonthName} from "@/contexts/lib.tsx";
 
-export default function MonthElement({data}: { data: AverageData }) {
+export default function LastMonthElement({data}: { data: AverageData }) {
 
     return (
         <Card className="bg-white p-4 dark:bg-slate-800 w-full mt-6">
