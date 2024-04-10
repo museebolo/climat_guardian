@@ -14,6 +14,7 @@ cd climat-guardian/login
 composer install
 cd ../Interface
 npm install
+npm run build
 cd ..
 ```
 
