@@ -1,6 +1,5 @@
 import { FormEvent, useState } from "react";
 import {SampleContext} from "@/contexts/SampleContext.tsx";
-import {redirect} from "react-router-dom";
 
 export default function LoginElement() {
     const [username, setUsername] = useState('');

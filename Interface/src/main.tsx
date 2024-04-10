@@ -2,17 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
-import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import DashboardElement from "./elements/DashboardElement.tsx";
 import PlanElement from "@/elements/PlanElement.tsx";
 import LoginElement from "@/elements/LoginElement.tsx";
-import { SampleContext } from "@/contexts/SampleContext.tsx";
 
-const isAuthenticated = () => {
-    if (SampleContext.token) {
-        return true;
-    }
-};
 
 const renderRoutes = () => {
     return [
@@ -22,7 +16,7 @@ const renderRoutes = () => {
             children: [
                 {
                     path: "/dashboard",
-                    element: <DashboardElement/>
+                    element:<DashboardElement/>
                 },
                 {
                     path: "/plan",
