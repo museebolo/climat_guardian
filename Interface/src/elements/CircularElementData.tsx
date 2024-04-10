@@ -2,14 +2,14 @@ import {useState, useEffect} from "react";
 import CircularElement from "./CircularElement.tsx";
 import CardElement from "./CardElement.tsx";
 import {SampleContext} from "@/contexts/SampleContext.tsx";
-import {Data} from "@/contexts/lib.tsx";
+import {Data, getToken} from "@/contexts/lib.tsx";
 
 export default function CircularElementData() {
     const [data, setData] = useState<Data>();
 
     const url = `${SampleContext.urlData}/data?limit=1&order=timestamp.desc`
     useEffect(() => {
-        fetch(url, {"headers": {"Authorization": `Bearer ${SampleContext.token}`}})
+        fetch(url, {"headers": {"Authorization": `Bearer ${getToken()}`}})
             .then(response => response.json())
             .then(apiData => {
                 setData(apiData[0]);

@@ -5,6 +5,9 @@ export const monthNames = ['January', 'February', 'March', 'April', 'May', 'June
 export function getMonthName(date: Date) {
     return monthNames[date.getMonth()]
 }
+export function getToken(){
+    return localStorage.getItem('token');
+}
 
 // Interfaces
 export interface AverageData {

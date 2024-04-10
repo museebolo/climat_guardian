@@ -7,6 +7,11 @@ import DashboardElement from "./elements/DashboardElement.tsx";
 import PlanElement from "@/elements/PlanElement.tsx";
 import LoginElement from "@/elements/LoginElement.tsx";
 
+const isAuthenticated = () => {
+    const token = localStorage.getItem('token');
+    return !!token;
+
+};
 
 const renderRoutes = () => {
     return [
@@ -16,11 +21,11 @@ const renderRoutes = () => {
             children: [
                 {
                     path: "/dashboard",
-                    element:<DashboardElement/>
+                    element: isAuthenticated() ? <DashboardElement/> : <LoginElement/>
                 },
                 {
                     path: "/plan",
-                    element: <PlanElement/>
+                    element:  isAuthenticated() ?  <PlanElement/> : <LoginElement/>
                 },
                 {
                     path: "/login",

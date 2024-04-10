@@ -1,11 +1,11 @@
 import { ChartElement } from "./ChartElement.tsx";
 import {useEffect, useState} from "react";
 import {SampleContext} from "@/contexts/SampleContext.tsx";
-import {Data} from "@/contexts/lib.tsx";
+import {Data, getToken} from "@/contexts/lib.tsx";
 
 export function MonthlyAverageStore() {
 
-	const apiAuthToken = SampleContext.token;
+	const apiAuthToken = getToken();
     const [data, setData] = useState<Data[]>([]);
 
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];

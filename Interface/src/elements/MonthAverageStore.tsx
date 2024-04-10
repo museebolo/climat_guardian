@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { ChartElement } from "./ChartElement.tsx";
 import {SampleContext} from "@/contexts/SampleContext.tsx";
-import {Data} from "@/contexts/lib.tsx";
+import {Data, getToken} from "@/contexts/lib.tsx";
 
 export function MonthAverageStore({select}:{select:string}) {
 
-	const apiAuthToken = SampleContext.token;
+	const apiAuthToken = getToken();
     const [data, setData] = useState<Data[]>([]);
     const monthSelected = select;
 

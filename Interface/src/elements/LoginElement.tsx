@@ -4,7 +4,6 @@ import {SampleContext} from "@/contexts/SampleContext.tsx";
 export default function LoginElement() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [token,setToken]=useState("")
     const [error, setError] = useState('');
 
     const submit = async (e: FormEvent<HTMLFormElement>) => {
@@ -18,15 +17,13 @@ export default function LoginElement() {
         })
             .then(response => response.json())
             .then(reponse => {
-                console.log(reponse)
                 if (reponse.error) {
                     setError(reponse.error);
                 }
                 if (reponse.token){
-                    setToken(reponse.token)
-                    SampleContext.token = token
-                    console.log(SampleContext.token)
                     localStorage.setItem('token', reponse.token);
+
+                    window.location.href = "http://localhost:5173/dashboard";
                 }
             })
             .catch(e => {

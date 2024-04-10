@@ -1,7 +1,7 @@
 import {ChartElement} from "./ChartElement.tsx";
 import {useEffect, useState} from "react";
 import {SampleContext} from "@/contexts/SampleContext.tsx";
-import {AverageData} from "@/contexts/lib.tsx";
+import {AverageData, getToken} from "@/contexts/lib.tsx";
 
 export function AverageStore({ precision, beginning, end }: { precision: string; beginning: string; end: string; }) {
     const [data, setData] = useState<AverageData[]>([]);
@@ -9,7 +9,7 @@ export function AverageStore({ precision, beginning, end }: { precision: string;
     useEffect(() => {
         const url = `${SampleContext.urlData}/rpc/avg_date?delta=${precision}&and=(date.gte.${beginning},date.lt.${end})`;
         console.log(url);
-        fetch(url, {"headers": {"Authorization": `Bearer ${SampleContext.token}`}})
+        fetch(url, {"headers": {"Authorization": `Bearer ${getToken()}`}})
             .then(response => response.json())
             .then((apiData: AverageData[]) => {
                 setData(apiData);
