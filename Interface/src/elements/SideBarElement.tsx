@@ -10,7 +10,7 @@ shadow-xl rounded-2xl top-0 left-0 z-40 w-64 h-screen transition-transform -tran
                 <ul className="space-y-2 font-medium">
                     <li>
                         <Link
-                           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-400 group" to="/">
+                           className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-400 group" to="/dashboard">
                             <svg
                                 className="w-5 h-5 text-gray-500 transition duration-75 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"

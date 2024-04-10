@@ -1,11 +1,11 @@
 import { FormEvent, useState } from "react";
 import {SampleContext} from "@/contexts/SampleContext.tsx";
-
+import {redirect} from "react-router-dom";
 
 export default function LoginElement() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [token, setToken]= useState('')
+    const [token,setToken]=useState("")
     const [error, setError] = useState('');
 
     const submit = async (e: FormEvent<HTMLFormElement>) => {
@@ -22,9 +22,12 @@ export default function LoginElement() {
                 console.log(reponse)
                 if (reponse.error) {
                     setError(reponse.error);
-                }if (reponse.token){
-                    SampleContext.token = reponse.token
+                }
+                if (reponse.token){
+                    setToken(reponse.token)
+                    SampleContext.token = token
                     console.log(SampleContext.token)
+                    localStorage.setItem('token', reponse.token);
                 }
             })
             .catch(e => {
@@ -34,9 +37,9 @@ export default function LoginElement() {
 
     return (
         <>
-            <section className="h-screen">
+            <section className="h-screen w-full">
                 <div className="flex h-full items-center justify-center">
-                    <div className="md:w-8/12 lg:ml-6 lg:w-5/12 shadow-2xl p-12 bg-white rounded-xl  dark:text-white     dark:bg-slate-800">
+                    <div className=" shadow-2xl p-12 bg-white rounded-xl  dark:text-white     dark:bg-slate-800">
                         <form method="get"  onSubmit={submit}>
                             <div className=" dark:bg-slate-800 relative mb-6">
                                 <input

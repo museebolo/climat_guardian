@@ -1,6 +1,5 @@
 import './App.css';
 import {Outlet} from "react-router-dom";
-import SideBarElement from "@/elements/SideBarElement.tsx";
 import {useState} from "react";
 
 function App() {
@@ -22,13 +21,10 @@ function App() {
 
     return (
         <div className="flex">
-            <div className="w-1/4">
-                <SideBarElement/>
-            </div>
-            <div className="w-3/4">
+
                 <Outlet/>
-            </div>
-            <div className="items-center justify-center">
+
+            <div className="">
                 <button className="w-28 h-28" onClick={() => toggleDarkTheme()}>
 
                     <img className="w-8" src={darkTheme ? "/icons8-sun (1).svg" : "/icons8-moon-50.png"}
