@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import CircularElement from "./CircularElement.tsx";
 import CardElement from "./CardElement.tsx";
 import { SampleContext } from "@/contexts/SampleContext.tsx";
-import { Data, getToken } from "@/contexts/lib.tsx";
-import {redirect} from "react-router-dom";
+import { Data, getToken,error401 } from "@/contexts/lib.tsx";
 
 export default function CircularElementData() {
     const [data, setData] = useState<Data>();
@@ -14,10 +13,7 @@ export default function CircularElementData() {
             try {
                 const response = await fetch(url, { headers: { "Authorization": `Bearer ${getToken()}` } });
                 if (!response.ok) {
-                    if (response.status === 401) {
-
-                        window.location.href = "http://localhost:5173/login";
-                    }
+                    error401(response)
                 }
                 const apiData = await response.json();
                 setData(apiData[0]);

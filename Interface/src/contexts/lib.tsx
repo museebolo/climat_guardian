@@ -8,6 +8,12 @@ export function getMonthName(date: Date) {
 export function getToken(){
     return localStorage.getItem('token');
 }
+export function error401(response:Response){
+    if (response.status === 401) {
+
+        window.location.href = "http://localhost:5173/login";
+    }
+}
 
 // Interfaces
 export interface AverageData {
