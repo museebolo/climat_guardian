@@ -47,7 +47,7 @@ services:
   web:
     image: nginx:latest
     ports:
-      - '8080:80'
+      - '80:80'
     volumes:
       - ./Interface/dist:/var/www/memoires-info/html
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
