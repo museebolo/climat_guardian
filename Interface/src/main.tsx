@@ -28,7 +28,7 @@ const renderRoutes = () => {
                     element:  isAuthenticated() ?  <PlanElement/> : <LoginElement/>
                 },
                 {
-                    path: "/login",
+                    path: "/",
                     element: <LoginElement/>
                 }
             ]

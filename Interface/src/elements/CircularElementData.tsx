@@ -33,7 +33,7 @@ export default function CircularElementData() {
                         <CardElement
                             element={<CircularElement
                                 color={"orange"}
-                                data={data.temperature}
+                                data={data.temperature.toPrecision(3)}
                                 unity={"°C"} />}
                             theme="Temperature" /> : "pomme"
                 }
@@ -45,7 +45,7 @@ export default function CircularElementData() {
                         <CardElement
                             element={<CircularElement
                                 color={"blue"}
-                                data={data.humidity}
+                                data={data.humidity.toPrecision(3)}
                                 unity={"%"} />}
                             theme="Humidity" /> : "pomme"
                 }

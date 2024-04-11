@@ -1,4 +1,4 @@
 export const SampleContext = {
-    url: "",
-    token: ""
+    urlData: "",
+    urlLogin: ""
 }
