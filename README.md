@@ -24,23 +24,11 @@ cd ..
 )
 Once the repository is cloned you can remove the `.example` at the end of the following files:
 - login/.env.example
-- Interface/src/contexts/SampleContext.example.tsx
 - esp32/config/secrets.example.yaml
-
----
-Once done you want to get the ip address of the computer that will run the docker containers
 ```bash
-ip address show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
-ip address show wlan0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'
+mv login/.env.example login/.env
+mv esp32/config/secrets.example.yaml esp32/config/secrets.yaml
 ```
-
-[Info]: <> (
-	This is the list of all the files that require to know the ip address of the computer
-)
-You then want to copy the ip address and paste it the following files with the port 3000:
-- esp32/config/secrets.yaml
-- Interface/src/contexts/SampleContext.tsx
-- login/.env
 
 ---
 Now you want to generate a secret key for the jwt tokens used by the api
@@ -71,13 +59,13 @@ Once everything is configured you can start the project by running the docker co
 ```bash
 docker-compose up
 ```
-Once the docker is running you can access the web interface by going to `localhost:3000` in your web browser (or the ip address of the computer that runs the docker)
+Once the docker is running you can access the web interface by going to `memoires-info.com` in your web browser (or the ip address of the computer that runs the docker)
 
 ![web interface](/assets/dashboard.png)
 
 ## ESP 32 Installation
 This project uses esp home to manage the esp32, you can configure the esp32 by following the instructions below
-- Connect yourself to the esphome interface by going to `localhost:6052` in your web browser (or the ip address of the computer that runs the docker)
+- Connect yourself to the esphome interface by going to `esphome.memoires-info.com` in your web browser (or the ip address of the computer that runs the docker)
 - Plug the esp32 to your computer
 - Press the `+ ADD DEVICE` button inside esp home
 - Name your device
@@ -91,4 +79,13 @@ This project uses esp home to manage the esp32, you can configure the esp32 by f
 - Press `STOP` to exit the logs
 - Unplug the esp32 the computer and plug it to any other power source
 - If you need to update the configuration of the esp32, you can now do it wirelessly from the esp home interface
+
+## Adminer
+If you want to access the database you can go to `adminer.memoires-info.com` in your web browser (or the ip address of the computer that runs the docker)\
+You can login with the following credentials:
+- System: PostgreSQL
+- Server: db
+- Username: postgres
+- Password: example
+- Database: memoires-info
 
