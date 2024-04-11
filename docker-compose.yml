@@ -9,15 +9,12 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /dev/ttyUSB0:/dev/ttyUSB0
     privileged: true
-    network_mode: host
 
   db:
     image: postgres
     shm_size: 128mb
     volumes:
       - "./data:/var/lib/postgresql/data"
-    ports:
-      - "6543:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
@@ -25,15 +22,11 @@ services:
 
   adminer:
     image: adminer
-    ports:
-      - "8000:8080"
     depends_on:
       - db
 
   postg-rest:
     image: postgrest/postgrest
-    ports:
-      - "3000:3000"
     environment:
       # this is the equivalent to the postgrest.conf file
       PGRST_DB_SCHEMAS: "api"
@@ -48,6 +41,8 @@ services:
     image: php:8-fpm
     volumes:
       - ./login:/var/www/memoires-info/php
+    depends_on:
+      - db
 
   web:
     image: nginx:latest
