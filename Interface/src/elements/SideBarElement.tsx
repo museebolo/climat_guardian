@@ -1,6 +1,11 @@
-import { Link } from "react-router-dom";
+
+import {Link} from "react-router-dom";
 
 export default function SideBarElement() {
+    const logout = () => {
+       localStorage.clear()
+        location.reload();
+    }
     return (
         <aside id="default-sidebar"
                className="shadow-xl rounded-2xl top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 absolute flex flex-col"
@@ -44,7 +49,7 @@ export default function SideBarElement() {
                     </Link>
                 </div>
                 <div className="p-2">
-                    <button className="w-full py-2 bg-gray-100 rounded-xl text-dark dark:text-white hover:bg-gray-200 dark:hover:bg-gray-400">Mon Bouton</button>
+                    <button onClick={logout} className="w-full py-2 bg-gray-100 rounded-xl text-dark dark:text-white hover:bg-gray-200 dark:hover:bg-gray-400">Mon Bouton</button>
                 </div>
             </div>
         </aside>
