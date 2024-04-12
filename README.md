@@ -41,7 +41,7 @@ tr -dc A-Za-z0-9 </dev/urandom | head -c 32; echo
 )
 You then want to copy the secret key and paste it the following files:
 - login/.env
-- docker-compose.yml
+- postgrest.conf
 
 ---
 Finally you can fill the `esp32/config/secrets.yaml` with the credentials of the wifi\
@@ -57,7 +57,7 @@ Here are 2 diagrams that show how the data is transfered from the esp32 to the w
 ## Start the project
 Once everything is configured you can start the project by running the docker compose
 ```bash
-docker-compose up
+docker compose up
 ```
 Once the docker is running you can access the web interface by going to `memoires-info.com` in your web browser (or the ip address of the computer that runs the docker)
 
