@@ -45,7 +45,7 @@ You then want to copy the secret key and paste it the following files:
 
 ---
 Finally you can fill the `esp32/config/secrets.yaml` with the credentials of the wifi\
-Once that's done you can create a postgres database called `memoires-info` from the `psql.sql` file
+Once that's done you can create a postgres database called `memoires-info` from the `database/db.sql` file
 
 ## Data transfer
 Here are 2 diagrams that show how the data is transfered from the esp32 to the web interface
