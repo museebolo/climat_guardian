@@ -1,6 +1,6 @@
 import {Card, CardHeader, CardTitle} from "@/components/ui/card.tsx";
 
-export default function CardPlanElement() {
+export default function CardPlanElement({room}:{room:number}) {
 
 
     return (
@@ -8,7 +8,7 @@ export default function CardPlanElement() {
             <Card className="bg-white p-4 dark:bg-slate-800 w-full mt-6">
                 <div className="flex">
                     <CardHeader>
-                        <CardTitle className="text-gray-500 dark:text-white">chasseron average</CardTitle>
+                        <CardTitle className="text-gray-500 dark:text-white">{room}</CardTitle>
                     </CardHeader>
                     <div className="mt-6 flex">
                         <div>
