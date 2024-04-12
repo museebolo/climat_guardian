@@ -13,7 +13,7 @@ export default function SideBarElement() {
             <div className="h-full flex flex-col justify-between px-3 py-4 overflow-y-auto bg-white rounded-2xl dark:bg-slate-800">
                 <div className="space-y-2 font-medium">
                     <Link
-                        className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-400 group" to="/dashboard">
+                        className="flex items-center p-2 text-gray-900 rounded-xl dark:text-white hover:bg-gray-100 dark:hover:bg-slate-950 group" to="/dashboard">
                         <svg
                             className="w-5 h-5 text-gray-500 transition duration-75 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -26,18 +26,13 @@ export default function SideBarElement() {
                         <span className="flex-1 ms-3 whitespace-nowrap">Dashboard</span>
                     </Link>
                     <Link
-                        className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-400 group" to="/plan">
-                        <svg
-                            className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white"
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            viewBox="0 0 20 20">
-                            <path
-                                d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
-                        </svg>
-                        <span className="flex-1 ms-3 whitespace-nowrap">Inbox</span>
+                        className="flex items-center p-2 text-gray-900 rounded-xl dark:text-white hover:bg-gray-100 dark:hover:bg-slate-950 group"
+                        to="/plan">
+                        <img src="floor-plan.svg" className="w-5" alt="floor plan icon"/>
+                        <span className="flex-1 ms-3 whitespace-nowrap">Plan</span>
                     </Link>
                     <Link
-                        className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-400 group" to="/plan">
+                        className="flex items-center p-2 text-gray-900 rounded-xl dark:text-white hover:bg-gray-100 dark:hover:bg-slate-950 group" to="/plan">
                         <svg
                             className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-white group-hover:text-gray-900 dark:group-hover:text-white"
                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -49,7 +44,7 @@ export default function SideBarElement() {
                     </Link>
                 </div>
                 <div className="p-2">
-                    <button onClick={logout} className="w-full py-2 bg-gray-100 rounded-xl text-dark dark:text-white hover:bg-gray-200 dark:hover:bg-gray-400">Mon Bouton</button>
+                    <button onClick={logout} className="w-full py-2 rounded-xl text-dark dark:text-white hover:bg-gray-200 dark:hover:bg-slate-950">log out</button>
                 </div>
             </div>
         </aside>
