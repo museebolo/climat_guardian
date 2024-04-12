@@ -4,7 +4,7 @@ import App from './App.tsx';
 import './index.css';
 import { createBrowserRouter, RouterProvider} from 'react-router-dom';
 import DashboardElement from "./elements/DashboardElement.tsx";
-import PlanElement from "@/elements/PlanElement.tsx";
+import PlanElement from "@/elements/plan/PlanElement.tsx";
 import LoginElement from "@/elements/LoginElement.tsx";
 
 const isAuthenticated = () => {

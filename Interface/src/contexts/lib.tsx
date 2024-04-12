@@ -10,7 +10,6 @@ export function getToken(){
 }
 export function error401(response:Response){
     if (response.status === 401) {
-
         window.location.href = "http://localhost:5173/login";
     }
 }
@@ -25,4 +24,9 @@ export interface Data {
     temperature: number;
     humidity: number;
     timestamp: string;
+    ip:number;
+}
+export interface Esp{
+    ip:number;
+    "name": "test"
 }

@@ -25,8 +25,7 @@ function App() {
                 <Outlet/>
 
             <div className="">
-                <button className="w-28 h-28" onClick={() => toggleDarkTheme()}>
-
+                <button className="w-28 h-28 ml-12" onClick={() => toggleDarkTheme()}>
                     <img className="w-8" src={darkTheme ? "/icons8-sun (1).svg" : "/icons8-moon-50.png"}
                          alt={"theme button"}/>
                 </button>

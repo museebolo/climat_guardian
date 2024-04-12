@@ -2,7 +2,7 @@ import CardPlanElement from "@/elements/plan/CardPlanElement.tsx";
 import SideBarElement from "@/elements/SideBarElement.tsx";
 import { useEffect, useState } from "react";
 import { SampleContext } from "@/contexts/SampleContext.tsx";
-import { Data, getToken } from "@/contexts/lib.tsx";
+import { Esp, getToken } from "@/contexts/lib.tsx";
 
 export default function PlanElement() {
     const apiAuthToken = getToken();
@@ -11,29 +11,29 @@ export default function PlanElement() {
 
     const [newIp, setNewIp] = useState('');
 
-    const [data, setData] = useState<Data[]>([]);
+    const [espData, setEspData] = useState<Esp[]>([]);
 
     useEffect(() => {
-        fetch(`${SampleContext.urlData}/data`, { "headers": { "Authorization": `Bearer ${apiAuthToken}` } })
+        fetch(`${SampleContext.urlData}/esp`, { "headers": { "Authorization": `Bearer ${apiAuthToken}` } })
             .then(response => response.json())
-            .then((apiData: Data[]) => {
-                setData(apiData);
+            .then((apiData: Esp[]) => {
+                setEspData(apiData);
             })
             .catch(error => {
                 console.error('Une erreur s\'est produite:', error);
             });
     }, []);
 
-    const groupedData = data.reduce((acc: { [key: string]: Data[] }, currentValue) => {
-        if (!acc[currentValue.ip]) {
-            acc[currentValue.ip] = [];
+    const groupedData = espData.reduce((acc: { [key: string]: Esp[] }, currentValue) => {
+        if (!acc[currentValue.name]) {
+            acc[currentValue.name] = [];
         }
-        acc[currentValue.ip].push(currentValue);
+        acc[currentValue.name].push(currentValue);
         return acc;
     }, {});
 
     const addRoom = () => {
-        fetch(`${SampleContext.urlData}/data`, {
+        fetch(`${SampleContext.urlData}/esp`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${apiAuthToken}`,
@@ -63,10 +63,10 @@ export default function PlanElement() {
                 </div>
 
                 <div className="flex gap-2">
-                    {Object.keys(groupedData).map((ip, index) => (
+                    {Object.keys(groupedData).map((name, index) => (
                         <CardPlanElement
                             key={index}
-                            room={ip}
+                            room={name}
                         />
                     ))}
                 </div>
