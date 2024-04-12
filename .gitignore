@@ -1,5 +1,3 @@
 .idea
 # vim backup files
-*.swp
-*.swo
-*.swn
+*.sw[pon]
