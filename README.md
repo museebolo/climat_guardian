@@ -64,7 +64,7 @@ Once the docker is running you can access the web interface by going to `memoire
 
 ## ESP 32 Installation
 This project uses esp home to manage the esp32, you can configure the esp32 by following the instructions below
-- Connect yourself to the esphome interface by going to `esphome.memoires-info.com` in your web browser (or the ip address of the computer that runs the docker)
+- Connect yourself to the [esphome](https://github.com/esphome/esphome) interface by going to `esphome.memoires-info.com` in your web browser (or the ip address of the computer that runs the docker)
 - Plug the esp32 to your computer
 - Press the `+ ADD DEVICE` button inside esp home
 - Name your device
