@@ -3,8 +3,8 @@ import Chart from "chart.js/auto";
 import zoomPlugin from 'chartjs-plugin-zoom';
 Chart.register(zoomPlugin);
 
-export function ChartElement({ monthNames, temperatureAverages, humidityAverages}: { monthNames: string[] | number[], temperatureAverages: number[] | number, humidityAverages: number[] | number}) {
-    const chartRef = useRef<HTMLCanvasElement>(null);
+export function ChartElement({ monthNames, temperatureAverages, humidityAverages}: { monthNames: string[], temperatureAverages: number[] | number, humidityAverages: number[] | number}) {
+   const chartRef = useRef<HTMLCanvasElement>(null);
     const chartInstance = useRef<Chart>();
 
     useEffect(() => {

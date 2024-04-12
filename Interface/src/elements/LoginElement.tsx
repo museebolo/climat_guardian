@@ -1,65 +1,79 @@
 import {FormEvent, useState} from "react";
-
+import {SampleContext} from "@/contexts/SampleContext.tsx";
 
 export default function LoginElement() {
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     const submit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:5174/login.php?username=${username}&password=${password}`, {
-            method: 'GET',
+
+        await fetch(`${SampleContext.urlLogin}/login.php?username=${username}&password=${password}`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        });
+        })
+            .then(response => response.json())
+            .then(reponse => {
+                if (reponse.error) {
+                    setError(reponse.error);
+                }
+                if (reponse.token) {
+                    console.log(reponse.token)
+                    localStorage.setItem('token', reponse.token);
+                    localStorage.setItem('username', username);
+                    window.location.href = window.location.href.concat("dashboard");
 
-        const content = await response.json();
-        console.log(response)
-        if (response.ok) {
-            console.log(content);
-        }
+                }
+            })
+            .catch(e => {
+                console.log(e)
+            });
     };
-
 
     return (
         <>
-            <section className="h-screen">
-                <div className="flex h-full items-center justify-center">
-                    <div className="md:w-8/12 lg:ml-6 lg:w-5/12 shadow-2xl p-12 bg-white rounded-xl">
-                        <form method="post" onSubmit={submit} >
-                            <div className="relative mb-6">
-                                <input
-                                    type="text"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    className="peer block min-h-[auto] w-full rounded border-0 px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear motion-reduce:transition-none dark:text-black"
-                                    placeholder="Username"
-                                />
+            <div className="w-full min-h-screen text-gray-900 flex justify-center">
+                <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+                    <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+                        <div>
+                            <img src="https://www.museebolo.ch/wp-content/uploads/2023/12/Musee_Bolo_Logo.png"
+                                 className="w-mx-auto" alt="logo musée bolo"/>
+                        </div>
+                        <div className="mt-12 flex flex-col items-center">
+
+
+
+                                <form method="get" onSubmit={submit} className="mx-auto max-w-xs">
+                                    <input
+                                        value={username}
+                                        autoComplete={"username"}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                                        type="text" placeholder="username"/>
+                                    <input
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        autoComplete="current-password"
+                                        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                                        type="password"
+                                        placeholder="Password"
+                                    />
+
+                                    <button
+                                        className="mt-5 tracking-wide font-semibold bg-blue-400 text-white-500 w-full py-4 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+                                        <span className="">
+                                Sign In
+                            </span>
+                                    </button>
+                                </form>
+                                {error && <p className="text-red-500 mt-2">{error}</p>}
                             </div>
-                            <div className="relative mb-6">
-                                <input
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="peer block min-h-[auto] w-full rounded border-0 px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear motion-reduce:transition-none dark:text-black"
-                                    placeholder="Password"
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                className="bg-black inline-block w-full rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                                data-te-ripple-init
-                                data-te-ripple-color="light"
-                            >
-                                Sign in
-                            </button>
-                        </form>
+                        </div>
                     </div>
-                </div>
-            </section>
+            </div>
         </>
     )
 }

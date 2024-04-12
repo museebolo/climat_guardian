@@ -1,5 +1,6 @@
 package-lock.json
 /src/contexts/SampleContext.tsx
+/test.http
 
 # Logs
 logs

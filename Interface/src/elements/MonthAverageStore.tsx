@@ -1,22 +1,18 @@
 import { useState, useEffect } from 'react';
 import { ChartElement } from "./ChartElement.tsx";
 import {SampleContext} from "@/contexts/SampleContext.tsx";
+import {Data, getToken} from "@/contexts/lib.tsx";
 
 export function MonthAverageStore({select}:{select:string}) {
-    interface Data {
-        timestamp: string;
-        temperature: number;
-        humidity: number;
-    }
 
-	const apiAuthToken = SampleContext.token;
+	const apiAuthToken = getToken();
     const [data, setData] = useState<Data[]>([]);
     const monthSelected = select;
 
     const [dailyAverages, setDailyAverages] = useState<{ temperature: number; humidity: number; }[]>([]);
 
     useEffect(() => {
-        fetch(`${SampleContext.url}/data`, {"headers": {"Authorization": `Bearer ${apiAuthToken}`}})
+        fetch(`${SampleContext.urlData}/data`, {"headers": {"Authorization": `Bearer ${apiAuthToken}`}})
             .then(response => response.json())
             .then((apiData: Data[]) => {
                 setData(apiData);
@@ -75,9 +71,11 @@ export function MonthAverageStore({select}:{select:string}) {
 
     return (
         <>
-            <ChartElement monthNames={dailyAverages.map((_, index) => index + 1)}
-                          temperatureAverages={dailyAverages.map(entry => entry.temperature)}
-                          humidityAverages={dailyAverages.map(entry => entry.humidity)} />
+            <ChartElement
+                monthNames={dailyAverages.map((_, index) => String(index + 1))}
+                temperatureAverages={dailyAverages.map(entry => entry.temperature)}
+                humidityAverages={dailyAverages.map(entry => entry.humidity)}
+            />
         </>
     );
 }

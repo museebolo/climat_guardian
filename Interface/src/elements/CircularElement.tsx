@@ -18,9 +18,9 @@ export default function CircularElement({data, unity, color}: { data: number | s
 
     return (
         <div className="flex">
-            <text className=" text-center font-bold text-xl mr-16 dark:text-white">
+            <h1 className=" text-center font-bold text-xl mr-16 dark:text-white">
                 {data} {unity}
-            </text>
+            </h1>
             <svg className="w-32 h-32 " viewBox="0 0 100 100">
                 <circle
                     cx="50"
