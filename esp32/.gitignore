@@ -1,2 +1,2 @@
-config/*.yaml
-!config/secrets.example.yaml
+config/.esphome/
+config/secrets.yaml
