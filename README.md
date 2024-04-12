@@ -50,9 +50,9 @@ Once that's done you can create a postgres database called `memoires-info` from 
 ## Data transfer
 Here are 2 diagrams that show how the data is transfered from the esp32 to the web interface
 ### Hardware
-![hardware](/assets/hardware-diagram.png)
+![hardware](/.assets/hardware-diagram.png)
 ### Software
-![software](/assets/software-diagram.png)
+![software](/.assets/software-diagram.png)
 
 ## Start the project
 Once everything is configured you can start the project by running the docker compose
@@ -61,7 +61,7 @@ docker-compose up
 ```
 Once the docker is running you can access the web interface by going to `memoires-info.com` in your web browser (or the ip address of the computer that runs the docker)
 
-![web interface](/assets/dashboard.png)
+![web interface](/.assets/dashboard.png)
 
 ## ESP 32 Installation
 This project uses esp home to manage the esp32, you can configure the esp32 by following the instructions below
