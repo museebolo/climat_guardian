@@ -1,6 +1,7 @@
 import {Card, CardHeader, CardTitle} from "@/components/ui/card.tsx";
+import { Data} from "@/contexts/lib.tsx";
 
-export default function CardPlanElement({room}:{room:string}) {
+export default function CardPlanElement({room,data}:{room:string, data: Data[];}) {
 
 
     return (
