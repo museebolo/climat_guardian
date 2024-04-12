@@ -19,13 +19,24 @@ $dotenv = new Dotenv();
 $dotenv->load(__DIR__ . '/../.env');
 
 // Generate a token and use it to get the user
-$token = JWT::encode(['role' => 'web_login', 'exp' => time() + 3], $_ENV['JWT_SECRET'], 'HS256');
+$token = JWT::encode(['role' => 'web_login', 'exp' => time()], $_ENV['JWT_SECRET'], 'HS256');
 $user = callAPI('GET', $_ENV['POSTGREST_API'] . "/users?username=eq.{$data['username']}&limit=1&select=password,id", [], ["Authorization: Bearer $token"]);
 
 // Check if the answer is valid
-if ($user === false || isset($user["message"]))
-    output(['error' => 'Unknown error'], 500);
+if ($user === false)
+	output(['error' => 
+		$_ENV['DETAILED_ERRORS'] === 'true' ? 
+			'Unable to connect to the API' :
+			'Unknown error'
+	], 500);
 $user = json_decode($user, true);
+if (isset($user["message"]))
+    output(['error' => 
+		$_ENV['DETAILED_ERRORS'] === 'true' ? 
+			$user :
+			'Unknown error'
+	], 500);
+
 if (empty($user))
     output(['error' => 'Unknown user'], 401);
 if (!password_verify($data['password'], $user[0]['password']))
