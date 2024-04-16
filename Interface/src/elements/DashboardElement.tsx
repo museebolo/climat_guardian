@@ -35,13 +35,13 @@ export default function DashboardElement() {
                 <nav className="w-full top-0 start-0">
                     <div className="max-w-screen-xl mx-auto">
                         <div className="flex justify-center p-4">
-                            <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 font-medium rounded-lg bg-white dark:bg-slate-800">
+                            <ul className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 font-medium rounded-lg dark:bg-slate-800">
                                 {monthNames.map(month => (
-                                    <li className="block py-2 px-3 text-black dark:text-white rounded"
+                                    <button className=" bg-gray-50 hover:bg-gray-200 focus:bg-gray-200y font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                                         key={month}
                                         onClick={() => handleMonthClick(month)}>
                                         {month}
-                                    </li>
+                                    </button>
                                 ))}
                             </ul>
                         </div>

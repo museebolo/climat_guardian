@@ -6,33 +6,37 @@ export default function AddRoomElement() {
     const apiAuthToken = getToken();
 
     const [roomName, setRoomName] = useState('');
-
     const [newIp, setNewIp] = useState('');
+    const [error, setError] = useState<string>("");
 
     const addRoom = () => {
-        fetch(`${SampleContext.urlData}/esp`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${apiAuthToken}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                ip: newIp,
-                name: roomName
+        if (roomName && newIp) {
+            fetch(`${SampleContext.urlData}/esp`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${apiAuthToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ip: newIp,
+                    name: roomName
+                })
             })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erreur lors de la requête');
-                }
-                console.log('Requête POST réussie');
-            })
-            .catch(error => {
-                console.error('Une erreur s\'est produite:', error);
-            });
-        setNewIp("")
-        setRoomName("")
-    };
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de la requête');
+                    }
+                    console.log('Requête POST réussie');
+                })
+                .catch(error => {
+                    console.error('Une erreur s\'est produite:', error);
+                });
+            setNewIp("")
+            setRoomName("")
+            setError("")
+        } else setError("veuillez remplir le champ")
+
+    }
 
     return (
         <>
@@ -60,6 +64,7 @@ export default function AddRoomElement() {
                     Add a room
                 </button>
             </form>
+            {error}
         </>
     )
 }

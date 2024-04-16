@@ -1,30 +1,51 @@
-import {Card, CardHeader, CardTitle} from "@/components/ui/card.tsx";
-import { Data} from "@/contexts/lib.tsx";
+import {Data} from "@/contexts/lib.tsx";
+import CircularElement from "@/elements/CircularElement.tsx";
+import CardElement from "@/elements/CardElement.tsx";
 
-export default function CardPlanElement({room,data}:{room:string, data: Data[];}) {
+export default function CardPlanElement({room, data}: { room: string, data: Data[] }) {
+    const calculateAverage = (values: number[]): number => {
+        if (values.length === 0) return 0;
+        const sum = values.reduce((acc, value) => acc + value, 0);
+        return sum / values.length;
+    };
 
+    const temperatures: number[] = [];
+    const humidities: number[] = [];
+
+    data.forEach((item) => {
+        if (item.temperature) temperatures.push(item.temperature);
+        if (item.humidity) humidities.push(item.humidity);
+    });
+
+    const averageTemperature = calculateAverage(temperatures);
+    const averageHumidity = calculateAverage(humidities);
 
     return (
         <>
-            <Card className="bg-white p-4 dark:bg-slate-800 w-full mt-6">
-                <div className="flex">
-                    <CardHeader>
-                        <CardTitle className="text-gray-500 dark:text-white">{room}</CardTitle>
-                    </CardHeader>
-                    <div className="mt-6 flex">
-                        <div>
-                            <p className="font-bold text-2xl ml-32 dark:text-white">
-                                {12}°C
-                            </p>
-                        </div>
-                        <div>
-                            <p className="font-bold text-right ml-4 text-2xl dark:text-white">
-                                {58}%
-                            </p>
-                        </div>
-                    </div>
+            <div className="flex-col">
+                <div className="text-xl font-bold">
+                    {room}
                 </div>
-            </Card>
+
+                <div className="flex">
+
+                    <CardElement
+                        element={<CircularElement
+                            color={"orange"}
+                            data={averageTemperature.toFixed(2)}
+                            unity={"°C"}/>}
+                        theme="Humidity"/>
+
+
+                    <CardElement
+                        element={<CircularElement
+                            color={"blue"}
+                            data={averageHumidity.toFixed(2)}
+                            unity={"%"}/>}
+                        theme="Humidity"/>
+                </div>
+
+            </div>
         </>
     )
 }
