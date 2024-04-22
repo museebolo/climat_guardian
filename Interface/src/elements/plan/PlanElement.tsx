@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import {SampleContext} from "@/contexts/SampleContext.tsx";
 import {Data, Esp, getToken} from "@/contexts/lib.tsx";
 import AddRoomElement from "@/elements/plan/AddRoomElement.tsx";
+import CanvasPlan from "@/elements/plan/CanvasPlan.tsx";
 
 export default function PlanElement() {
     const apiAuthToken = getToken();
@@ -15,6 +16,7 @@ export default function PlanElement() {
             .then(response => response.json())
             .then((dataEsp: Esp[]) => {
                 setEspData(dataEsp);
+                console.log(dataEsp)
             })
             .catch(error => {
                 console.error('Une erreur s\'est produite:', error);
@@ -56,7 +58,7 @@ export default function PlanElement() {
                         />
                     ))}
                 </div>
-                <AddRoomElement/>
+                <AddRoomElement/>  <CanvasPlan/>
                 <select className="h-12 w-40">
                     <option value="">default</option>
                     {Object.keys(groupedData).map(name => (
@@ -65,6 +67,7 @@ export default function PlanElement() {
                         </option>
                     ))}
                 </select>
+
             </div>
         </>
     )
