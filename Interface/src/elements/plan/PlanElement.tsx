@@ -3,16 +3,15 @@ import SideBarElement from "@/elements/SideBarElement.tsx";
 import {useEffect, useState} from "react";
 import {SampleContext} from "@/contexts/SampleContext.tsx";
 import {Data, Esp, getToken} from "@/contexts/lib.tsx";
-import AddRoomElement from "@/elements/plan/AddRoomElement.tsx";
 import CanvasPlan from "@/elements/plan/CanvasPlan.tsx";
 
 export default function PlanElement() {
-    const apiAuthToken = getToken();
+
     const [espData, setEspData] = useState<Esp[]>([]);
     const [groupedData, setGroupedData] = useState<{ [key: string]: Data[] }>({});
 
     useEffect(() => {
-        fetch(`${SampleContext.urlData}/esp`, {"headers": {"Authorization": `Bearer ${apiAuthToken}`}})
+        fetch(`${SampleContext.urlData}/esp`, {"headers": {"Authorization": `Bearer ${getToken()}`}})
             .then(response => response.json())
             .then((dataEsp: Esp[]) => {
                 setEspData(dataEsp);
@@ -24,14 +23,13 @@ export default function PlanElement() {
     }, []);
 
     useEffect(() => {
-        fetch(`${SampleContext.urlData}/data`, {"headers": {"Authorization": `Bearer ${apiAuthToken}`}})
+        fetch(`${SampleContext.urlData}/data`, {"headers": {"Authorization": `Bearer ${getToken()}`}})
             .then(response => response.json())
             .then((apiData: Data[]) => {
                 const groupedData: { [key: string]: Data[] } = {};
                 espData.forEach((esp) => {
                     groupedData[esp.name] = apiData.filter((data) => data.ip === esp.ip);
                 });
-                console.log("Données groupées par nom de chambre :", groupedData);
                 setGroupedData(groupedData);
             })
             .catch(error => {
@@ -42,12 +40,12 @@ export default function PlanElement() {
 
     return (
         <>
-            <div className="grid grid-cols-4 gap-1 ">
+            <div className="grid grid-cols-4 gap-4 ">
                 <div>
                     <SideBarElement/>
                 </div>
 
-                <div className="gap-2">
+                <div className="gap-5  mr-60">
 
                     {Object.keys(groupedData).map((name) => (
 
@@ -58,7 +56,7 @@ export default function PlanElement() {
                         />
                     ))}
                 </div>
-                <AddRoomElement/>  <CanvasPlan/>
+                <CanvasPlan/>
                 <select className="h-12 w-40">
                     <option value="">default</option>
                     {Object.keys(groupedData).map(name => (
@@ -67,7 +65,6 @@ export default function PlanElement() {
                         </option>
                     ))}
                 </select>
-
             </div>
         </>
     )

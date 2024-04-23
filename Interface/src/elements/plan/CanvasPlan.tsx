@@ -1,22 +1,56 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
+import {SampleContext} from "@/contexts/SampleContext.tsx";
+import {Data, Esp, getToken} from "@/contexts/lib.tsx";
 
-const CanvasPlan = () => {
+export default function CanvasPlan() {
+    const [espData, setEspData] = useState<Esp[]>([]);
+    const [groupedData, setGroupedData] = useState<{ [key: string]: Data[] }>({});
+
+
     useEffect(() => {
-        // Code de manipulation du SVG ici
+        fetch(`${SampleContext.urlData}/esp`, {"headers": {"Authorization": `Bearer ${getToken()}`}})
+            .then(response => response.json())
+            .then((dataEsp: Esp[]) => {
+                setEspData(dataEsp);
+                console.log(dataEsp)
+            })
+            .catch(error => {
+                console.error('Une erreur s\'est produite:', error);
+            });
     }, []);
+    useEffect(() => {
+        fetch(`${SampleContext.urlData}/data`, {"headers": {"Authorization": `Bearer ${getToken()}`}})
+            .then(response => response.json())
+            .then((apiData: Data[]) => {
+                const groupedData: { [key: string]: Data[] } = {};
+                espData.forEach((esp) => {
+                    groupedData[esp.name] = apiData.filter((data) => data.ip === esp.ip);
+                });
+                setGroupedData(groupedData);
+            })
+            .catch(error => {
+                console.error('Une erreur s\'est produite:', error);
+            });
+    }, [espData]);
 
     return (
         <div>
+            <input className="" type="checkbox" id="sensors" name=""/> <label
+            htmlFor="sensors"
+            className="absolute mr-96 transition ease-in-out duration-300 cursor-pointer text-xl leading-20vh font-sans text-uppercase user-select-none"
+        >Sensors</label>
+
             <style>{`  
   * {box-sizing: border-box;}
 
+svg {
+  display: block;
+  height: 100vh;
+  width: 40vw;
+}
+
 text {
   font-size: 3px;
-  font-family: sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  fill: currentcolor;
-  font-weight: 300;
 }
 
 
@@ -125,20 +159,9 @@ svg{transition: all .5s ease}
 
 .shade{position:absolute; top:0; left:0; width:30vw; bottom:0; background-color:rgba(5,15,25,0.75); height: 100vh;}`}
             </style>
-            <input type="checkbox" id="sensors" name="s"/> <label
-            htmlFor="sensors"
-            className="absolute top-20vh left-30vw w-30vw h-18vh transition ease-in-out duration-300 z-9 cursor-pointer text-xl leading-20vh font-sans text-uppercase user-select-none"
-        >Sensors</label>
 
 
-            <svg className="h-96" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                 viewBox="0 0 100 100">
-
-                <filter id="grayscale">
-                    <feColorMatrix type="matrix"
-                                   values="0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0"/>
-                </filter>
-
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
 
                 <g className="downstairs transition-all duration-500 ease-in-out">
                     <path className="barrier"
@@ -149,30 +172,31 @@ svg{transition: all .5s ease}
 
 
                 <g className="sensors transition-all duration-500 ease-in-out">
-                    <circle className="front-door closed" cx="26" cy="41.25" r="1"/>
-                    <circle className="dining-window closed" cx="4.75" cy="56" r="1"/>
-                    <circle className="pantry open" cx="38" cy="45" r="1"/>
-                    <circle className="office-sm-window open" cx="43" cy="40" r="1"/>
-                    <circle className="office-window closed" cx="52" cy="35.5" r="1"/>
-                    <circle className="deck-door open" cx="46" cy="74.6" r="1"/>
-                    <circle className="kitchen-window closed" cx="34" cy="74.6" r="1"/>
-                    <circle className="nook-window closed" cx="61" cy="82.75" r="1"/>
-                    <circle className="deck-window closed" cx="20" cy="74.6" r="1"/>
-                    <circle className="garage-door open" cx="59" cy="19" r="1"/>
-                    <circle className="garage-back closed" cx="91.8" cy="7.5" r="1"/>
-                    <circle className="guest-window closed" cx="91.75" cy="41" r="1"/>
-                    <circle className="guest-ensuite closed" cx="95.2" cy="60" r="1"/>
-                    <circle className="lounge-window closed" cx="73" cy="93" r="1"/>
-                    <circle className="lounge-door closed" cx="66.25" cy="88" r="1"/>
 
-                    <text x="48" y="45">23&#8451;</text>
-                    <text x="75" y="80">24&#8451;</text>
-                    <text x="79" y="43">25&#8451;</text>
-                    <text x="13" y="60">24.5&#8451;</text>
+
+
+                    <text className="font-semibold uppercase tracking-widest fill-current" x="48"
+                          y="44">23&#8451;</text>
+                    <text className="font-semibold uppercase tracking-widest fill-current" x="75"
+                          y="80">24&#8451;</text>
+                    <text className="font-semibold uppercase tracking-widest fill-current" x="79"
+                          y="43">25&#8451;</text>
+                    <text className="font-semibold uppercase tracking-widest fill-current" x="13"
+                          y="60">24&#8451;</text>
+
+                    <g className="sensors transition-all duration-500 ease-in-out">
+                        {espData.map(esp => {
+                            const espGroup = groupedData[esp.name] || [];
+                            const x = espGroup.length > 0 ? esp.x : 0;
+                            const y = espGroup.length > 0 ? esp.y : 0;
+                            return (
+                                <circle key={esp.ip} cx={x} cy={y} r="5" className="open" />
+                            );
+                        })}
+                    </g>
                 </g>
             </svg>
         </div>
     );
 }
 
-export default CanvasPlan;

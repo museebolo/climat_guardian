@@ -9,7 +9,6 @@ import SideBarElement from "@/elements/SideBarElement.tsx";
 export default function DashboardElement() {
     const d = new Date();
     const currentYear = d.getFullYear();
-    const firstDayOfMonth = new Date(currentYear, d.getMonth(), 1);
 
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const [monthSelected, setMonthSelected] = useState<string>(monthNames[d.getMonth()]);

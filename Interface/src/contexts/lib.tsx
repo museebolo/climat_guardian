@@ -27,6 +27,8 @@ export interface Data {
     ip:number;
 }
 export interface Esp{
+    x:number;
+    y:number;
     ip:number;
     "name": "test"
 }

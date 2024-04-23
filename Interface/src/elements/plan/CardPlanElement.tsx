@@ -22,8 +22,8 @@ export default function CardPlanElement({room, data}: { room: string, data: Data
 
     return (
         <>
-            <div className="flex-col">
-                <div className="text-xl font-bold">
+            <div className="flex-col mt-12">
+                <div className="text-xl mb-4 font-bold">
                     {room}
                 </div>
 
