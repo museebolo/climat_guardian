@@ -1,0 +1,63 @@
+# Use postgres/example user/password credentials
+version: '3.9'
+
+services:
+  esphome:
+    image: esphome/esphome
+    volumes:
+      - "${ESP_PATH}:/config"
+      - /etc/localtime:/etc/localtime:ro
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    privileged: true
+
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.Postgres
+    image: postgres-memoires-info
+    shm_size: 128mb
+    volumes:
+      - "${DB_PATH}:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: memoires-info
+
+  postg-rest:
+    image: postgrest/postgrest
+    ports:
+      - '3000:3000'
+    environment:
+      PGRST_JWT_SECRET: "${JWT_SECRET}"
+      PGRST_DB_URI: "postgres://postgres:example@db:5432/memoires-info"
+      PGRST_DB_ANO: role = "web_anon"
+      PGRST_DB_SCHEMAS: "api"
+      PGRST_OPENAPI_SERVE: proxy-uri = "http://0.0.0.0:3000"
+    depends_on:
+      - db
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.Php
+    image: php-memoires-info
+    depends_on:
+      - db
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.Nginx
+    image: nginx-memoires-info
+    depends_on:
+      - php
+      - postg-rest
+      - esphome
+      - adminer
+
+  # for some reason the nginx container crash without this even tho I remove this dependencie in the Dockerfile
+  adminer:
+    image: adminer
+    depends_on:
+      - db
+
