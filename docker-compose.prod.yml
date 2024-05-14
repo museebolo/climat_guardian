@@ -55,11 +55,4 @@ services:
       - php
       - postg-rest
       - esphome
-      - adminer
-
-  # for some reason the nginx container crash without this even tho I remove this dependencie in the Dockerfile
-  adminer:
-    image: adminer
-    depends_on:
-      - db
 

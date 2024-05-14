@@ -12,10 +12,10 @@ RUN composer install
 # nginx 1.26 on port 80, keep the build output, nginx config
 FROM nginx:1.26.0-alpine3.19-otel
 EXPOSE 80
-COPY --from=0 ./dist /etc/www/memoires-info/html
+COPY --from=0 ./dist /var/www/memoires-info/html
 # copy the nginx config
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-RUN sed -i '/server { #adminer/,/}/d' /etc/nginx/conf.d/default.conf
+RUN sed -i '/server { # adminer/,/^}/d' /etc/nginx/conf.d/default.conf
 # copy php files as nginx don't use the ones in the php container for some reason
 COPY login/public /var/www/memoires-info/php/public
 COPY login/lib.php /var/www/memoires-info/php
