@@ -59,6 +59,7 @@ Once everything is configured you can start the project by running the docker co
 docker compose up
 ```
 Once the docker is running you can access the web interface by going to `memoires-info.com` in your web browser (or the ip address of the computer that runs the docker)
+by default the username is `admin` and the password is `admin`
 
 ![web interface](/.assets/dashboard.png)
 
