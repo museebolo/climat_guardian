@@ -7,6 +7,6 @@ RUN composer install
 FROM php:8.3-fpm-alpine
 COPY login/public /var/www/memoires-info/php/public
 COPY login/lib.php /var/www/memoires-info/php
-COPY login/.env /var/www/memoires-info/php
+COPY .env /var/www/memoires-info/php/
 COPY --from=0 ./app/vendor /var/www/memoires-info/php/vendor
 
