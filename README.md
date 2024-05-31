@@ -20,20 +20,27 @@ The computer can be connected from any network as long as the network has open p
 ## Requirements
 For this project to work you need to have the following installed on the server:
 - Linux (Tested on [Ubuntu Server 22.04](https://ubuntu.com/download/server))
-- [Docker Engine](https://docs.docker.com/engine/install/)
+- [Docker Engine](https://docs.docker.com/engine/install/ubuntu/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Curl](https://curl.se/download.html)
 - [jq](https://stedolan.github.io/jq/download/)
 ```bash
-sudo apt update
-sudo apt install docker.io docker-compose git curl jq
+sudo apt-get update
+sudo apt-get install git curl jq 
+sudo apt-get install ca-certificates
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
 ## Installation
 First thing you need to do is to clone the repository from GitHub on the server
 ```bash
-git clone https://github.com/museebolo/climat-guardian.git
+git clone https://github.com/museebolo/climat-guardian.git && cd climat-guardian
 ```
 
 ---
@@ -66,7 +73,8 @@ echo "POSTGRES_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
 It is recommended to let the other environment variables as they are
 
 ---
-Finally, you can fill the Wi-Fi credentials in `esp32/config/secrets.yaml` and change the `127.0.0.1` in `Interface/src/contexts/SampleContext.tsx` to the ip address of the server
+Finally, you **have to** fill the Wi-Fi credentials in `esp32/config/secrets.yaml`\
+You also **have to** change the `127.0.0.1` in `Interface/src/contexts/SampleContext.tsx` to the ip address of the server
 
 ## Start the project
 Once everything is configured on the server, you can start the project by running the docker compose on the server
@@ -82,22 +90,27 @@ the default user is `admin` and has `admin` as password
 This project uses [esp home](https://github.com/esphome/esphome) to manage the esp32, you can configure the esp32 by following the instructions below
 - Connect yourself to the esp home interface by going to `127.0.0.1/esp` in the web browser of the computer (replace `127.0.0.1` with the ip address of the server)
 - Plug the esp32 to the server
-- Press the `+ ADD DEVICE` button inside esp home
+- Press the `+ NEW DEVICE` button inside esp home
 - Name your device
 - Select `ESP32` (on the top of the list)
-- You can skip the installation as you'll have to reinstall it later anyway
-- Go to the card of the device and press `EDIT`
-- Copy everything from the line 31 of the `esp32/esp32.yaml` and paste it at the end of your esp32's configuration file
+- Press `INSTALL` and select `Plug into the computer running ESPHome Dashboard` (the 3rd option)
+- Select the device with ``/dev/ttyUSB0`` as path
+- Wait for the installation to finish\
+Be sure to memorize the ip address of the esp32 (you can find it in the logs)\
+<span style="background-color: rgba(125,125,125,0.3);"><span style="color:#ddd">[15:39:12]</span><span style="color:rgb(255, 0, 255)">[C][wifi:416]:   IP Address: 172.16.5.65</span></span>
+- You can now unplug the esp32 and plug it to any other power source
+- Press `Edit` at the bottom of the logs
+- Copy everything from the line 31 of the file `esp32/esp32.yaml` on the server and paste it at the end of your esp32's configuration file
+```bash
+clear && cat esp32/esp32.yaml | sed -n '31,$p'
+```
 - Replace the XXX... at the end of the code with the token of your esp32\
 you can generate this token by running the following command on the server (replace `255.255.255.255` with the ip address of the esp32)
 ```bash
 export TOKEN=$(curl 'http://127.0.0.1/php/login.php?username=admin&password=admin' | jq '.token' -r)
 curl -H "Authorization: Bearer $TOKEN" "http://127.0.0.1/php/esp.php?ip=255.255.255.255" | jq '.token' -r
 ```
-- Press `INSTALL` and select `Plug into the computer running ESPHome Dashboard` (the 3rd option)
-- Select the device with ``/dev/ttyUSB0`` as path
+- Press `INSTALL` and select `Wirelessly` (the 1st option)
 - Wait for the installation to finish
 - Press `STOP` to exit the logs
-- Unplug the esp32 and plug it to any other power source
-- If you need to update the configuration of the esp32, you can now do it wireless from the esp home interface
 
