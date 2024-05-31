@@ -3,7 +3,7 @@ version: '3.9'
 
 services:
   esphome:
-    image: esphome/esphome
+    image: esphome/esphome:2024.4
     volumes:
       - ./esp32/config:/config
       - /etc/localtime:/etc/localtime:ro
@@ -11,7 +11,7 @@ services:
     privileged: true
 
   db:
-    image: postgres
+    image: postgres:12.19-alpine
     shm_size: 128mb
     volumes:
       - "./database/data:/var/lib/postgresql/data"
@@ -27,7 +27,7 @@ services:
       - db
 
   postg-rest:
-    image: postgrest/postgrest
+    image: postgrest/postgrest:v12.0.3
     ports:
       - '3000:3000'
     volumes:
@@ -36,15 +36,15 @@ services:
       - db
     command: postgrest /etc/postgrest.conf
 
-  php-fpm:
-    image: php:8-fpm
+  php:
+    image: php:8.3-fpm-alpine
     volumes:
       - ./login:/var/www/memoires-info/php
     depends_on:
       - db
 
   web:
-    image: nginx:latest
+    image: nginx:1.26-alpine-otel
     ports:
       - '80:80'
     volumes:
@@ -52,7 +52,7 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ./login:/var/www/memoires-info/php
     depends_on:
-      - php-fpm
+      - php
       - postg-rest
       - adminer
       - esphome

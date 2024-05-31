@@ -7,7 +7,7 @@ use Symfony\Component\Dotenv\Dotenv;
 
 $data = match ($_SERVER['REQUEST_METHOD']) {
 	'GET' => $_GET,
-	'POST' => $_POST,
+	'POST' => json_decode(file_get_contents("php://input"), true),
 	default => output(['error' => 'Unsupported method'], 405),
 };
 

@@ -124,5 +124,5 @@ time:
               json: |-
                 root["humidity"] = id(humidity).state;
                 root["temperature"] = id(temperature).state;
-                root["id"] = id(ip_address).state;
+                root["ip"] = id(ip_address).state;
                 root["unix_timestamp"] = id(current_time).now().timestamp;
