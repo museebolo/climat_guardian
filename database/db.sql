@@ -82,3 +82,11 @@ begin
 	order by date;
 end;
 $$ language plpgsql;
+
+-- add table to store esp32 names
+create table esp(
+    ip varchar(15) primary key not null,
+    name varchar(50) unique not null
+);
+
+grant insert, select, update, delete on esp to web_user;

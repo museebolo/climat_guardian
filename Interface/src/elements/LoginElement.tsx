@@ -21,11 +21,9 @@ export default function LoginElement() {
                     setError(reponse.error);
                 }
                 if (reponse.token) {
-                    console.log(reponse.token)
                     localStorage.setItem('token', reponse.token);
                     localStorage.setItem('username', username);
-                    window.location.href = window.location.href.concat("dashboard");
-
+                    window.location.replace("http://localhost:5173/dashboard");
                 }
             })
             .catch(e => {

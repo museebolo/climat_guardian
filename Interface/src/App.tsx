@@ -8,13 +8,14 @@ function App() {
 
     const toggleDarkTheme = () => {
         document.documentElement.classList.toggle("dark")
-        const bodyColor = document.querySelector("body");
+        const body = document.querySelector("body");
         setDarkTheme(!darkTheme);
-        if (bodyColor) {
+        if (body) {
+            console.log(body)
             if (darkTheme) {
-                bodyColor.style.backgroundColor = "#F9F9F9";
+                body.style.backgroundColor = "#F9F9F9";
             } else {
-                bodyColor.style.backgroundColor = "rgb(12 23 42)";
+                body.style.backgroundColor = "rgb(12 23 42)";
             }
         }
     };
@@ -25,8 +26,7 @@ function App() {
                 <Outlet/>
 
             <div className="">
-                <button className="w-28 h-28" onClick={() => toggleDarkTheme()}>
-
+                <button className="w-28 h-28 ml-24" onClick={() => toggleDarkTheme()}>
                     <img className="w-8" src={darkTheme ? "/icons8-sun (1).svg" : "/icons8-moon-50.png"}
                          alt={"theme button"}/>
                 </button>
