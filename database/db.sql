@@ -71,14 +71,16 @@ returns table(
     avg_temperature double precision, 
     avg_humidity double precision, 
     date timestamp,
-    ip character varying(14)
+    ip character varying(14),
+    count bigint
 ) as $$
 begin
     return query select 
         avg(temperature) as avg_temperature, 
         avg(humidity) as avg_humidity,
         date_trunc(delta, timestamp) as date,
-        data.ip
+        data.ip,
+        count(*) as count
     from api.data
     group by date, data.ip
     order by date;
