@@ -6,7 +6,7 @@ BEGIN;
                 temperature real,
                 humidity real,
                 timestamp timestamp NOT NULL,
-                ip character varying(14) NOT NULL
+                ip character varying(15) NOT NULL
         );
         grant select on api.data to web_user;
 
@@ -37,7 +37,7 @@ BEGIN;
                 avg_temperature double precision, 
                 avg_humidity double precision, 
                 date timestamp,
-                ip character varying(14),
+                ip character varying(15),
                 count bigint
         ) as $$
         begin
