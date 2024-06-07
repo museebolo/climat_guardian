@@ -11,10 +11,7 @@ services:
     privileged: true
 
   db:
-    build:
-      context: .
-      dockerfile: Dockerfile.Postgres
-    image: postgres-memoires-info
+    image: postgres:12.19-alpine
     shm_size: 128mb
     volumes:
       - "${DB_PATH}:/var/lib/postgresql/data"
