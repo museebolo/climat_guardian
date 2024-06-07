@@ -2,3 +2,4 @@
 %project=climat-guardian
 %uri=https://github.com/museebolo/climat_guardian
 
+postgrest 2024-06-07T14:50:40Z Nils <nils@fedora> # create schema and roles for the postgrest api
