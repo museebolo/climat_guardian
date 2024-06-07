@@ -4,3 +4,4 @@
 
 postgrest 2024-06-07T14:50:40Z Nils <nils@fedora> # create schema and roles for the postgrest api
 roles 2024-06-07T18:32:02Z Nils <nils@fedora> # create the role used by the user to distinguish users and esp
+data 2024-06-07T20:09:18Z Nils <nils@fedora> # Add table to store data
