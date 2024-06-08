@@ -21,20 +21,33 @@ services:
       POSTGRES_PASSWORD: example
       POSTGRES_DB: memoires-info
 
+  postg-rest:
+    image: postgrest/postgrest:v12.0.3
+    environment:
+      PGRST_JWT_SECRET: "${JWT_SECRET}"
+      PGRST_DB_URI: "postgres://postgres:${POSTGRES_PASSWORD}@db:5432/memoires-info"
+      PGRST_DB_ANO: role = "web_anon"
+      PGRST_DB_SCHEMAS: "api"
+      PGRST_OPENAPI_SERVE: proxy-uri = "http://0.0.0.0:3000"
+    depends_on:
+      - db
+
+  migration:
+    build:
+      context: .
+      dockerfile: Dockerfile.Sqitch
+    image: sqitch-memoires-info
+    environment:
+      SQITCH_TARGET: "db:pg://postgres:${POSTGRES_PASSWORD}@db:5432/memoires-info"
+    volumes:
+      - "./database/migration:/repo"
+    depends_on:
+      - db
+
   adminer:
     image: adminer
     depends_on:
       - db
-
-  postg-rest:
-    image: postgrest/postgrest:v12.0.3
-    ports:
-      - '3000:3000'
-    volumes:
-      - ./postgrest.conf:/etc/postgrest.conf
-    depends_on:
-      - db
-    command: postgrest /etc/postgrest.conf
 
   php:
     image: php:8.3-fpm-alpine
