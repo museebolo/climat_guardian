@@ -74,7 +74,7 @@ It is recommended to let the other environment variables as they are
 
 ---
 Finally, you **have to** fill the Wi-Fi credentials in `esp32/config/secrets.yaml`\
-You also **have to** change the `127.0.0.1` in `Interface/src/contexts/SampleContext.tsx` to the ip address of the server
+You also **have to** change the `127.0.0.1` in `Interface/src/contexts/SampleContext.tsx` and `esp32/config/secrets.yaml` by the ip address of the server
 
 ## Start the project
 Once everything is configured on the server, you can start the project by running the docker compose on the server
