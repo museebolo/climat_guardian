@@ -1,7 +1,7 @@
 # Use postgres/example user/password credentials
 version: '3.9'
-
 services:
+
   esphome:
     image: esphome/esphome:2024.4
     volumes:
@@ -11,10 +11,7 @@ services:
     privileged: true
 
   db:
-    build:
-      context: .
-      dockerfile: Dockerfile.Postgres
-    image: postgres-memoires-info
+    image: postgres:12.19-alpine
     shm_size: 128mb
     volumes:
       - "${DB_PATH}:/var/lib/postgresql/data"
@@ -22,6 +19,24 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: memoires-info
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d memoires-info"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  migration:
+    build:
+      context: .
+      dockerfile: Dockerfile.Sqitch
+    image: sqitch-memoires-info
+    environment:
+      SQITCH_TARGET: "db:pg://postgres:${POSTGRES_PASSWORD}@db:5432/memoires-info"
+    volumes:
+      - "./database/migration:/repo"
+    depends_on:
+      db:
+        condition: service_healthy
 
   postg-rest:
     image: postgrest/postgrest:v12.0.3
@@ -32,7 +47,8 @@ services:
       PGRST_DB_SCHEMAS: "api"
       PGRST_OPENAPI_SERVE: proxy-uri = "http://0.0.0.0:3000"
     depends_on:
-      - db
+      migration:
+        condition: service_completed_successfully
 
   php:
     build:
@@ -40,15 +56,15 @@ services:
       dockerfile: Dockerfile.Php
     image: php-memoires-info
     depends_on:
-      - db
+      - postg-rest
 
   web:
     build:
       context: .
       dockerfile: Dockerfile.Nginx
+    image: nginx-memoires-info
     ports:
       - '80:80'
-    image: nginx-memoires-info
     depends_on:
       - php
       - postg-rest

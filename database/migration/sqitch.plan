@@ -1,0 +1,8 @@
+%syntax-version=1.0.0
+%project=climat-guardian
+%uri=https://github.com/museebolo/climat_guardian
+
+postgrest 2024-06-07T14:50:40Z Nils <nils@fedora> # create schema and roles for the postgrest api
+roles 2024-06-07T18:32:02Z Nils <nils@fedora> # create the role used by the user to distinguish users and esp
+data 2024-06-07T20:09:18Z Nils <nils@fedora> # Add table to store data
+user 2024-06-07T20:47:39Z Nils <nils@fedora> # create a user table to store every user and password
