@@ -74,7 +74,7 @@ It is recommended to let the other environment variables as they are
 
 ---
 Finally, you **have to** fill the Wi-Fi credentials in `esp32/config/secrets.yaml`\
-You also **have to** change the `127.0.0.1` in `Interface/src/contexts/SampleContext.tsx` to the ip address of the server
+You also **have to** change the `127.0.0.1` in `Interface/src/contexts/SampleContext.tsx` and `esp32/config/secrets.yaml` by the ip address of the server
 
 ## Start the project
 Once everything is configured on the server, you can start the project by running the docker compose on the server
@@ -96,8 +96,8 @@ This project uses [esp home](https://github.com/esphome/esphome) to manage the e
 - Press `INSTALL` and select `Plug into the computer running ESPHome Dashboard` (the 3rd option)
 - Select the device with ``/dev/ttyUSB0`` as path
 - Wait for the installation to finish\
-Be sure to memorize the ip address of the esp32 (you can find it in the logs)\
-<span style="background-color: rgba(125,125,125,0.3);"><span style="color:#ddd">[15:39:12]</span><span style="color:rgb(255, 0, 255)">[C][wifi:416]:   IP Address: 172.16.5.65</span></span>
+Be sure to memorize the ip address of the esp32 (you can find it in the logs)
+$${\color{gray} \text{[15:39:12]} \color{magenta} \text{[C][wifi:416]:   IP Address: 172.16.5.65}}$$
 - You can now unplug the esp32 and plug it to any other power source
 - Press `Edit` at the bottom of the logs
 - Copy everything from the line 31 of the file `esp32/esp32.yaml` on the server and paste it at the end of your esp32's configuration file
@@ -107,8 +107,8 @@ clear && cat esp32/esp32.yaml | sed -n '31,$p'
 - Replace the XXX... at the end of the code with the token of your esp32\
 you can generate this token by running the following command on the server (replace `255.255.255.255` with the ip address of the esp32)
 ```bash
-export TOKEN=$(curl 'http://127.0.0.1/php/login.php?username=admin&password=admin' | jq '.token' -r)
-curl -H "Authorization: Bearer $TOKEN" "http://127.0.0.1/php/esp.php?ip=255.255.255.255" | jq '.token' -r
+export TOKEN=$(curl 'http://127.0.0.1/php/login.php' -d '{"username":"admin","password":"admin"}' -X POST | jq '.token' -r)
+curl -H "Authorization: Bearer $TOKEN" "http://127.0.0.1/php/esp.php" -d '{"ip":"255.255.255.255"}' -X POST | jq '.token' -r
 ```
 - Press `INSTALL` and select `Wirelessly` (the 1st option)
 - Wait for the installation to finish
