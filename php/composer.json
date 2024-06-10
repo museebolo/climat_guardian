@@ -8,7 +8,8 @@
         "ext-curl": "*"
     },
     "require-dev": {
-        "symfony/var-dumper": "^7.0"
+        "symfony/var-dumper": "^7.0",
+        "phpstan/phpstan": "^1.11"
     },
     "authors": [
         {
