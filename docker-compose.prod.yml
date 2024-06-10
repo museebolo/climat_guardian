@@ -28,7 +28,7 @@ services:
   migration:
     build:
       context: .
-      dockerfile: Dockerfile.Sqitch
+      dockerfile: Dockerfile/Dockerfile.Sqitch
     image: sqitch-memoires-info
     environment:
       SQITCH_TARGET: "db:pg://postgres:${POSTGRES_PASSWORD}@db:5432/memoires-info"
@@ -53,7 +53,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: Dockerfile.Php
+      dockerfile: Dockerfile/Dockerfile.Php
     image: php-memoires-info
     depends_on:
       - postg-rest
@@ -61,7 +61,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: Dockerfile.Nginx
+      dockerfile: Dockerfile/Dockerfile.Nginx
     image: nginx-memoires-info
     ports:
       - '80:80'
