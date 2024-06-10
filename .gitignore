@@ -1,6 +1,6 @@
-.idea
+.idea/
 # vim backup files
 *.sw[pon]
 .env
-# test bash script
-reset_test.sh
+# nohup
+nohup.out
