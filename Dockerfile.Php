@@ -1,5 +1,5 @@
 # php 8.3 with the files, install dependencies
-FROM composer:2.7.4
+FROM composer:2.7
 COPY login .
 RUN composer install
 
