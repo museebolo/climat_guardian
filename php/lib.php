@@ -11,12 +11,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
+/**
+ * @param array<string, mixed> $messages
+ */
 #[NoReturn] function output(array $messages, int $code = 200): void {
 	header('Content-Type: application/json');
 	http_response_code($code);
 	echo json_encode($messages);
 	exit;
 }
+
+/**
+ * @param array<string, mixed> $data
+ * @param array<string> $headers
+ */
 function callAPI(string $method, string $url, array $data = [], array $headers = []): bool|string {
     $ch = curl_init();
 
