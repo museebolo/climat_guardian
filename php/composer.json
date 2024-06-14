@@ -5,7 +5,10 @@
     "require": {
         "firebase/php-jwt": "^6.10",
         "symfony/dotenv": "^7.0",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "slim/slim": "^4.13",
+        "slim/psr7": "^1.7",
+        "psr/http-server-middleware": "^1.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^7.0",
