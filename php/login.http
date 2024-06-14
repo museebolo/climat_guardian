@@ -1,14 +1,14 @@
 ### Authentificate as admin
 # @no-cookie-jar
 # @no-log
-GET http://login.memoires-info.com/login.php?username=admin&password=admin
+GET http://localhost/php/login?username=admin&password=admin
 
 
 ### Create a new user "toto" with password "IamToto"
 # @no-cookie-jar
 # @no-log
 # the password said here is the hash of "IamToto"
-POST http://postgrest.memoires-info.com/users
+POST http://localhost/postgrest/users
 Authorization: Bearer
 Content-Type: application/json
 
@@ -21,12 +21,12 @@ Content-Type: application/json
 ### Authentificate as toto
 # @no-cookie-jar
 # @no-log
-GET http://login.memoires-info.com/login.php?username=toto&password=IamToto
+GET http://localhost/php/login?username=toto&password=IamToto
 
 
 ### Get the last 20 data entries
 # @no-cookie-jar
 # @no-log
-GET http://postgrest.memoires-info.com/data?order=timestamp.desc,ip&limit=20
+GET http://localhost/postgrest/data?order=timestamp.desc,ip&limit=20
 Authorization: Bearer
 

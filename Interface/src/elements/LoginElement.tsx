@@ -9,7 +9,7 @@ export default function LoginElement() {
     const submit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        await fetch(`${SampleContext.urlLogin}/login.php?username=${username}&password=${password}`, {
+        await fetch(`${SampleContext.urlLogin}/login?username=${username}&password=${password}`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
