@@ -107,8 +107,8 @@ clear && cat esp32/esp32.yaml | sed -n '31,$p'
 - Replace the XXX... at the end of the code with the token of your esp32\
 you can generate this token by running the following command on the server (replace `255.255.255.255` with the ip address of the esp32)
 ```bash
-export TOKEN=$(curl 'http://127.0.0.1/php/login.php' -d '{"username":"admin","password":"admin"}' -X POST | jq '.token' -r)
-curl -H "Authorization: Bearer $TOKEN" "http://127.0.0.1/php/esp.php" -d '{"ip":"255.255.255.255"}' -X POST | jq '.token' -r
+export TOKEN=$(curl 'http://127.0.0.1/php/login' -d '{"username":"admin","password":"admin"}' -X POST 2> /dev/null | jq '.token' -r)
+curl -H "Authorization: Bearer $TOKEN" "http://127.0.0.1/php/esp" -d '{"ip":"255.255.255.255"}' -X POST 2> /dev/null | jq '.token' -r
 ```
 - Press `INSTALL` and select `Wirelessly` (the 1st option)
 - Wait for the installation to finish
