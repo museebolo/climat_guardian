@@ -1,7 +1,4 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../lib.php';
-
 use Firebase\JWT\JWT;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -51,3 +48,4 @@ $payload = [
 $token = JWT::encode($payload, $_ENV['JWT_SECRET'], 'HS256');
 
 output(['token' => $token]);
+

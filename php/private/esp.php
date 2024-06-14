@@ -1,8 +1,4 @@
 <?php
-
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../lib.php';
-
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Symfony\Component\Dotenv\Dotenv;
@@ -38,3 +34,4 @@ if ($decoded->role !== 'web_user')
 $token = JWT::encode(['role' => 'esp32', 'ip' => $data['ip']], $_ENV['JWT_SECRET'], 'HS256');
 
 output(['token' => $token], 200);
+
