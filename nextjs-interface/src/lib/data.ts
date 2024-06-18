@@ -28,10 +28,8 @@ export function useLastData(type: string) {
       .then((apiData: data[]) => {
         if (apiData && apiData.length > 0) {
           if (type == "humidity") {
-            setTemperature(apiData[0].temperature);
-            console.log("Temperature:", apiData[0].temperature);
+            setTemperature(apiData[0].humidity);
           } else setTemperature(apiData[0].temperature);
-          console.log("Temperature:", apiData[0].temperature);
         }
       })
       .catch((e) => {
