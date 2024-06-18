@@ -1,7 +1,6 @@
 # Use postgres/example user/password credentials
-version: '3.9'
+version: "3.9"
 services:
-
   esphome:
     image: esphome/esphome:2024.4
     volumes:
@@ -66,7 +65,7 @@ services:
   web:
     image: nginx:1.26-alpine-otel
     ports:
-      - '80:80'
+      - "80:80"
     volumes:
       - ./Interface/dist:/var/www/memoires-info/html
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
@@ -76,4 +75,3 @@ services:
       - postg-rest
       - adminer
       - esphome
-
