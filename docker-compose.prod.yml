@@ -1,7 +1,6 @@
 # Use postgres/example user/password credentials
-version: '3.9'
+version: "3.9"
 services:
-
   esphome:
     image: esphome/esphome:2024.4
     volumes:
@@ -64,9 +63,8 @@ services:
       dockerfile: Dockerfile/Dockerfile.Nginx
     image: nginx-memoires-info
     ports:
-      - '80:80'
+      - "80:80"
     depends_on:
       - php
       - postg-rest
       - esphome
-
