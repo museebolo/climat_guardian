@@ -1,4 +1,4 @@
-export function getColor(value: number): string {
+export function getTempColor(value: number): string {
   let newColor: string = "";
 
   if (value >= 27) {
@@ -16,7 +16,7 @@ export function getColor(value: number): string {
   return newColor;
 }
 
-export function getHumidity(value: number): string {
+export function getHumiColor(value: number): string {
   let newColor: string = "";
 
   if (value >= 75) {
