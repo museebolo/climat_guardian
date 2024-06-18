@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, {FormEvent, useState} from "react";
 import {
   Card,
   CardContent,
@@ -14,8 +14,44 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 export function LoginElement() {
+
+  const SampleContext = {
+    urlData: "http://climate-guardian.home/postgrest",
+    urlLogin: "http://climate-guardian.home/php",
+    urlCurrent: "http://localhost:3000"
+  };
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    await fetch(`${SampleContext.urlLogin}/login.php?username=${username}&password=${password}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+        .then(response => response.json())
+        .then(reponse => {
+          if (reponse.error) {
+            setError(reponse.error);
+          }
+          if (reponse.token) {
+            localStorage.setItem('token', reponse.token);
+            localStorage.setItem('username', username);
+            window.location.replace(`${SampleContext.urlCurrent}/dashboard`);
+          }
+        })
+        .catch(e => {
+          console.log(e)
+        });
+  };
   return (
     <div className="mt-80 flex justify-center">
+      <form method="get" onSubmit={submit} className="mx-auto max-w-xs">
       <Card className="w-full max-w-lg">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
@@ -25,17 +61,22 @@ export function LoginElement() {
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="username">Username</Label>
             <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
+                value={username}
+                autoComplete={"username"}
+                onChange={(e) => setUsername(e.target.value)}
+              id="username"
+              type="text"
+              placeholder="Username"
               required
             />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
             <Input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               id="password"
               type="password"
               placeholder="*****************"
@@ -44,7 +85,7 @@ export function LoginElement() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-5">
-          <Button className="w-full">Sign in</Button>
+          <Button className="w-full" type={"submit"}>Sign in</Button>
           <a
             href="/dashboard"
             className="w-full rounded-[7px] border-2 border-gray-800 p-2 text-center hover:bg-gray-800 hover:text-white"
@@ -53,6 +94,8 @@ export function LoginElement() {
           </a>
         </CardFooter>
       </Card>
+        {error && <p className="text-red-500 mt-2">{error}</p>}
+      </form>
     </div>
   );
 }
