@@ -74,3 +74,27 @@
     @apply bg-background text-foreground;
   }
 }
+
+.barrier,
+.wall {
+  fill: none;
+  stroke: currentcolor;
+  stroke-width: 0.4px;
+  opacity: 0.6;
+}
+.barrier {
+  opacity: 0.3;
+  stroke-width: 0.2px;
+  stroke-dasharray: 0 200 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2
+    0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75
+    0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2
+    0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2;
+  stroke-dashoffset: 200;
+  transition: all 0.8s ease 0s;
+}
+text {
+  transition: all 1.5s ease;
+}
+svg {
+  transition: all 0.5s ease;
+}

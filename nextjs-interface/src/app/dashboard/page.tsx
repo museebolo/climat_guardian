@@ -2,9 +2,10 @@
 import { PieChartTemperature } from "@/app/ui/dashboard/PieChartTemperature";
 import { PieChartHumidity } from "@/app/ui/dashboard/PieChartHumidity";
 import { useState, useEffect } from "react";
-import { redirect } from "next/navigation";
-import { getToken } from "@/lib/context";
+
 import { useFetchData, useLastData } from "@/lib/data";
+import { useRouter } from "next/router";
+import { redirect } from "next/navigation";
 
 const ESPList = [
   { name: "ESP N°1" },
@@ -21,19 +22,16 @@ const humiData = [{ name: "humidity", value: 35 }];
 export default function Page() {
   const [token, setToken] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (getToken) {
-      setToken(getToken);
-    } else {
-      redirect("/login");
-    }
-  }, []);
+  const storedToken = window.localStorage.getItem("token");
+  if (!storedToken) {
+    redirect("/login");
+  }
+
   const precision = "month";
-
   const monthData = useFetchData(precision);
-  const humidity = useLastData("humidity");
+  const lasthumidity = useLastData("humidity");
+  const lasttemperature = useLastData("temperature");
 
-  const temperature = useLastData("temperature");
   return (
     <>
       <div className="px-auto grid h-fit w-full min-w-[500px] grid-cols-1 gap-10 xl:grid-cols-2 2xl:grid-cols-3">

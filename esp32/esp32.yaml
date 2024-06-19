@@ -28,7 +28,7 @@ wifi:
     password: "xxxxxxxxxxxx"
 
 captive_portal:
-    
+
 i2c:
   sda: 21
   scl: 22
@@ -48,12 +48,12 @@ sensor:
     id: wifi_strength
     name: "WiFi Signal Sensor"
     update_interval: 10s
-    
+
 font:
-  - file: 'Comic_Sans_MS.ttf'
+  - file: "Comic_Sans_MS.ttf"
     id: font1
     size: 16
-  - file: 'Comic_Sans_MS.ttf'
+  - file: "Comic_Sans_MS.ttf"
     id: font2
     size: 8
 
@@ -62,7 +62,7 @@ graph:
     sensor: temperature
     duration: 60min
     x_grid: 5min
-    y_grid: 5.0 
+    y_grid: 5.0
     width: 151
     height: 51
   - id: humidity_graph
@@ -72,7 +72,7 @@ graph:
     y_grid: 5.0
     width: 151
     height: 51
-  
+
 spi:
   clk_pin: 18
   mosi_pin: 23
