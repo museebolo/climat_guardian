@@ -32,7 +32,7 @@ export default function Page() {
 
   const lasthumidity = useLastData("humidity");
   const lasttemperature = useLastData("temperature");
-  const precision = "month";
+  const precision = "day";
   const monthData = useFetchData(precision);
 
   return (
