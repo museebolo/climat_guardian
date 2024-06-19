@@ -19,3 +19,11 @@ export interface data {
   timestamp: string;
   ip: string;
 }
+
+export interface avgData {
+  avg_temperature: number;
+  avg_humidity: number;
+  date: string;
+  ip: string;
+  count: number;
+}

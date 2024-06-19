@@ -1,20 +1,25 @@
 import { useEffect, useState } from "react";
-import { SampleContext, getToken, AverageData, data } from "@/lib/context";
+import {
+  SampleContext,
+  getToken,
+  data,
+  avgData,
+} from "@/lib/context";
 
-export const useFetchData = (precision: string) => {
-  const [data, setData] = useState<AverageData[]>([]);
+export const useFetchData = (precision: string,ip:string) => {
+  const [data, setData] = useState<avgData[]>([]);
 
   useEffect(() => {
-    const url = `${SampleContext.urlData}/rpc/avg_date?delta=${precision}`;
+    const url = `${SampleContext.urlData}/rpc/avg_date?delta=${precision}&ip=eq.${ip}`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
-      .then((apiData: AverageData[]) => {
+      .then((apiData: avgData[]) => {
         setData(apiData);
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
       });
-  });
+  }, [ip, precision]);
   return data;
 };
 
