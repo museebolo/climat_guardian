@@ -14,9 +14,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { CircleUser, Landmark, Menu } from "lucide-react";
+import {redirect} from "next/navigation";
 
 const logout = () => {
   localStorage.clear();
+  redirect("/login")
 };
 export function HeaderElement() {
   return (
