@@ -13,6 +13,7 @@ import {
 
 import React from "react";
 import { avgData } from "@/lib/context";
+import {date} from "zod";
 
 export function ChartElement({ data }: { data: avgData[] }) {
   return (
@@ -28,6 +29,7 @@ export function ChartElement({ data }: { data: avgData[] }) {
           tickLine={false}
           axisLine={false}
           dataKey="date"
+          tickFormatter={(value: string)=> new Date(value).toLocaleDateString()}
           padding={{ left: 20, right: 50 }}
         />
         <YAxis

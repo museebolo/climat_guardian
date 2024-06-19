@@ -32,24 +32,28 @@ export default function Page() {
 
   const lasthumidity = useLastData("humidity");
   const lasttemperature = useLastData("temperature");
+  const precision = "month";
+  const monthData = useFetchData(precision);
 
   return (
     <>
       <div className="px-auto grid h-fit w-full min-w-[500px] grid-cols-1 gap-10 xl:grid-cols-2 2xl:grid-cols-3">
         {ESPList.map((esp, index) => (
-          <div
-            className="flex h-full flex-col items-center rounded-2xl border-2 text-center"
-            key={index}
-          >
-            <h2 className="w-full border-b-2 pb-5 pt-5 text-center text-gray-800">
-              {esp.name}
-            </h2>
-            <div className="sm:py-auto flex h-full w-full flex-row py-14">
-              <PieChartTemperature data={tempData} />
-              <PieChartHumidity data={humiData} />
+            <div
+                className="flex h-full flex-col items-center rounded-2xl border-2 text-center"
+                key={index}
+            >
+              <h2 className="w-full border-b-2 pb-5 pt-5 text-center text-gray-800">
+                {esp.name}
+              </h2>
+              <div className="sm:py-auto flex h-full w-full flex-row py-14">
+                <PieChartTemperature data={tempData}/>
+                <PieChartHumidity data={humiData}/>
+              </div>
             </div>
-          </div>
         ))}
+
+        <pre>{JSON.stringify(monthData, null, 2)}</pre>
       </div>
     </>
   );
