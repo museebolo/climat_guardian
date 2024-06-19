@@ -13,7 +13,6 @@ import {
 
 import React from "react";
 import { avgData } from "@/lib/context";
-import {date} from "zod";
 
 export function ChartElement({ data }: { data: avgData[] }) {
   return (

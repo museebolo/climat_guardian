@@ -19,7 +19,7 @@ export const useFetchData = (precision: string,ip:string) => {
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
       });
-  }, [precision]);
+  }, [ip, precision]);
   return data;
 };
 

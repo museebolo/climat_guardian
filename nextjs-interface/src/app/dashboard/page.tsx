@@ -2,7 +2,7 @@
 import { PieChartTemperature } from "@/app/ui/dashboard/PieChartTemperature";
 import { PieChartHumidity } from "@/app/ui/dashboard/PieChartHumidity";
 import { useState, useEffect } from "react";
-import { useFetchData, useLastData } from "@/lib/data";
+import {useLastData} from "@/lib/data";
 import { useRouter } from "next/navigation"; // Use useRouter instead of redirect for correct usage in client components
 
 const ESPList = [
@@ -32,8 +32,6 @@ export default function Page() {
 
   const lasthumidity = useLastData("humidity");
   const lasttemperature = useLastData("temperature");
-  const precision = "day";
-  const monthData = useFetchData(precision);
 
   return (
     <>
@@ -52,9 +50,7 @@ export default function Page() {
               </div>
             </div>
         ))}
-
-        <pre>{JSON.stringify(monthData, null, 2)}</pre>
-      </div>
+ </div>
     </>
   );
 }
