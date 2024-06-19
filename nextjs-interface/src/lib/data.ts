@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import {SampleContext, getToken, AverageData, data, avgData} from "@/lib/context";
+import {
+  SampleContext,
+  getToken,
+  AverageData,
+  data,
+  avgData,
+} from "@/lib/context";
 
 export const useFetchData = (precision: string) => {
   const [data, setData] = useState<avgData[]>([]);
@@ -14,7 +20,7 @@ export const useFetchData = (precision: string) => {
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
       });
-  },[precision]);
+  }, [precision]);
   return data;
 };
 
