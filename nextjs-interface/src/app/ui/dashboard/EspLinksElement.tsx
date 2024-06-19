@@ -26,8 +26,8 @@ export default function EspLinksElement() {
 
   // links state
   const [links, setLinks] = useState([
-    { name: "chasseron", ip: "172.16.4.100" },
-    { name: "pleiades", ip: "172.16.5.178" },
+    { name: "chasseron", ip: "192.168.123.132" },
+    { name: "pleiades", ip: "192.168.123.132" },
   ]);
 
   // newLink state
@@ -55,9 +55,9 @@ export default function EspLinksElement() {
             key={link.name}
             href={href}
             className={clsx(
-              "flex items-center gap-3 rounded-lg text-sm text-zinc-500 transition-all hover:text-primary md:py-2",
+              "flex items-center gap-3 rounded-lg text-sm text-gray-500 transition-all hover:text-primary md:py-2",
               {
-                "text-zinc-900": pathname === href,
+                "": pathname === href,
               },
             )}
           >

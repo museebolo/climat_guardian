@@ -12,9 +12,40 @@ import {
 } from "recharts";
 
 import React from "react";
-import { avgData } from "@/lib/context";
 
-export function ChartElement({ data }: { data: avgData[] }) {
+export function ChartElement() {
+  const data = [
+    {
+      name: "01/06",
+      temperature: 27,
+      humidity: 24,
+    },
+    {
+      name: "02/06",
+      temperature: 30,
+      humidity: 38,
+    },
+    {
+      name: "03/06",
+      temperature: 25,
+      humidity: 48,
+    },
+    {
+      name: "04/06",
+      temperature: 27,
+      humidity: 39,
+    },
+    {
+      name: "05/06",
+      temperature: 18,
+      humidity: 48,
+    },
+    {
+      name: "06/06",
+      temperature: 23,
+      humidity: 38,
+    },
+  ];
   return (
     <ResponsiveContainer width="100%" height={500}>
       <LineChart
@@ -27,8 +58,7 @@ export function ChartElement({ data }: { data: avgData[] }) {
           fontSize={16}
           tickLine={false}
           axisLine={false}
-          dataKey="date"
-          tickFormatter={(value: string)=> new Date(value).toLocaleDateString()}
+          dataKey="name"
           padding={{ left: 20, right: 50 }}
         />
         <YAxis
@@ -46,14 +76,14 @@ export function ChartElement({ data }: { data: avgData[] }) {
         <Legend />
         <Line
           type="monotone"
-          dataKey="avg_humidity"
+          dataKey="humidity"
           stroke="#8884d8"
           activeDot={{ r: 8 }}
           strokeWidth="2px"
         />
         <Line
           type="monotone"
-          dataKey="avg_temperature"
+          dataKey="temperature"
           strokeWidth="2px"
           stroke="#82ca9d"
         />
