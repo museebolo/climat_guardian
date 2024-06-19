@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 
@@ -9,13 +10,14 @@ import EspLinksElement from "@/app/ui/dashboard/EspLinksElement";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// import icons etc..
 import { CircleUser, Landmark, Menu } from "lucide-react";
 
+const logout = () => {
+  localStorage.clear();
+};
 export function HeaderElement() {
   return (
     <div className="flex flex-col">
@@ -53,8 +55,8 @@ export function HeaderElement() {
               <span className="sr-only">Toggle user menu</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+          <DropdownMenuContent>
+            <Button onClick={logout}>log out</Button>
           </DropdownMenuContent>
         </DropdownMenu>
       </header>

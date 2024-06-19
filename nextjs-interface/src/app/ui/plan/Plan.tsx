@@ -56,29 +56,6 @@ export default function Plan() {
 
   return (
     <div>
-      <style>
-        {`
-          .barrier,
-          .wall {
-            fill: none;
-            stroke: currentcolor;
-            stroke-width: 0.4px;
-            opacity: 0.6;
-          }
-          .barrier {
-            opacity: 0.3;
-            stroke-width: 0.2px;
-            stroke-dasharray: 0 200 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2
-              0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75
-              0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2 0.75 0.2
-              0.75 0.2 0.75 0.2 0.75 0.2;
-            stroke-dashoffset: 200;
-            transition: all .8s ease 0s;
-          }
-          text { transition: all 1.5s ease; }
-          svg { transition: all .5s ease; }
-        `}
-      </style>
       <Popover open={open}>
         <PopoverTrigger>
           <Button variant="outline" onClick={() => setOpen(true)}>
