@@ -8,7 +8,8 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useLastData } from "@/lib/data";
-import {EspMap} from "@/app/ui/plan/espMap"; // Assurez-vous d'importer useLastData
+import { EspMap } from "@/app/ui/plan/espMap";
+import { AddPointElement } from "@/app/ui/plan/AddPointElement"; // Assurez-vous d'importer useLastData
 
 export default function Plan() {
   const [hoveredCircle, setHoveredCircle] = useState<string>("");
@@ -59,47 +60,17 @@ export default function Plan() {
 
   return (
     <div>
-      <Popover open={open}>
-        <PopoverTrigger>
-          <Button variant="outline" onClick={() => setOpen(true)}>
-            Ajouter un esp
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-44 gap-2 font-bold">
-          <div>
-            <div className="mb-2 text-center">
-              <p>X: {Number(cx.toFixed(2))}</p>
-              <p>Y: {Number(cy.toFixed(2))}</p>
-            </div>
-            <div className="mb-5">
-              <Input
-                className="mb-1"
-                id="newname"
-                type="text"
-                placeholder="name"
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="ip address"
-                value={newIp}
-                onChange={(e) => setNewIp(e.target.value)}
-              />
-            </div>
-            <Button className="w-full" onClick={addEsp}>
-              ajouter
-            </Button>
-            <Button
-              className="mt-1 w-full border-2 bg-white text-black hover:text-white"
-              onClick={() => setOpen(false)}
-            >
-              fermer
-            </Button>
-          </div>
-        </PopoverContent>
-      </Popover>
-
+      <AddPointElement
+        newName={newName}
+        setNewName={setNewName}
+        newIp={newIp}
+        setNewIp={setNewIp}
+        cx={cx}
+        cy={cy}
+        setOpen={setOpen}
+        addEsp={addEsp}
+        open={open}
+      />
       <svg
         className="h-[1000px] w-[1000px]"
         xmlns="http://www.w3.org/2000/svg"
@@ -119,17 +90,17 @@ export default function Plan() {
 
         <g className="text-[3px] text-blue-300 transition-all duration-500 ease-in-out">
           {esp.map(({ cx, cy, ip, name }) => (
-              <EspMap
-                  key={ip}
-                  cx={cx}
-                  cy={cy}
-                  ip={ip}
-                  name={name}
-                  hoveredCircle={hoveredCircle}
-                  setHoveredCircle={setHoveredCircle}
-                  mouseClick={mouseClick}
-                  deleteEsp={deleteEsp}
-              />
+            <EspMap
+              key={ip}
+              cx={cx}
+              cy={cy}
+              ip={ip}
+              name={name}
+              hoveredCircle={hoveredCircle}
+              setHoveredCircle={setHoveredCircle}
+              mouseClick={mouseClick}
+              deleteEsp={deleteEsp}
+            />
           ))}
         </g>
       </svg>
