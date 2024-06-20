@@ -1,15 +1,10 @@
 "use client";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { EspMap } from "@/app/ui/plan/espMap";
+import { AddPointElement } from "@/app/ui/plan/AddPointElement";
 
 export default function Plan() {
-  const [hoveredCircle, setHoveredCircle] = useState<number | string>("");
+  const [hoveredCircle, setHoveredCircle] = useState<string>("");
   const [newName, setNewName] = useState<string>("");
   const [newIp, setNewIp] = useState<string>("");
   const [cx, setCx] = useState(0);
@@ -19,11 +14,12 @@ export default function Plan() {
   const mouseClick = (circle: string) => {
     setHoveredCircle(circle);
   };
+
   const [esp, setEsp] = useState<
     { cx: number; cy: number; ip: string; name: string }[]
   >([
-    { cx: 78, cy: 80, ip: "182.250.231.111", name: "Chasseron" },
-    { cx: 16, cy: 59, ip: "182.250.231.112", name: "Argentine" },
+    { cx: 78, cy: 80, ip: "172.16.4.100", name: "Chasseron" },
+    { cx: 16, cy: 59, ip: "172.16.5.178", name: "Argentine" },
     { cx: 82, cy: 42, ip: "182.250.231.113", name: "Jungfrau" },
     { cx: 51, cy: 42, ip: "182.250.231.114", name: "Pleiades" },
   ]);
@@ -56,47 +52,17 @@ export default function Plan() {
 
   return (
     <div>
-      <Popover open={open}>
-        <PopoverTrigger>
-          <Button variant="outline" onClick={() => setOpen(true)}>
-            Ajouter un esp
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-44 gap-2 font-bold">
-          <div>
-            <div className="mb-2 text-center">
-              <p>X: {Number(cx.toFixed(2))}</p>
-              <p>Y: {Number(cy.toFixed(2))}</p>
-            </div>
-            <div className="mb-5">
-              <Input
-                className="mb-1"
-                id="newname"
-                type="text"
-                placeholder="name"
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="ip address"
-                value={newIp}
-                onChange={(e) => setNewIp(e.target.value)}
-              />
-            </div>
-            <Button className="w-full" onClick={addEsp}>
-              ajouter
-            </Button>
-            <Button
-              className="mt-1 w-full border-2 bg-white text-black hover:text-white"
-              onClick={() => setOpen(false)}
-            >
-              fermer
-            </Button>
-          </div>
-        </PopoverContent>
-      </Popover>
-
+      <AddPointElement
+        newName={newName}
+        setNewName={setNewName}
+        newIp={newIp}
+        setNewIp={setNewIp}
+        cx={cx}
+        cy={cy}
+        setOpen={setOpen}
+        addEsp={addEsp}
+        open={open}
+      />
       <svg
         className="h-[1000px] w-[1000px]"
         xmlns="http://www.w3.org/2000/svg"
@@ -116,29 +82,17 @@ export default function Plan() {
 
         <g className="text-[3px] text-blue-300 transition-all duration-500 ease-in-out">
           {esp.map(({ cx, cy, ip, name }) => (
-            <Popover
+            <EspMap
               key={ip}
-              open={hoveredCircle === ip}
-              onOpenChange={(open) => setHoveredCircle(open ? ip : "")}
-            >
-              <PopoverTrigger asChild onClick={() => mouseClick(ip)}>
-                <g id="icon-light" fill="currentcolor">
-                  <circle cx={cx} cy={cy} r="3" opacity="1" />
-                  <circle cx={cx} cy={cy} r="4" opacity=".3" />
-                  <circle cx={cx} cy={cy} r="6" opacity=".1" />
-                </g>
-              </PopoverTrigger>
-              <PopoverContent className="w-44 gap-4 font-bold">
-                <p className="text-center">{name}</p>
-                <div className="mb-3 flex flex-col gap-1 text-center">
-                  <p>Temperature: 24&#8451;</p>
-                  <p>Humidity: 60%</p>
-                </div>
-                <Button className="w-full" onClick={() => deleteEsp(ip)}>
-                  Delete
-                </Button>
-              </PopoverContent>
-            </Popover>
+              cx={cx}
+              cy={cy}
+              ip={ip}
+              name={name}
+              hoveredCircle={hoveredCircle}
+              setHoveredCircle={setHoveredCircle}
+              mouseClick={mouseClick}
+              deleteEsp={deleteEsp}
+            />
           ))}
         </g>
       </svg>

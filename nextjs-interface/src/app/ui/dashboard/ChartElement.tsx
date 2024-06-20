@@ -28,7 +28,9 @@ export function ChartElement({ data }: { data: avgData[] }) {
           tickLine={false}
           axisLine={false}
           dataKey="date"
-          tickFormatter={(value: string)=> new Date(value).toLocaleDateString()}
+          tickFormatter={(value: string) =>
+            new Date(value).toLocaleDateString()
+          }
           padding={{ left: 20, right: 50 }}
         />
         <YAxis

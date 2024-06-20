@@ -14,11 +14,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { CircleUser, Landmark, Menu } from "lucide-react";
-import {redirect} from "next/navigation";
+import { redirect } from "next/navigation";
 
 const logout = () => {
   localStorage.clear();
-  redirect("/login")
+  redirect("/login");
 };
 export function HeaderElement() {
   return (
@@ -58,7 +58,9 @@ export function HeaderElement() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Button onClick={logout}>log out</Button>
+            <Button className="w-full" onClick={logout}>
+              log out
+            </Button>
           </DropdownMenuContent>
         </DropdownMenu>
       </header>
