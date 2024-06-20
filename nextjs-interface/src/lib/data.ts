@@ -19,7 +19,7 @@ export const useFetchData = (precision: string, ip: string) => {
 };
 
 export function useLastData(type: string, ip: string) {
-  const [temperature, setTemperature] = useState<number | undefined>(undefined);
+  const [value, setValue] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     const url = `${SampleContext.urlData}/data?limit=1&order=timestamp.desc&ip=eq.${ip}`;
@@ -28,13 +28,13 @@ export function useLastData(type: string, ip: string) {
       .then((apiData: data[]) => {
         if (apiData && apiData.length > 0) {
           if (type == "humidity") {
-            setTemperature(apiData[0].humidity);
-          } else setTemperature(apiData[0].temperature);
+            setValue(apiData[0].humidity);
+          } else setValue(apiData[0].temperature);
         }
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
       });
   }, [ip, type]);
-  return temperature;
+  return value;
 }

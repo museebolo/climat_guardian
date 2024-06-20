@@ -7,9 +7,11 @@ import {
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useLastData } from "@/lib/data";
+import {EspMap} from "@/app/ui/plan/espMap"; // Assurez-vous d'importer useLastData
 
 export default function Plan() {
-  const [hoveredCircle, setHoveredCircle] = useState<number | string>("");
+  const [hoveredCircle, setHoveredCircle] = useState<string>("");
   const [newName, setNewName] = useState<string>("");
   const [newIp, setNewIp] = useState<string>("");
   const [cx, setCx] = useState(0);
@@ -19,6 +21,7 @@ export default function Plan() {
   const mouseClick = (circle: string) => {
     setHoveredCircle(circle);
   };
+
   const [esp, setEsp] = useState<
     { cx: number; cy: number; ip: string; name: string }[]
   >([
@@ -116,29 +119,17 @@ export default function Plan() {
 
         <g className="text-[3px] text-blue-300 transition-all duration-500 ease-in-out">
           {esp.map(({ cx, cy, ip, name }) => (
-            <Popover
-              key={ip}
-              open={hoveredCircle === ip}
-              onOpenChange={(open) => setHoveredCircle(open ? ip : "")}
-            >
-              <PopoverTrigger asChild onClick={() => mouseClick(ip)}>
-                <g id="icon-light" fill="currentcolor">
-                  <circle cx={cx} cy={cy} r="3" opacity="1" />
-                  <circle cx={cx} cy={cy} r="4" opacity=".3" />
-                  <circle cx={cx} cy={cy} r="6" opacity=".1" />
-                </g>
-              </PopoverTrigger>
-              <PopoverContent className="w-44 gap-4 font-bold">
-                <p className="text-center">{name}</p>
-                <div className="mb-3 flex flex-col gap-1 text-center">
-                  <p>Temperature: 24&#8451;</p>
-                  <p>Humidity: 60%</p>
-                </div>
-                <Button className="w-full" onClick={() => deleteEsp(ip)}>
-                  Delete
-                </Button>
-              </PopoverContent>
-            </Popover>
+              <EspMap
+                  key={ip}
+                  cx={cx}
+                  cy={cy}
+                  ip={ip}
+                  name={name}
+                  hoveredCircle={hoveredCircle}
+                  setHoveredCircle={setHoveredCircle}
+                  mouseClick={mouseClick}
+                  deleteEsp={deleteEsp}
+              />
           ))}
         </g>
       </svg>

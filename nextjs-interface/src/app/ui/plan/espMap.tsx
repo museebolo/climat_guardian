@@ -26,8 +26,7 @@ export function EspMap({
   mouseClick: (circle: string) => void;
   deleteEsp: (ip: string) => void;
 }) {
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const temperature = useLastData("temperature", ip);
+ const temperature = useLastData("temperature", ip);
   const humidity = useLastData("humidity", ip);
 
   const temperatureText =
@@ -53,11 +52,11 @@ export function EspMap({
         <div className="mb-3 flex flex-col gap-1 text-center">
           <p>
             Temperature:{" "}
-            {temperature !== undefined ? `${temperature} °C` : "pas de donnée"}
+            {temperature !== undefined ? `${temperature.toFixed(2)} °C` : "pas de donnée"}
           </p>
           <p>
             Humidity:{" "}
-            {humidity !== undefined ? `${humidity} %` : "pas de donnée"}
+            {humidity !== undefined ? `${humidity.toFixed(2)} %` : "pas de donnée"}
           </p>
         </div>
         <Button className="w-full" onClick={() => deleteEsp(ip)}>
