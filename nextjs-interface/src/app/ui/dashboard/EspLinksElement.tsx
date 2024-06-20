@@ -20,32 +20,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "recharts";
 
-// EspLinksElement component
 export default function EspLinksElement() {
   const pathname = usePathname();
 
-  // links state
   const [links, setLinks] = useState([
     { name: "chasseron", ip: "172.16.4.100" },
     { name: "pleiades", ip: "172.16.5.178" },
   ]);
 
-  // newLink state
   const [newLink, setNewLink] = useState({ name: "", ip: "" });
 
-  // handleInputChange function
   const handleInputChange = (e: any) => {
     setNewLink({ ...newLink, [e.target.id]: e.target.value });
   };
 
-  // handleSubmit function
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setLinks([...links, newLink]);
     setNewLink({ name: "", ip: "" });
   };
 
-  // return jsx
   return (
     <>
       {links.map((link) => {
