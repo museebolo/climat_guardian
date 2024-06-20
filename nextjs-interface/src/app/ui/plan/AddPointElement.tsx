@@ -60,6 +60,7 @@ export function AddPointElement({
           <Button className="w-full" onClick={addEsp}>
             ajouter
           </Button>
+
           <Button
             className="mt-1 w-full border-2 bg-white text-black hover:text-white"
             onClick={() => setOpen(false)}

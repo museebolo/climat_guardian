@@ -2,7 +2,7 @@
 import { PieChartTemperature } from "@/app/ui/dashboard/PieChartTemperature";
 import { PieChartHumidity } from "@/app/ui/dashboard/PieChartHumidity";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // Use useRouter instead of redirect for correct usage in client components
+import { useRouter } from "next/navigation";
 
 const ESPList = [
   { name: "ESP N°1" },

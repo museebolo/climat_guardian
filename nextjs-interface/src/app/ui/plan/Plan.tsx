@@ -1,15 +1,7 @@
 "use client";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useLastData } from "@/lib/data";
 import { EspMap } from "@/app/ui/plan/espMap";
-import { AddPointElement } from "@/app/ui/plan/AddPointElement"; // Assurez-vous d'importer useLastData
+import { AddPointElement } from "@/app/ui/plan/AddPointElement";
 
 export default function Plan() {
   const [hoveredCircle, setHoveredCircle] = useState<string>("");

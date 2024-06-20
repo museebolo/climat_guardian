@@ -58,7 +58,9 @@ export function HeaderElement() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <Button onClick={logout}>log out</Button>
+            <Button className="w-full" onClick={logout}>
+              log out
+            </Button>
           </DropdownMenuContent>
         </DropdownMenu>
       </header>

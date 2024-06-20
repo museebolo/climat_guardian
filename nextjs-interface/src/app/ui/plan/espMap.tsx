@@ -28,12 +28,6 @@ export function EspMap({
 }) {
   const temperature = useLastData("temperature", ip);
   const humidity = useLastData("humidity", ip);
-
-  const temperatureText =
-    temperature !== undefined ? `${temperature} °C` : "pas de donnée";
-  const humidityText =
-    humidity !== undefined ? `${humidity} %` : "pas de donnée";
-
   return (
     <Popover
       key={ip}
