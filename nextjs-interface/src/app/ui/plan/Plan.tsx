@@ -22,8 +22,8 @@ export default function Plan() {
   const [esp, setEsp] = useState<
     { cx: number; cy: number; ip: string; name: string }[]
   >([
-    { cx: 78, cy: 80, ip: "182.250.231.111", name: "Chasseron" },
-    { cx: 16, cy: 59, ip: "182.250.231.112", name: "Argentine" },
+    { cx: 78, cy: 80, ip: "172.16.4.100", name: "Chasseron" },
+    { cx: 16, cy: 59, ip: "172.16.5.178", name: "Argentine" },
     { cx: 82, cy: 42, ip: "182.250.231.113", name: "Jungfrau" },
     { cx: 51, cy: 42, ip: "182.250.231.114", name: "Pleiades" },
   ]);

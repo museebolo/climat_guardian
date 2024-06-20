@@ -30,9 +30,6 @@ export default function Page() {
     }
   }, [router]);
 
-  const lasthumidity = useLastData("humidity");
-  const lasttemperature = useLastData("temperature");
-
   return (
     <>
       <div className="px-auto grid h-fit w-full min-w-[500px] grid-cols-1 gap-10 xl:grid-cols-2 2xl:grid-cols-3">
