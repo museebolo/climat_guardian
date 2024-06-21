@@ -3,15 +3,11 @@ import { PieChartHumidity } from "@/app/ui/dashboard/PieChartHumidity";
 import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 import { PieChartTemperature } from "@/app/ui/dashboard/PieChartTemperature";
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
-import { useFetchData } from "@/lib/data";
-import { links } from "@/app/ui/dashboard/espLinks";
+import findIpByName, {useFetchData, useLastData} from "@/lib/data";
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
 import React from "react";
 
-
-// import scripts
-import findIpByName, { useFetchData, useLastData } from "@/lib/data";
 
 export default function Page({ params }: { params: any }) {
   const [date, setDate] = React.useState<DateRange | undefined>(() => {
@@ -21,10 +17,6 @@ export default function Page({ params }: { params: any }) {
       to: endOfMonth(now),
     };
   });
-
-    // get ip from esp name and fetch data
-    const ip = findIpByName(params.espName);
-    const allData = useFetchData(precision, ip);
 
   const from = date?.from ? format(date.from, "yyyy-MM-dd") : "";
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
