@@ -29,8 +29,7 @@ export default function Page({ params }: { params: any }) {
   const temperature = useLastData("temperature", ip);
   const humidity = useLastData("humidity", ip);
 
-
-    return (
+  return (
     <div className="flex w-full min-w-[500px] flex-col gap-y-5 pt-2">
       <p className="text-2xl font-bold uppercase text-black">
         {params.espName}

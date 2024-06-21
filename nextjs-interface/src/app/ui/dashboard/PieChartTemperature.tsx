@@ -28,7 +28,7 @@ export function PieChartTemperature({ data }: { data: any }) {
         dominantBaseline="central"
         fontSize={24}
       >
-        {`${(data).toFixed(2)} °C`}
+        {`${data.toFixed(2)} °C`}
       </text>
     );
   };
@@ -37,9 +37,7 @@ export function PieChartTemperature({ data }: { data: any }) {
   };
 
   // Préparation des données pour le graphique + arrondire la température
-  const chartData = [
-    { name: "temperature", value: data },
-  ];
+  const chartData = [{ name: "temperature", value: data }];
 
   return (
     <div className="flex h-full w-full flex-col justify-center">
