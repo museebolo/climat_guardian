@@ -1,14 +1,19 @@
 "use client";
+
+// import components
 import { PieChartHumidity } from "@/app/ui/dashboard/PieChartHumidity";
 import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 import { PieChartTemperature } from "@/app/ui/dashboard/PieChartTemperature";
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
+
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
+
 import React from "react";
 
-// import scripts
+// import functions
 import findIpByName, { useFetchData, useLastData } from "@/lib/data";
+
 
 export default function Page({ params }: { params: any }) {
   const [date, setDate] = React.useState<DateRange | undefined>(() => {
