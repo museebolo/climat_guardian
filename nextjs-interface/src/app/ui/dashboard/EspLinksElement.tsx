@@ -1,16 +1,12 @@
 "use client";
 
-// import react library
 import { useState } from "react";
 
-// import next.js components
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// import clsx library
 import clsx from "clsx";
 
-// import shadcn/ui components
 import {
   Popover,
   PopoverContent,
