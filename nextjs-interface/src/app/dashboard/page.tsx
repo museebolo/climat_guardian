@@ -26,6 +26,7 @@ export default function Page() {
       router.push("/login");
     } else {
       setToken(storedToken);
+      router.push("/dashboard");
     }
   }, [router]);
 
