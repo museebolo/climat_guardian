@@ -1,6 +1,6 @@
 "use client";
 
-import { getTempColor } from "@/script/getColor";
+import { getTempColor } from "@/lib/getColor";
 import { Pie, PieChart } from "recharts";
 import React from "react";
 

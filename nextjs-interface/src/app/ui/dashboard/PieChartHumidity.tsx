@@ -2,7 +2,7 @@
 
 import { Pie, PieChart } from "recharts";
 import React from "react";
-import { getHumiColor } from "@/script/getColor";
+import { getHumiColor } from "@/lib/getColor";
 
 interface CustomizedLabelProps {
   cx: number;
