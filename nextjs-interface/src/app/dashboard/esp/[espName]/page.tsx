@@ -5,32 +5,30 @@ import { PieChartHumidity } from "@/app/ui/dashboard/PieChartHumidity";
 import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 import { PieChartTemperature } from "@/app/ui/dashboard/PieChartTemperature";
 import { DateRangeElement } from "@/app/ui/dashboard/CalendarElement";
-import { useFetchData } from "@/lib/data";
-import { links } from "@/app/ui/dashboard/espLinks";
 
-const tempData = [{ name: "temperature", value: 23 }];
-const humiData = [{ name: "humidity", value: 38 }];
+// import scripts
+import findIpByName, { useFetchData, useLastData } from "@/lib/data";
 
 export default function Page({ params }: { params: any }) {
   const precision = "day";
 
-  function findIpByName(name: string) {
-    const link = links.find((link: { name: string }) => link.name === name);
-    return link ? link.ip : "IP non trouvée";
-  }
+    // get ip from esp name and fetch data
+    const ip = findIpByName(params.espName);
+    const allData = useFetchData(precision, ip);
 
-  const ip = findIpByName(params.espName);
-  const allData = useFetchData(precision, ip);
+    // get last data for temperature and humidity
+    const temperature = useLastData("temperature", ip);
+    const humidity = useLastData("humidity", ip);
 
-  return (
+    return (
     <div className="flex w-full min-w-[500px] flex-col gap-y-5 pt-2">
       <p className="text-2xl font-bold uppercase text-black">
         {params.espName}
       </p>
       <DateRangeElement />
       <div className="flex flex-col sm:flex-row">
-        <PieChartTemperature data={tempData} />
-        <PieChartHumidity data={humiData} />
+        <PieChartTemperature data={temperature} />
+        <PieChartHumidity data={humidity} />
       </div>
       <div>
         <ChartElement data={allData} />
