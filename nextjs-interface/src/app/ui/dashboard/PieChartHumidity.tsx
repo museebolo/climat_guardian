@@ -17,7 +17,7 @@ interface CustomizedLabelProps {
 export function PieChartHumidity({ data }: { data: any }) {
   let newFade = getHumiColor(data);
 
-  // Fonction pour rendre le libellé au centre du cercle
+  // display the data at the center of the graph
   const renderCustomizedLabel = ({ cx, cy }: CustomizedLabelProps) => {
     return (
       <text
@@ -33,12 +33,12 @@ export function PieChartHumidity({ data }: { data: any }) {
     );
   };
 
-  // Fonction pour calculer l'angle de fin en fonction de l'humidité
+  // calculate where the graph ends
   const calculateEndAngle = (humidity: number) => {
     return 270 - humidity * 3.6;
   };
 
-  // Préparation des données pour le graphique
+  // prepare data for graph
   const chartData = [{ name: "Humidity", value: data }];
 
   return (
