@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { SampleContext, getToken, data, avgData } from "@/lib/context";
 
-export const useFetchData = (precision: string, ip: string) => {
+export const useFetchData = (precision: string, ip: string,from: Date,to: Date) => {
   const [data, setData] = useState<avgData[]>([]);
 
   useEffect(() => {
-    const url = `${SampleContext.urlData}/rpc/avg_date?delta=${precision}&ip=eq.${ip}`;
+    const url = `${SampleContext.urlData}/rpc/avg_date?delta=${precision}&ip=eq.${ip}&and=(date.gte.${from},date.lt.${to}`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiData: avgData[]) => {
