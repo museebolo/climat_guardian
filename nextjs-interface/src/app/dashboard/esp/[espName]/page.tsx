@@ -6,7 +6,7 @@ import { PieChartTemperature } from "@/app/ui/dashboard/PieChartTemperature";
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
 import { useFetchData } from "@/lib/data";
 import { links } from "@/app/ui/dashboard/espLinks";
-import { addDays, format } from "date-fns";
+import {endOfMonth, format, startOfMonth} from "date-fns";
 import * as React from "react";
 import { DateRange } from "react-day-picker";
 
@@ -15,10 +15,13 @@ const humiData = [{ name: "humidity", value: 38 }];
 
 export default function Page({ params }: { params: any }) {
   const precision = "day";
-  const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2024, 5, 1),
-    to: addDays(new Date(2024, 5, 1), 20),
-  });
+    const [date, setDate] = React.useState<DateRange | undefined>(() => {
+        const now = new Date();
+        return {
+            from: startOfMonth(now),
+            to: endOfMonth(now),
+        };
+    });
 
   function findIpByName(name: string) {
     const link = links.find((link: { name: string }) => link.name === name);
