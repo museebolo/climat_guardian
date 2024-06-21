@@ -28,7 +28,7 @@ export function PieChartTemperature({ data }: { data: any }) {
         dominantBaseline="central"
         fontSize={24}
       >
-        {`${data} °C`}
+        {`${(data).toFixed(2)} °C`}
       </text>
     );
   };
@@ -58,8 +58,6 @@ export function PieChartTemperature({ data }: { data: any }) {
           label={renderCustomizedLabel}
           labelLine={false}
         />
-        <stop offset="5%" stopColor={"#FFF"} stopOpacity={0.8} />
-        <stop offset="95%" stopColor={newColor} stopOpacity={0} />
       </PieChart>
     </div>
   );

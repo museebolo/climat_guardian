@@ -28,7 +28,7 @@ export function PieChartHumidity({ data }: { data: any }) {
             dominantBaseline="central"
             fontSize={24}
         >
-          {`${data}%`}
+            {`${(data).toFixed(2)}%`}
         </text>
     );
   };
