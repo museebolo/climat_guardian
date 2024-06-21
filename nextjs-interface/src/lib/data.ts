@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { SampleContext, getToken, data, avgData } from "@/lib/context";
 
-export const useFetchData = (precision: string, ip: string,from: string,to: string) => {
+export const useFetchData = (
+  precision: string,
+  ip: string,
+  from: string,
+  to: string,
+) => {
   const [data, setData] = useState<avgData[]>([]);
 
   useEffect(() => {
