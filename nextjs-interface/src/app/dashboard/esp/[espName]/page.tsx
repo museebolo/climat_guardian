@@ -9,8 +9,9 @@ import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
 import React from "react";
 
-const tempData = [{ name: "temperature", value: 23 }];
-const humiData = [{ name: "humidity", value: 38 }];
+
+// import scripts
+import findIpByName, { useFetchData, useLastData } from "@/lib/data";
 
 export default function Page({ params }: { params: any }) {
   const [date, setDate] = React.useState<DateRange | undefined>(() => {
@@ -21,10 +22,9 @@ export default function Page({ params }: { params: any }) {
     };
   });
 
-  function findIpByName(name: string) {
-    const link = links.find((link: { name: string }) => link.name === name);
-    return link ? link.ip : "IP non trouvée";
-  }
+    // get ip from esp name and fetch data
+    const ip = findIpByName(params.espName);
+    const allData = useFetchData(precision, ip);
 
   const from = date?.from ? format(date.from, "yyyy-MM-dd") : "";
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
@@ -32,8 +32,11 @@ export default function Page({ params }: { params: any }) {
 
   const ip = findIpByName(params.espName);
   const allData = useFetchData(precision, ip, from, to);
+    const temperature = useLastData("temperature", ip);
+    const humidity = useLastData("humidity", ip);
 
-  return (
+
+    return (
     <div className="flex w-full min-w-[500px] flex-col gap-y-5 pt-2">
       <p className="text-2xl font-bold uppercase text-black">
         {params.espName}
@@ -41,8 +44,8 @@ export default function Page({ params }: { params: any }) {
 
       <DateRangeElement date={date} setDate={setDate} />
       <div className="flex flex-col sm:flex-row">
-        <PieChartTemperature data={tempData} />
-        <PieChartHumidity data={humiData} />
+        <PieChartTemperature data={temperature} />
+        <PieChartHumidity data={humidity} />
       </div>
       <div>
         <ChartElement data={allData} />
