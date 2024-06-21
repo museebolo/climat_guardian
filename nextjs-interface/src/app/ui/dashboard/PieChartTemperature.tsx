@@ -15,10 +15,10 @@ interface CustomizedLabelProps {
 }
 
 export function PieChartTemperature({ data }: { data: any }) {
-  let newColor = getTempColor(data[0].value);
+  let newColor = getTempColor(data);
 
   // Fonction pour rendre le libellé au centre du cercle
-  const renderCustomizedLabel = ({ cx, cy, index }: CustomizedLabelProps) => {
+  const renderCustomizedLabel = ({ cx, cy }: CustomizedLabelProps) => {
     return (
       <text
         x={cx}
@@ -28,13 +28,18 @@ export function PieChartTemperature({ data }: { data: any }) {
         dominantBaseline="central"
         fontSize={24}
       >
-        {`${data[index].value} °C`}
+        {`${data} °C`}
       </text>
     );
   };
   const calculateEndAngle = (temperature: number) => {
     return 270 - temperature * 8;
   };
+
+  // Préparation des données pour le graphique + arrondire la température
+  const chartData = [
+    { name: "temperature", value: data },
+  ];
 
   return (
     <div className="flex h-full w-full flex-col justify-center">
@@ -44,8 +49,8 @@ export function PieChartTemperature({ data }: { data: any }) {
           innerRadius={60}
           dataKey="value"
           startAngle={270}
-          endAngle={calculateEndAngle(data[0].value)}
-          data={data}
+          endAngle={calculateEndAngle(data)}
+          data={chartData}
           cx={100}
           cy={110}
           outerRadius={80}

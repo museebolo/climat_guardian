@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SampleContext, getToken, data, avgData } from "@/lib/context";
+import {links} from "@/app/ui/dashboard/espLinks";
 
 export const useFetchData = (precision: string, ip: string) => {
   const [data, setData] = useState<avgData[]>([]);
@@ -37,4 +38,9 @@ export function useLastData(type: string, ip: string) {
       });
   }, [ip, type]);
   return value;
+}
+
+export default function findIpByName(name: string) {
+  const link = links.find((link: { name: string }) => link.name === name);
+  return link ? link.ip : "IP non trouvée";
 }
