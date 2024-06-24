@@ -1,0 +1,14 @@
+# node 20, build the application
+FROM node:20.12.2-alpine3.19
+WORKDIR /app
+COPY ../nextjs-interface .
+RUN npm install
+RUN node_modules/.bin/next build
+
+# node js server to serv the nextjs
+FROM node:20.12.2-alpine3.19
+WORKDIR /var/www/html
+COPY --from=0 /app/.next/standalone /var/www/html
+COPY ../.env /var/www/html/.env
+CMD ["node", "server.js"]
+

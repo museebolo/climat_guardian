@@ -37,6 +37,14 @@ services:
       db:
         condition: service_healthy
 
+  interface:
+    build:
+      context: .
+      dockerfile: Dockerfile/Dockerfile.Node
+    image: interface-memoires-info
+    depends_on:
+      - web
+
   postg-rest:
     image: postgrest/postgrest:v12.0.3
     environment:
