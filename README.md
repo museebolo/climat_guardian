@@ -40,7 +40,8 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ## Installation
 First thing you need to do is to clone the repository from GitHub on the server
 ```bash
-git clone https://github.com/museebolo/climat-guardian.git && cd climat-guardian
+git clone https://github.com/museebolo/climat_guardian.git
+cd climat-guardian
 ```
 
 ---
