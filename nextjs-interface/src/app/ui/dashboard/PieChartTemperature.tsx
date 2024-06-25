@@ -28,7 +28,7 @@ export function PieChartTemperature({ data }: { data: any }) {
         dominantBaseline="central"
         fontSize={24}
       >
-        {`${data.toFixed(2)}°C`}
+        {data === null ? "No data" : `${data.toFixed(2)}°C`}
       </text>
     );
   };
