@@ -22,7 +22,6 @@ export default function EspLinksElement() {
   const [links, setLinks] = useState([
     { name: "chasseron", ip: "172.16.4.100" },
     { name: "pleiades", ip: "172.16.5.178" },
-    { name: "asdas", ip: "172.16.5.65"},
   ]);
 
   const [newLink, setNewLink] = useState({ name: "", ip: "" });

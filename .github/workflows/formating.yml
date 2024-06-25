@@ -2,8 +2,9 @@ name: Check formatting of project files with Prettier
 
 on:
   pull_request:
+    types: [ opened, edited, synchronize ]
     branches:
-      - main
+      - Dev
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -19,6 +20,8 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
+      - name: Go to interface
+        run: cd nextjs-interface
       - name: Install dependencies
         run: npm install -D
       - name: Check code style with Prettier
@@ -33,6 +36,8 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
+      - name: Go to interface
+        run: cd nextjs-interface
       - name: Install dependencies
         run: npm install
       - name: Lint code with Eslint
