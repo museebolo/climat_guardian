@@ -76,3 +76,5 @@ services:
     image: interface-memoires-info
     depends_on:
       - web
+    ports:
+      - "3000:3000"
