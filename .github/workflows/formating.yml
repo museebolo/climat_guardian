@@ -3,7 +3,7 @@ name: Check formatting of project files with Prettier
 on:
   pull_request:
     branches:
-      - main
+      - Dev
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
