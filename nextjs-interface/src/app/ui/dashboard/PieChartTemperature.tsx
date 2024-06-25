@@ -1,6 +1,6 @@
 "use client";
 
-import { getTempColor } from "@/script/getColor";
+import { getTempColor } from "@/lib/getColor";
 import { Pie, PieChart } from "recharts";
 import React from "react";
 
@@ -17,7 +17,7 @@ interface CustomizedLabelProps {
 export function PieChartTemperature({ data }: { data: any }) {
   let newColor = getTempColor(data);
 
-  // Fonction pour rendre le libellé au centre du cercle
+  // display the data at the center of the graph
   const renderCustomizedLabel = ({ cx, cy }: CustomizedLabelProps) => {
     return (
       <text
@@ -28,18 +28,18 @@ export function PieChartTemperature({ data }: { data: any }) {
         dominantBaseline="central"
         fontSize={24}
       >
-        {`${data} °C`}
+        {data === null ? "No data" : `${data.toFixed(2)}°C`}
       </text>
     );
   };
+
+  // calculate where the graph ends
   const calculateEndAngle = (temperature: number) => {
     return 270 - temperature * 8;
   };
 
-  // Préparation des données pour le graphique + arrondire la température
-  const chartData = [
-    { name: "temperature", value: data },
-  ];
+  // prepare data for graph
+  const chartData = [{ name: "temperature", value: data }];
 
   return (
     <div className="flex h-full w-full flex-col justify-center">
@@ -58,8 +58,6 @@ export function PieChartTemperature({ data }: { data: any }) {
           label={renderCustomizedLabel}
           labelLine={false}
         />
-        <stop offset="5%" stopColor={"#FFF"} stopOpacity={0.8} />
-        <stop offset="95%" stopColor={newColor} stopOpacity={0} />
       </PieChart>
     </div>
   );
