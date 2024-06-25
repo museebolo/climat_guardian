@@ -17,8 +17,8 @@ import { CircleUser, Landmark, Menu } from "lucide-react";
 import { redirect } from "next/navigation";
 
 const logout = () => {
+  window.location.href = "/";
   localStorage.clear();
-  redirect("/login");
 };
 export function HeaderElement() {
   return (

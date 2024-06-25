@@ -46,7 +46,7 @@ export function EspMap({
               ? `${temperature.toFixed(2)} °C`
               : "pas de donnée"}
           </text>
-          <text x={cx - 4} y={cy - 5} className="text-[3px]" >
+          <text x={cx - 4} y={cy - 5} className="text-[3px]">
             {humidity.toFixed(2) !== undefined
               ? `${humidity.toFixed(2)} %`
               : "pas de donnée"}
