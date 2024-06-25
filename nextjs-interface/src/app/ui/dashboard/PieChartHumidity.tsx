@@ -20,16 +20,16 @@ export function PieChartHumidity({ data }: { data: any }) {
   // display the data at the center of the graph
   const renderCustomizedLabel = ({ cx, cy }: CustomizedLabelProps) => {
     return (
-        <text
-            x={cx}
-            y={cy}
-            fill="black"
-            textAnchor="middle"
-            dominantBaseline="central"
-            fontSize={24}
-        >
-            {data === null ? "No data" : `${data.toFixed(2)}%`}
-        </text>
+      <text
+        x={cx}
+        y={cy}
+        fill="black"
+        textAnchor="middle"
+        dominantBaseline="central"
+        fontSize={24}
+      >
+        {data === null ? "No data" : `${data.toFixed(2)}%`}
+      </text>
     );
   };
 
