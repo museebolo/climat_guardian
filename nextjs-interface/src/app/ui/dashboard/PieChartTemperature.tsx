@@ -1,6 +1,6 @@
 "use client";
 
-import { getTempColor } from "@/script/getColor";
+import { getTempColor } from "@/lib/getColor";
 import { Pie, PieChart } from "recharts";
 import React from "react";
 
@@ -37,7 +37,9 @@ export function PieChartTemperature({ data }: { data: any }) {
   };
 
   // Préparation des données pour le graphique + arrondire la température
-  const chartData = [{ name: "temperature", value: data }];
+  const chartData = [
+    { name: "temperature", value: data },
+  ];
 
   return (
     <div className="flex h-full w-full flex-col justify-center">
