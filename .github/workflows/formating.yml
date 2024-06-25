@@ -19,6 +19,8 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
+      - name: Go to interface
+        run: cd nextjs-interface
       - name: Install dependencies
         run: npm install -D
       - name: Check code style with Prettier
@@ -33,6 +35,8 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
+      - name: Go to interface
+        run: cd nextjs-interface
       - name: Install dependencies
         run: npm install
       - name: Lint code with Eslint
