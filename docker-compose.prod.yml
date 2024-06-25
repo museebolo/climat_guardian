@@ -68,3 +68,11 @@ services:
       - php
       - postg-rest
       - esphome
+
+  interface:
+    build:
+      context: .
+      dockerfile: Dockerfile/Dockerfile.Node
+    image: interface-memoires-info
+    depends_on:
+      - web
