@@ -5,7 +5,9 @@ export const SampleContext = {
 };
 
 export function getToken() {
-  return localStorage.getItem("token");
+  if (localStorage.getItem("token")) {
+    return localStorage.getItem("token");
+  } else window.location.href = "/login";
 }
 
 export interface AverageData {
