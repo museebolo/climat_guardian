@@ -2,7 +2,7 @@
 
 import { Pie, PieChart } from "recharts";
 import React from "react";
-import { getHumiColor } from "@/script/getColor";
+import { getHumiColor } from "@/lib/getColor";
 
 interface CustomizedLabelProps {
   cx: number;
@@ -28,7 +28,7 @@ export function PieChartHumidity({ data }: { data: any }) {
             dominantBaseline="central"
             fontSize={24}
         >
-          {`${data}%`}
+            {data === null ? "No data" : `${data.toFixed(2)}%`}
         </text>
     );
   };
