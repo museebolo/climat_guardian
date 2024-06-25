@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { PieChartHumidity } from "@/app/ui/dashboard/PieChartHumidity";
 import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 import { PieChartTemperature } from "@/app/ui/dashboard/PieChartTemperature";
@@ -7,9 +7,10 @@ import findIpByName, {useFetchData, useLastData} from "@/lib/data";
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
 import React from "react";
+import {useParams} from "react-router";
 
-
-export default function Page({ params }: { params: any }) {
+export default function Page() {
+  const params= useParams<{ espName: string }>();
   const [date, setDate] = React.useState<DateRange | undefined>(() => {
     const now = new Date();
     return {
@@ -22,8 +23,8 @@ export default function Page({ params }: { params: any }) {
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
   const precision = "day";
 
-  const ip = findIpByName(params.espName);
-  const allData = useFetchData(precision, ip, from, to);
+const ip = findIpByName(params.espName || "Loading");
+const allData = useFetchData(precision, ip, from, to);
     const temperature = useLastData("temperature", ip);
     const humidity = useLastData("humidity", ip);
 

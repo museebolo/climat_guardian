@@ -1,6 +1,6 @@
 "use client";
 
-import { getTempColor } from "@/script/getColor";
+import { getTempColor } from "@/lib/getColor";
 import { Pie, PieChart } from "recharts";
 import React from "react";
 
@@ -28,7 +28,7 @@ export function PieChartTemperature({ data }: { data: any }) {
         dominantBaseline="central"
         fontSize={24}
       >
-        {`${data} °C`}
+        {data === null ? "No data" : `${data.toFixed(2)}°C`}
       </text>
     );
   };

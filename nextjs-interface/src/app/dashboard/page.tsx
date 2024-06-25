@@ -13,10 +13,10 @@ import { useRouter } from "next/navigation";
 const ESPList = [
   { name: "ESP N°1", ip:"172.16.5.178" },
   { name: "ESP N°2" ,ip:"172.16.4.100"},
-  { name: "ESP N°3" ,ip:"172.16.5.178"},
-  { name: "ESP N°4", ip:"172.16.4.100" },
-  { name: "ESP N°5", ip:"172.16.5.178" },
-  { name: "ESP N°6", ip:"172.16.4.100"},
+  { name: "ESP N°3" ,ip:"172.16.5.65"},
+  { name: "ESP N°4", ip:"172.16.5.178" },
+  { name: "ESP N°5", ip:"172.16.4.100" },
+  { name: "ESP N°6", ip:"172.16.5.65"},
 ];
 
 export default function Page() {
