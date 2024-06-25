@@ -8,6 +8,7 @@ import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
 
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
+import findIpByName, {useFetchData, useLastData} from "@/lib/data";
 
 import React from "react";
 import {useParams} from "react-router";
@@ -30,9 +31,6 @@ const ip = findIpByName(params.espName || "Loading");
 const allData = useFetchData(precision, ip, from, to);
     const temperature = useLastData("temperature", ip);
     const humidity = useLastData("humidity", ip);
-
-  const temperature = useLastData("temperature", ip);
-  const humidity = useLastData("humidity", ip);
 
   return (
     <div className="flex w-full min-w-[500px] flex-col gap-y-5 pt-2">
