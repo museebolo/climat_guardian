@@ -57,6 +57,14 @@ services:
     depends_on:
       - postg-rest
 
+  interface:
+    build:
+      context: .
+      dockerfile: Dockerfile/Dockerfile.Node
+    image: interface-memoires-info
+    ports:
+      - "3000:3000"
+
   web:
     build:
       context: .
@@ -68,13 +76,4 @@ services:
       - php
       - postg-rest
       - esphome
-
-  interface:
-    build:
-      context: .
-      dockerfile: Dockerfile/Dockerfile.Node
-    image: interface-memoires-info
-    depends_on:
-      - web
-    ports:
-      - "3000:3000"
+      - interface

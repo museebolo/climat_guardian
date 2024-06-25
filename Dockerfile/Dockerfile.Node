@@ -10,7 +10,7 @@ RUN node_modules/.bin/next build
 
 # serve the application
 FROM base
-WORKDIR /app
+WORKDIR /var/www/memoires-info/html
 COPY --from=1 /app/out ./out
 COPY --from=1 /app/node_modules/ ./node_modules/
 COPY --from=1 /app/next.config.mjs .
