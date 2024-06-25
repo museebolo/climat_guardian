@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: npm install -D
       - name: Check code style with Prettier
-        run: npm run format
+        run: npm run format:check
 
   eslint:
     runs-on: ubuntu-latest
