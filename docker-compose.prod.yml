@@ -57,12 +57,6 @@ services:
     depends_on:
       - postg-rest
 
-  interface:
-    build:
-      context: .
-      dockerfile: Dockerfile/Dockerfile.Node
-    image: interface-memoires-info
-
   web:
     build:
       context: .
@@ -74,4 +68,3 @@ services:
       - php
       - postg-rest
       - esphome
-      - interface

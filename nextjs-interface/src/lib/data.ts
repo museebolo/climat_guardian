@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SampleContext, getToken, data, avgData } from "@/lib/context";
-import { links } from "@/app/ui/dashboard/espLinks";
+import {links} from "@/app/ui/dashboard/espLinks";
 
 export const useFetchData = (
   precision: string,

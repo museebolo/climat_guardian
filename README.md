@@ -40,8 +40,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 ## Installation
 First thing you need to do is to clone the repository from GitHub on the server
 ```bash
-git clone https://github.com/museebolo/climat_guardian.git
-cd climat-guardian
+git clone https://github.com/museebolo/climat-guardian.git && cd climat-guardian
 ```
 
 ---
@@ -51,10 +50,11 @@ cd climat-guardian
 Once the repository is cloned you can remove the `.example` at the end of the following files:
 - .env.example
 - esp32/config/secrets.yaml.example
-- nextjs-interface/src/contexts/SampleContext.example.tsx
+- Interface/src/contexts/SampleContext.example.tsx
 ```bash
 cp .env.example .env
 cp esp32/config/secrets.yaml.example esp32/config/secrets.yaml
+cp Interface/src/contexts/SampleContext.example.tsx Interface/src/contexts/SampleContext.tsx
 ```
 
 ---
@@ -74,7 +74,7 @@ It is recommended to let the other environment variables as they are
 
 ---
 Finally, you **have to** fill the Wi-Fi credentials in `esp32/config/secrets.yaml`\
-You also **have to** change the `127.0.0.1` in `esp32/config/secrets.yaml` by the ip address of the server
+You also **have to** change the `127.0.0.1` in `Interface/src/contexts/SampleContext.tsx` and `esp32/config/secrets.yaml` by the ip address of the server
 
 ## Start the project
 Once everything is configured on the server, you can start the project by running the docker compose on the server
@@ -97,7 +97,7 @@ This project uses [esp home](https://github.com/esphome/esphome) to manage the e
 - Select the device with ``/dev/ttyUSB0`` as path
 - Wait for the installation to finish\
 Be sure to memorize the ip address of the esp32 (you can find it in the logs)
-$${\color{gray} \text{[15:39:12]} \color{magenta} \text{[C]\[wifi:416\]:   IP Address: 172.16.5.65}}$$
+$${\color{gray} \text{[15:39:12]} \color{magenta} \text{[C][wifi:416]:   IP Address: 172.16.5.65}}$$
 - You can now unplug the esp32 and plug it to any other power source
 - Press `Edit` at the bottom of the logs
 - Copy everything from the line 31 of the file `esp32/esp32.yaml` on the server and paste it at the end of your esp32's configuration file

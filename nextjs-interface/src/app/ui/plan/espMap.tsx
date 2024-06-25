@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLastData } from "@/lib/data";
 import {
   Popover,
@@ -26,12 +26,8 @@ export function EspMap({
   mouseClick: (circle: string) => void;
   deleteEsp: (ip: string) => void;
 }) {
-  const temperature = useLastData("temperature", ip) ?? 0;
-  const humidity = useLastData("humidity", ip) ?? 0;
-
-  console.log(`Temperature for ${ip}:`, temperature);
-  console.log(`Humidity for ${ip}:`, humidity);
-
+  const temperature = useLastData("temperature", ip);
+  const humidity = useLastData("humidity", ip);
   return (
     <Popover
       key={ip}
@@ -41,22 +37,26 @@ export function EspMap({
       <PopoverTrigger asChild onClick={() => mouseClick(ip)}>
         <g id="icon-light" fill="currentcolor">
           <circle cx={cx} cy={cy} r="3" opacity="1" />
-          <text x={cx - 4} y={cy + 6} className="text-[3px]">
-            {temperature.toFixed(2) !== "pas de donnée"
-              ? `${temperature.toFixed(2)} °C`
-              : "pas de donnée"}
-          </text>
-          <text x={cx - 4} y={cy - 5} className="text-[3px]">
-            {humidity.toFixed(2) !== undefined
-              ? `${humidity.toFixed(2)} %`
-              : "pas de donnée"}
-          </text>
           <circle cx={cx} cy={cy} r="4" opacity=".3" />
           <circle cx={cx} cy={cy} r="6" opacity=".1" />
         </g>
       </PopoverTrigger>
       <PopoverContent className="w-44 gap-4 font-bold">
         <p className="text-center">{name}</p>
+        <div className="mb-3 flex flex-col gap-1 text-center">
+          <p>
+            Temperature:{" "}
+            {temperature !== undefined
+              ? `${temperature.toFixed(2)} °C`
+              : "pas de donnée"}
+          </p>
+          <p>
+            Humidity:{" "}
+            {humidity !== undefined
+              ? `${humidity.toFixed(2)} %`
+              : "pas de donnée"}
+          </p>
+        </div>
         <Button className="w-full" onClick={() => deleteEsp(ip)}>
           Delete
         </Button>
