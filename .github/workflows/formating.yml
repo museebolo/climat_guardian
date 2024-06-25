@@ -23,7 +23,7 @@ jobs:
       - name: Go to interface
         run: cd nextjs-interface
       - name: Install dependencies
-        run: npm install -D
+        run: npm install
       - name: Check code style with Prettier
         run: npm run format:check
 
