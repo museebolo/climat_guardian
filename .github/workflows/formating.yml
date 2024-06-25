@@ -20,7 +20,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
+          cache: 'npm'
+          cache-dependency-path: nextjs-interface/package-lock.json
       - name: Go to interface
         run: cd nextjs-interface/
       - name: Install dependencies
@@ -37,7 +38,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
+          cache: 'npm'
+          cache-dependency-path: nextjs-interface/package-lock.json
       - name: Go to interface
         run: cd nextjs-interface/
       - name: Install dependencies
