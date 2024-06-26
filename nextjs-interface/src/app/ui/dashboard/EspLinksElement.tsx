@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "recharts";
+import {getToken} from "@/lib/context";
 
 export default function EspLinksElement() {
   const pathname = usePathname();
@@ -24,16 +25,36 @@ export default function EspLinksElement() {
     { name: "pleiades", ip: "172.16.5.178" },
   ]);
 
-  const [newLink, setNewLink] = useState({ name: "", ip: "" });
+  const [newLink, setNewLink] = useState({ name: "", ip: "", x:1 ,y:1 });
 
   const handleInputChange = (e: any) => {
     setNewLink({ ...newLink, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    setLinks([...links, newLink]);
-    setNewLink({ name: "", ip: "" });
+    const url = `/postgrest/esp`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getToken()}`
+        },
+        body: JSON.stringify(newLink)
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'envoi des données à l\'API');
+      }
+
+      setLinks([...links, newLink]);
+      setNewLink({ name: "", ip: "", x: 1, y: 1 });
+
+    } catch (e) {
+      console.error("Une erreur s'est produite :", e);
+    }
   };
 
   return (

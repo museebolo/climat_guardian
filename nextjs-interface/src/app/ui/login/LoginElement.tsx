@@ -39,7 +39,7 @@ export function LoginElement() {
         if (reponse.token) {
           localStorage.setItem("token", reponse.token);
           localStorage.setItem("username", username);
-          window.location.replace(`${SampleContext.urlCurrent}/dashboard`);
+          window.location.replace(`/dashboard`);
         }
       })
       .catch((e) => {
