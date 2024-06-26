@@ -1,8 +1,10 @@
+-- Verify climat-guardian:esp on pg
+
 BEGIN;
 
-select * from esp
-INSERT INTO esp (name, ip) VALUES ('ESP1', '192.168.1.10');
-SELECT ip FROM esp WHERE name = 'ESP1';
+select * from api.esp;
+INSERT INTO api.esp (name, ip) VALUES ('ESP1', '192.168.1.10');
+UPDATE api.esp SET (x,y) = (4,5) WHERE name = 'ESP1';
+SELECT ip FROM api.esp WHERE name = 'ESP1';
 
-
-COMMIT;
+ROLLBACK;

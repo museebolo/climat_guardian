@@ -1,5 +1,7 @@
+-- Revert climat-guardian:esp from pg
+
 BEGIN;
 
-drop table esp;
+drop table api.esp;
 
 COMMIT;
