@@ -53,7 +53,10 @@ services:
         condition: service_completed_successfully
 
   php:
-    image: php:8.3-fpm-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile/Dockerfile.Php.dev
+    image: php-memoires-info
     volumes:
       - "./php:/var/www/memoires-info/php/"
     depends_on:
