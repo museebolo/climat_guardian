@@ -11,7 +11,7 @@ export const useFetchData = (
   const [data, setData] = useState<avgData[]>([]);
 
   useEffect(() => {
-    const url = `${SampleContext.urlData}/rpc/avg_date?delta=${precision}&ip=eq.${ip}&and=(date.gte.${from},date.lt.${to})`;
+    const url = `/postgrest/rpc/avg_date?delta=${precision}&ip=eq.${ip}&and=(date.gte.${from},date.lt.${to})`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiData: avgData[]) => {
@@ -28,7 +28,7 @@ export function useLastData(type: string, ip: string) {
   const [value, setValue] = useState<number | undefined>(undefined);
 
   useEffect(() => {
-    const url = `${SampleContext.urlData}/data?limit=1&order=timestamp.desc&ip=eq.${ip}`;
+    const url = `/postgrest/data?limit=1&order=timestamp.desc&ip=eq.${ip}`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiData: data[]) => {
@@ -49,7 +49,7 @@ export const useAllEsp = () => {
   const [esp, setEsp] = useState<esp[]>([]);
 
   useEffect(() => {
-    const url = `${SampleContext.urlData}/esp`;
+    const url = `/postgrest/esp`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
         .then((response) => response.json())
         .then((apiEsp: esp[]) => {
