@@ -2,6 +2,6 @@
 
 BEGIN;
 
-drop table api.esp;
+    drop table api.esp;
 
 COMMIT;
