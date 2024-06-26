@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SampleContext, getToken, data, avgData } from "@/lib/context";
+import {SampleContext, getToken, data, avgData, esp} from "@/lib/context";
 import { links } from "@/app/ui/dashboard/espLinks";
 
 export const useFetchData = (
@@ -44,6 +44,24 @@ export function useLastData(type: string, ip: string) {
   }, [ip, type]);
   return value;
 }
+
+export const useAllEsp = () => {
+  const [esp, setEsp] = useState<esp[]>([]);
+
+  useEffect(() => {
+    const url = `${SampleContext.urlData}/esp`;
+    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
+        .then((response) => response.json())
+        .then((apiEsp: esp[]) => {
+          setEsp(apiEsp);
+          console.log(apiEsp)
+        })
+        .catch((e) => {
+          console.error("Une erreur s'est produite :", e);
+        });
+  }, []);
+  return esp;
+};
 
 export default function findIpByName(name: string) {
   const link = links.find((link: { name: string }) => link.name === name);
