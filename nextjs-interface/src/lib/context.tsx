@@ -29,3 +29,9 @@ export interface avgData {
   ip: string;
   count: number;
 }
+export interface esp {
+  ip: string;
+  name: string;
+  x: number;
+  y: number;
+}
