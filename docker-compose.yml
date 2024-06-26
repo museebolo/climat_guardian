@@ -62,7 +62,7 @@ services:
   interface:
     build:
       context: .
-      dockerfile: Dockerfile/Dockerfile.Node
+      dockerfile: Dockerfile/Dockerfile.Node.dev
     image: interface-memoires-info
     volumes:
       - "./nextjs-interface:/var/www/memoires-info/html/"
