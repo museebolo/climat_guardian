@@ -31,8 +31,6 @@ services:
     image: sqitch-memoires-info
     environment:
       SQITCH_TARGET: "db:pg://postgres:${POSTGRES_PASSWORD}@db:5432/memoires-info"
-    volumes:
-      - "./database/migration:/repo"
     depends_on:
       db:
         condition: service_healthy
