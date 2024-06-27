@@ -6,8 +6,8 @@ BEGIN;
         id   serial primary key,
         name character varying(20) not null,
         ip   character varying(15) NOT NULL unique,
-        x    integer,
-        y    integer
+        x    integer default 0,
+        y    integer default 0
     );
     grant all on api.esp to web_user;
     grant usage, select on sequence api.esp_id_seq to web_user;
@@ -24,6 +24,7 @@ BEGIN;
         select temperature, humidity, timestamp, ip, name
         from api.data
         join api.esp as e on e.id = data.esp_id;
+    grant select on api.data_view to web_user;
 
     -- Replace the function to insert data to match the new data structure
     drop function api.insert_data;
