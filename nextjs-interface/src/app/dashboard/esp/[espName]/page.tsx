@@ -21,7 +21,7 @@ export default function Page({ params }: { params: any }) {
 
   const from = date?.from ? format(date.from, "yyyy-MM-dd") : "";
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
-  const precision = "day";
+  const precision = "minute";
 
   const ip = findIpByName(params.espName);
   const allData = useFetchData(precision, ip, from, to);

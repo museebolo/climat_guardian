@@ -22,7 +22,7 @@ export default function EspLinksElement() {
   const pathname = usePathname();
 
   const links = useAllEsp();
-  const [newLink, setNewLink] = useState({ name: "", ip: "", x: 1, y: 1 });
+  const [newLink, setNewLink] = useState({ name: "", ip: ""});
 
   const handleInputChange = (e: any) => {
     setNewLink({ ...newLink, [e.target.id]: e.target.value });
@@ -46,7 +46,7 @@ export default function EspLinksElement() {
         Error("Erreur lors de l'envoi des données à l'API");
       }
 
-      setNewLink({ name: "", ip: "", x: 1, y: 1 });
+      setNewLink({ name: "", ip: "" });
     } catch (e) {
       console.error("Une erreur s'est produite :", e);
     }

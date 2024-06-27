@@ -28,7 +28,7 @@ export function useLastData(type: string, ip: string) {
   const [value, setValue] = useState<number | undefined>(undefined);
 
   useEffect(() => {
-    const url = `/postgrest/data?limit=1&order=timestamp.desc&ip=eq.${ip}`;
+    const url = `/postgrest/data_view?limit=1&order=timestamp.desc&ip=eq.${ip}`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiData: data[]) => {
