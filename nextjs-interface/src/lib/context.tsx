@@ -1,9 +1,3 @@
-export const SampleContext = {
-  urlData: "http://climate-guardian.home/postgrest",
-  urlLogin: "http://climate-guardian.home/php",
-  urlCurrent: "http://localhost:3000",
-};
-
 export function getToken() {
   if (localStorage.getItem("token")) {
     return localStorage.getItem("token");
@@ -28,4 +22,10 @@ export interface avgData {
   date: string;
   ip: string;
   count: number;
+}
+export interface esp {
+  ip: string;
+  name: string;
+  x: number;
+  y: number;
 }

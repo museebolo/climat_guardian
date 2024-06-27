@@ -1,21 +1,16 @@
-// import components
 "use client";
 
+// import charts
 import { PieChartHumidity } from "@/app/ui/dashboard/PieChartHumidity";
 import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 import { PieChartTemperature } from "@/app/ui/dashboard/PieChartTemperature";
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
-
+import findIpByName, { useFetchData, useLastData } from "@/lib/data";
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
-import findIpByName, { useFetchData, useLastData } from "@/lib/data";
-
 import React from "react";
-import { useParams } from "react-router";
 
-export default function Page() {
-  const params = useParams<{ espName: string }>();
-
+export default function Page({ params }: { params: any }) {
   const [date, setDate] = React.useState<DateRange | undefined>(() => {
     const now = new Date();
     return {
@@ -23,11 +18,12 @@ export default function Page() {
       to: endOfMonth(now),
     };
   });
+
   const from = date?.from ? format(date.from, "yyyy-MM-dd") : "";
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
-  const precision = "day";
+  const precision = "minute";
 
-  const ip = findIpByName(params.espName || "Loading");
+  const ip = findIpByName(params.espName);
   const allData = useFetchData(precision, ip, from, to);
   const temperature = useLastData("temperature", ip);
   const humidity = useLastData("humidity", ip);
@@ -37,7 +33,6 @@ export default function Page() {
       <p className="text-2xl font-bold uppercase text-black">
         {params.espName}
       </p>
-
       <DateRangeElement date={date} setDate={setDate} />
       <div className="flex flex-col sm:flex-row">
         <PieChartTemperature data={temperature} />

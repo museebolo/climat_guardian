@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { SampleContext } from "@/lib/context";
 
 export function LoginElement() {
   const [username, setUsername] = useState("");
@@ -23,7 +22,7 @@ export function LoginElement() {
     e.preventDefault();
 
     await fetch(
-      `${SampleContext.urlLogin}/login.php?username=${username}&password=${password}`,
+      `/php/login.php?username=${username}&password=${password}`,
       {
         headers: {
           Accept: "application/json",
@@ -39,7 +38,7 @@ export function LoginElement() {
         if (reponse.token) {
           localStorage.setItem("token", reponse.token);
           localStorage.setItem("username", username);
-          window.location.replace(`${SampleContext.urlCurrent}/dashboard`);
+          window.location.replace(`/dashboard`);
         }
       })
       .catch((e) => {

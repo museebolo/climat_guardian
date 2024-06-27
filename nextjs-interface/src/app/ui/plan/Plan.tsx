@@ -1,68 +1,33 @@
 "use client";
 import React, { useState } from "react";
 import { EspMap } from "@/app/ui/plan/espMap";
-import { AddPointElement } from "@/app/ui/plan/AddPointElement";
+import {useAllEsp} from "@/lib/data";
 
 export default function Plan() {
   const [hoveredCircle, setHoveredCircle] = useState<string>("");
-  const [newName, setNewName] = useState<string>("");
-  const [newIp, setNewIp] = useState<string>("");
-  const [cx, setCx] = useState(0);
-  const [cy, setCy] = useState(0);
+  const [newX, setNewX] = useState(0);
+  const [newY, setNewY] = useState(0);
   const [open, setOpen] = useState(false);
 
   const mouseClick = (circle: string) => {
     setHoveredCircle(circle);
   };
 
-  const [esp, setEsp] = useState<
-    { cx: number; cy: number; ip: string; name: string }[]
-  >([
-    { cx: 78, cy: 80, ip: "172.16.4.100", name: "Chasseron" },
-    { cx: 16, cy: 59, ip: "172.16.5.178", name: "Argentine" },
-    { cx: 82, cy: 42, ip: "182.250.231.113", name: "Jungfrau" },
-    { cx: 51, cy: 42, ip: "182.250.231.114", name: "Pleiades" },
-  ]);
+  const esp = useAllEsp()
 
   const getPosition = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    setCx(((event.clientX - rect.left) / rect.width) * 100);
-    setCy(((event.clientY - rect.top) / rect.height) * 100);
+    setNewX(((event.clientX - rect.left) / rect.width) * 100);
+    setNewY(((event.clientY - rect.top) / rect.height) * 100);
   };
 
-  const addEsp = () => {
-    if (newName.trim() !== "" && newIp.trim() !== "") {
-      const newCircle = {
-        cx,
-        cy,
-        ip: newIp,
-        name: newName,
-      };
-      setEsp([...esp, newCircle]);
-      setNewName("");
-      setNewIp("");
-      setOpen(false);
-    }
-  };
 
   const deleteEsp = (ip: string) => {
     const updatedEsp = esp.filter((circle) => circle.ip !== ip);
-    setEsp(updatedEsp);
   };
 
   return (
     <div>
-      <AddPointElement
-        newName={newName}
-        setNewName={setNewName}
-        newIp={newIp}
-        setNewIp={setNewIp}
-        cx={cx}
-        cy={cy}
-        setOpen={setOpen}
-        addEsp={addEsp}
-        open={open}
-      />
       <svg
         className="h-[1000px] w-[1000px]"
         xmlns="http://www.w3.org/2000/svg"
@@ -81,11 +46,11 @@ export default function Plan() {
         </g>
 
         <g className="text-[3px] text-blue-300 transition-all duration-500 ease-in-out">
-          {esp.map(({ cx, cy, ip, name }) => (
+          {esp.map(({ x, y, ip, name }) => (
             <EspMap
               key={ip}
-              cx={cx}
-              cy={cy}
+              cx={x}
+              cy={y}
               ip={ip}
               name={name}
               hoveredCircle={hoveredCircle}

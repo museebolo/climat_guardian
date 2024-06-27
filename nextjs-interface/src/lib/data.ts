@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { SampleContext, getToken, data, avgData } from "@/lib/context";
-import { links } from "@/app/ui/dashboard/espLinks";
+import { getToken, data, avgData, esp } from "@/lib/context";
 
 export const useFetchData = (
   precision: string,
@@ -11,11 +10,12 @@ export const useFetchData = (
   const [data, setData] = useState<avgData[]>([]);
 
   useEffect(() => {
-    const url = `${SampleContext.urlData}/rpc/avg_date?delta=${precision}&ip=eq.${ip}&and=(date.gte.${from},date.lt.${to})`;
+    const url = `/postgrest/rpc/avg_date?delta=${precision}&ip=eq.${ip}&and=(date.gte.${from},date.lt.${to})`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiData: avgData[]) => {
         setData(apiData);
+        console.log(apiData);
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
@@ -28,7 +28,7 @@ export function useLastData(type: string, ip: string) {
   const [value, setValue] = useState<number | undefined>(undefined);
 
   useEffect(() => {
-    const url = `${SampleContext.urlData}/data?limit=1&order=timestamp.desc&ip=eq.${ip}`;
+    const url = `/postgrest/data_view?limit=1&order=timestamp.desc&ip=eq.${ip}`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiData: data[]) => {
@@ -45,7 +45,38 @@ export function useLastData(type: string, ip: string) {
   return value;
 }
 
-export default function findIpByName(name: string) {
-  const link = links.find((link: { name: string }) => link.name === name);
-  return link ? link.ip : "IP non trouvée";
+export const useAllEsp = () => {
+  const [esp, setEsp] = useState<esp[]>([]);
+
+  useEffect(() => {
+    const url = `/postgrest/esp`;
+    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
+      .then((response) => response.json())
+      .then((apiEsp: esp[]) => {
+        setEsp(apiEsp);
+        console.log(apiEsp);
+      })
+      .catch((e) => {
+        console.error("Une erreur s'est produite :", e);
+      });
+  }, []);
+  return esp;
+};
+
+export default function useFindIpByName(name: string) {
+  const [ip, setIp] = useState<string>("");
+
+  useEffect(() => {
+    const url = `/postgrest/esp?select=ip&name=eq.${name}`;
+    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
+      .then((response) => response.json())
+      .then((apiIp: esp[]) => {
+        console.log(apiIp[0].ip);
+        setIp(apiIp[0].ip);
+      })
+      .catch((e) => {
+        console.error("Une erreur s'est produite :", e);
+      });
+  }, [name]);
+  return ip;
 }
