@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import {SampleContext, getToken, data, avgData, esp} from "@/lib/context";
-import { links } from "@/app/ui/dashboard/espLinks";
+import { getToken, data, avgData, esp } from "@/lib/context";
 
 export const useFetchData = (
   precision: string,
@@ -16,6 +15,7 @@ export const useFetchData = (
       .then((response) => response.json())
       .then((apiData: avgData[]) => {
         setData(apiData);
+        console.log(apiData);
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
@@ -51,19 +51,32 @@ export const useAllEsp = () => {
   useEffect(() => {
     const url = `/postgrest/esp`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
-        .then((response) => response.json())
-        .then((apiEsp: esp[]) => {
-          setEsp(apiEsp);
-          console.log(apiEsp)
-        })
-        .catch((e) => {
-          console.error("Une erreur s'est produite :", e);
-        });
+      .then((response) => response.json())
+      .then((apiEsp: esp[]) => {
+        setEsp(apiEsp);
+        console.log(apiEsp);
+      })
+      .catch((e) => {
+        console.error("Une erreur s'est produite :", e);
+      });
   }, []);
   return esp;
 };
 
-export default function findIpByName(name: string) {
-  const link = links.find((link: { name: string }) => link.name === name);
-  return link ? link.ip : "IP non trouvée";
+export default function useFindIpByName(name: string) {
+  const [ip, setIp] = useState<string>("");
+
+  useEffect(() => {
+    const url = `/postgrest/esp?select=ip&name=eq.${name}`;
+    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
+      .then((response) => response.json())
+      .then((apiIp: esp[]) => {
+        console.log(apiIp[0].ip);
+        setIp(apiIp[0].ip);
+      })
+      .catch((e) => {
+        console.error("Une erreur s'est produite :", e);
+      });
+  }, [name]);
+  return ip;
 }
