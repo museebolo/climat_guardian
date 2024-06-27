@@ -1,6 +1,5 @@
 # nginx 1.26 on port 80, keep the build output, nginx config
 FROM nginx:1.26-alpine-otel
-EXPOSE 80
 COPY ../.env /var/www/memoires-info/html/.env
 
 # copy the nginx config
