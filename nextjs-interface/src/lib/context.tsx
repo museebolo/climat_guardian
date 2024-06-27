@@ -1,7 +1,7 @@
 export const SampleContext = {
-  urlData: `${process.env.HOST_NAME}/postgrest`,
-  urlLogin: `${process.env.HOST_NAME}/php`,
-  urlCurrent: process.env.HOST_NAME,
+  urlData: `/postgrest`,
+  urlLogin: `/php`,
+  urlCurrent: ``,
 };
 
 export function getToken() {
