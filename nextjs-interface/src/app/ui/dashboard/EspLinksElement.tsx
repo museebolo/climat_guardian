@@ -22,7 +22,7 @@ export default function EspLinksElement() {
   const pathname = usePathname();
 
   const links = useAllEsp();
-  const [newLink, setNewLink] = useState({ name: "", ip: "" });
+  const [newLink, setNewLink] = useState({ name: "", ip: ""});
 
   const handleInputChange = (e: any) => {
     setNewLink({ ...newLink, [e.target.id]: e.target.value });

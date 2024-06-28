@@ -24,7 +24,6 @@ export default function Plan() {
 
   const deleteEsp = (ip: string) => {
     const updatedEsp = esp.filter((circle) => circle.ip !== ip);
-    setEsp(updatedEsp);
   };
 
   return (

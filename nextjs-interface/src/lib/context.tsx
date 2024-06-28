@@ -1,9 +1,3 @@
-export const SampleContext = {
-  urlData: `/postgrest`,
-  urlLogin: `/php`,
-  urlCurrent: ``,
-};
-
 export function getToken() {
   if (localStorage.getItem("token")) {
     return localStorage.getItem("token");
