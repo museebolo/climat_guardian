@@ -73,7 +73,7 @@ export default function EspLinksElement() {
       })}
       <Popover>
         <PopoverTrigger asChild>
-          <button className="text-zinc-500 hover:text-black">
+          <button className="text-zinc-500 hover:text-black dark:hover:text-zinc-200">
             + ajouter un esp
           </button>
         </PopoverTrigger>
