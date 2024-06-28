@@ -7,17 +7,22 @@ import { PieChartTemperature } from "@/app/ui/dashboard/PieChartTemperature";
 
 // import compoenents
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
+import { EspMap } from "@/app/ui/plan/espMap";
 
 // import script
 import findIpByName, {
+  calculateAverage,
   GetEspPosition,
   useFetchData,
   useLastData,
 } from "@/lib/data";
+
+// import libraries
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
 import React from "react";
-import { EspMap } from "@/app/ui/plan/espMap";
+
+// main component
 export default function Page({ params }: { params: any }) {
   // Date range selector
   const [date, setDate] = React.useState<DateRange | undefined>(() => {
@@ -43,6 +48,10 @@ export default function Page({ params }: { params: any }) {
   const temperature = useLastData("temperature", ip);
   const humidity = useLastData("humidity", ip);
 
+  const averageTemperature = calculateAverage(allData, 'avg_temperature');
+  const averageHumidity = calculateAverage(allData, 'avg_humidity');
+
+
   return (
     <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5 pt-2">
       <div className="flex justify-between">
@@ -66,8 +75,8 @@ export default function Page({ params }: { params: any }) {
             {date?.to ? format(date.to, "yyyy-MM-dd") : ""}) :
           </p>
           <div className="flex flex-row rounded-xl border-2 border-alto-200 p-5">
-            <PieChartTemperature data={temperature} />
-            <PieChartHumidity data={humidity} />
+            <PieChartTemperature data={averageTemperature} />
+            <PieChartHumidity data={averageHumidity} />
           </div>
         </div>
       </div>
