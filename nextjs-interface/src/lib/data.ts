@@ -15,7 +15,7 @@ export const useFetchData = (
       .then((response) => response.json())
       .then((apiData: avgData[]) => {
         setData(apiData);
-        console.log("useFetchData",apiData);
+        console.log("useFetchData", apiData);
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
@@ -32,7 +32,7 @@ export function useLastData(type: string, ip: string) {
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiData: data[]) => {
-        console.log("useLastData",apiData);
+        console.log("useLastData", apiData);
         if (apiData && apiData.length > 0) {
           if (type == "humidity") {
             setValue(apiData[0].humidity);
@@ -55,7 +55,7 @@ export const useAllEsp = () => {
       .then((response) => response.json())
       .then((apiEsp: esp[]) => {
         setEsp(apiEsp);
-        console.log("useAllEsp",apiEsp);
+        console.log("useAllEsp", apiEsp);
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
@@ -72,7 +72,7 @@ export default function useFindIpByName(name: string) {
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiIp: esp[]) => {
-        console.log("useFindIpByName",apiIp);
+        console.log("useFindIpByName", apiIp);
         setIp(apiIp[0].ip);
       })
       .catch((e) => {
@@ -80,26 +80,25 @@ export default function useFindIpByName(name: string) {
       });
   }, [name]);
   return ip;
-};
+}
 
 export function GetEspPosition(name: string) {
   const [position, setPosition] = useState<esp[]>([]);
 
   useEffect(() => {
-        const url = `/postgrest/esp?select=x,y,name,ip&name=eq.${name}`;
-        fetch(url, {headers: {Authorization: `Bearer ${getToken()}`}})
-            .then((response) => response.json())
-            .then((apiPosition: esp[]) => {
-              setPosition(apiPosition);
-              console.log("GetEspPosition",apiPosition);
-            })
-            .catch((e) => {
-              console.error("Une erreur s'est produite :", e);
-            })
-      }
-      , []);
+    const url = `/postgrest/esp?select=x,y,name,ip&name=eq.${name}`;
+    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
+      .then((response) => response.json())
+      .then((apiPosition: esp[]) => {
+        setPosition(apiPosition);
+        console.log("GetEspPosition", apiPosition);
+      })
+      .catch((e) => {
+        console.error("Une erreur s'est produite :", e);
+      });
+  }, []);
   if (position.length == 0 || position[0].x == null || position[0].y == null) {
-      return {x: 0, y: 0, name: name, ip: ""};
+    return { x: 0, y: 0, name: name, ip: "" };
   }
   return position[0];
 }
