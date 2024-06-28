@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { EspMap } from "@/app/ui/plan/espMap";
-import {useAllEsp} from "@/lib/data";
+import { useAllEsp } from "@/lib/data";
 
 export default function Plan() {
   const [hoveredCircle, setHoveredCircle] = useState<string>("");
@@ -13,14 +13,13 @@ export default function Plan() {
     setHoveredCircle(circle);
   };
 
-  const esp = useAllEsp()
+  const esp = useAllEsp();
 
   const getPosition = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     setNewX(((event.clientX - rect.left) / rect.width) * 100);
     setNewY(((event.clientY - rect.top) / rect.height) * 100);
   };
-
 
   const deleteEsp = (ip: string) => {
     const updatedEsp = esp.filter((circle) => circle.ip !== ip);
