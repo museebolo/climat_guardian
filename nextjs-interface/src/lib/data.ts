@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getToken, data, avgData, esp } from "@/lib/context";
 
 export const useFetchData = (
