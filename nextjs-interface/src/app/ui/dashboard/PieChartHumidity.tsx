@@ -22,11 +22,7 @@ export function PieChartHumidity({ data }: { data: any }) {
   // display the data at the center of the graph
   const renderCustomizedLabel = ({ cx, cy }: CustomizedLabelProps) => {
     let textColor;
-    if (darkMode) {
-      textColor="white"
-    } else {
-      textColor="black"
-    }
+    darkMode ? textColor = "white" : textColor = "black";
     return (
       <text
         x={cx}
