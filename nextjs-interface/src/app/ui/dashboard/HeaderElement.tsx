@@ -21,7 +21,6 @@ const logout = () => {
   localStorage.clear();
 };
 export function HeaderElement() {
-
   return (
     <div className="flex flex-col">
       <header className="flex h-14 items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
@@ -48,7 +47,7 @@ export function HeaderElement() {
           </Link>
         </div>
 
-          <DarkModeToggle />
+        <DarkModeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Moon, Sun } from "lucide-react";
-import { ThemeContext } from '@/lib/Theme';
+import { ThemeContext } from "@/lib/Theme";
 
 const DarkModeToggle = () => {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -11,7 +11,7 @@ const DarkModeToggle = () => {
   }, [darkMode]);
 
   return (
-    <div onClick={toggleDarkMode} className="pr-14 cursor-pointer">
+    <div onClick={toggleDarkMode} className="cursor-pointer pr-14">
       {darkMode ? (
         <Sun className="h-full w-full rounded-full bg-secondary p-2 transition" />
       ) : (

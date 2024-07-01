@@ -11,15 +11,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { avgData } from "@/lib/context";
-import {ThemeContext} from "@/lib/Theme";
+import { ThemeContext } from "@/lib/Theme";
 
 export function ChartElement({ data }: { data: avgData[] }) {
   const { darkMode } = useContext(ThemeContext);
 
   let textColor;
-  darkMode ? textColor = "white" : textColor = "";
+  darkMode ? (textColor = "white") : (textColor = "");
   return (
     <ResponsiveContainer width="100%" height={500}>
       <LineChart

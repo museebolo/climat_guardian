@@ -61,7 +61,7 @@ export default function EspLinksElement() {
             key={link.name}
             href={href}
             className={clsx(
-              "flex items-center gap-3 rounded-lg text-sm text-zinc-500 transition-all hover:text-primary md:py-2 dark:hover:text-zinc-200",
+              "flex items-center gap-3 rounded-lg text-sm text-zinc-500 transition-all hover:text-primary dark:hover:text-zinc-200 md:py-2",
               {
                 "text-zinc-900 dark:text-zinc-200": pathname === href,
               },
