@@ -33,6 +33,7 @@ export function LoginElement() {
           setError(reponse.error);
         }
         if (reponse.token) {
+          document.cookie = `token=${reponse.token}; path=/;`;
           localStorage.setItem("token", reponse.token);
           localStorage.setItem("username", username);
           window.location.replace(`/dashboard`);
