@@ -1,5 +1,3 @@
-import React from "react";
-
 export function getToken() {
   if (localStorage.getItem("token")) {
     return localStorage.getItem("token");
@@ -31,8 +29,3 @@ export interface esp {
   x: number;
   y: number;
 }
-
-export const ThemeContext = React.createContext({
-  darkMode: false,
-  toggleDarkMode: () => {},
-});
