@@ -1,9 +1,9 @@
-// DarkModeToggle.tsx
-import React from "react";
+import React, { useContext } from "react";
 import { Moon, Sun } from "lucide-react";
+import { ThemeContext } from '@/lib/context'; // Assurez-vous que le chemin d'importation est correct
 
 const DarkModeToggle = () => {
-  const [darkMode, setDarkMode] = React.useState(false);
+  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
   React.useEffect(() => {
     const classList = document.body.classList;
@@ -11,7 +11,7 @@ const DarkModeToggle = () => {
   }, [darkMode]);
 
   return (
-    <div onClick={() => setDarkMode(!darkMode)} className="pr-14 cursor-pointer">
+    <div onClick={toggleDarkMode} className="pr-14 cursor-pointer">
       {darkMode ? (
         <Sun className="h-full w-full rounded-full bg-secondary p-2 transition" />
       ) : (

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, {useState} from "react";
 import Link from "next/link";
 import DarkModeToggle from "@/app/ui/all/DarkModeToggle";
 
@@ -13,6 +13,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ThemeContext } from "@/lib/context";
 
 import { CircleUser, Landmark, Menu } from "lucide-react";
 
@@ -21,6 +22,13 @@ const logout = () => {
   localStorage.clear();
 };
 export function HeaderElement() {
+
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
     <div className="flex flex-col">
       <header className="flex h-14 items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
@@ -46,7 +54,9 @@ export function HeaderElement() {
             <span className="">Musée Bolo</span>
           </Link>
         </div>
-        <DarkModeToggle />
+        <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
+          <DarkModeToggle />
+        </ThemeContext.Provider>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
