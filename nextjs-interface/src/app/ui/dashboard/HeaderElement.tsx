@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import DarkModeToggle from "@/app/ui/all/DarkModeToggle";
 
 // import shadcn ui components
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -46,6 +47,8 @@ export function HeaderElement() {
             <span className="">Musée Bolo</span>
           </Link>
         </div>
+
+        <DarkModeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

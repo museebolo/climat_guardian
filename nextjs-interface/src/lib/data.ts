@@ -103,7 +103,6 @@ export function GetEspPosition(name: string) {
   return position[0];
 }
 
-
 // Définir une interface pour les objets dans allData
 interface DataRecord {
   avg_temperature: number;
@@ -112,13 +111,15 @@ interface DataRecord {
 }
 
 // Fonction pour calculer la moyenne d'une propriété spécifique
-export function calculateAverage(allData: DataRecord[], property: keyof DataRecord): number {
-    if (!Array.isArray(allData)) {
-      console.warn('Warning: allData is not an array');
-      return 0;
-    } else {
-      const total = allData.reduce((sum, record) => sum + record[property], 0);
-      return total / allData.length;
-    }
+export function calculateAverage(
+  allData: DataRecord[],
+  property: keyof DataRecord,
+): number {
+  if (!Array.isArray(allData)) {
+    console.warn("Warning: allData is not an array");
+    return 0;
+  } else {
+    const total = allData.reduce((sum, record) => sum + record[property], 0);
+    return total / allData.length;
   }
-
+}

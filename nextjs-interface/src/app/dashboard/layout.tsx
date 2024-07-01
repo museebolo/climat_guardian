@@ -3,9 +3,9 @@ import { HeaderElement } from "@/app/ui/dashboard/HeaderElement";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full">
+    <div className="w-full dark:bg-gray-900">
       <HeaderElement />
-      <div className="flex h-screen flex-col md:flex-row">
+      <div className="flex h-full flex-col pb-10 md:flex-row">
         <div className="hidden w-full flex-none md:block md:w-64">
           <SideBarElement />
         </div>
