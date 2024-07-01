@@ -1,5 +1,1 @@
-import { redirect } from "next/navigation";
-
-export default function Page() {
-  return redirect("/login");
-}
+export default function Page() {}
