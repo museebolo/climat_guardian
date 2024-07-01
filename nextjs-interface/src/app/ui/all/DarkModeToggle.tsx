@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Moon, Sun } from "lucide-react";
-import { ThemeContext } from '@/lib/context'; // Assurez-vous que le chemin d'importation est correct
+import { ThemeContext } from '@/lib/context';
 
 const DarkModeToggle = () => {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
