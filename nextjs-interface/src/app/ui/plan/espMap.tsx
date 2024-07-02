@@ -6,7 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import {getToken} from "@/lib/context";
+import { getToken } from "@/lib/context";
 
 export function EspMap({
   cx,
@@ -25,35 +25,34 @@ export function EspMap({
   setHoveredCircle: React.Dispatch<React.SetStateAction<string>>;
   mouseClick: (circle: string) => void;
 }) {
-
   const [position, setPosition] = useState({ x: cx, y: cy });
   const temperature = useLastData("temperature", ip) ?? 0;
   const humidity = useLastData("humidity", ip) ?? 0;
 
   const mouseDown = useCallback(
-      (e: { clientX: number; clientY: number }) => {
-        const startX = e.clientX;
-        const startY = e.clientY;
-        const initialPosition = { ...position };
-        const speed = 0.1;
+    (e: { clientX: number; clientY: number }) => {
+      const startX = e.clientX;
+      const startY = e.clientY;
+      const initialPosition = { ...position };
+      const speed = 0.1;
 
-        const mouseMove = (moveEvent: { clientX: number; clientY: number }) => {
-          const newX = initialPosition.x + (moveEvent.clientX - startX) * speed;
-          const newY = initialPosition.y + (moveEvent.clientY - startY) * speed;
-          setPosition({ x: newX, y: newY });
+      const mouseMove = (moveEvent: { clientX: number; clientY: number }) => {
+        const newX = initialPosition.x + (moveEvent.clientX - startX) * speed;
+        const newY = initialPosition.y + (moveEvent.clientY - startY) * speed;
+        setPosition({ x: newX, y: newY });
 
-          setNewPosition({ x: newX, y: newY });
-        };
+        setNewPosition({ x: newX, y: newY });
+      };
 
-        const mouseUp = () => {
-          window.removeEventListener("mousemove", mouseMove);
-          window.removeEventListener("mouseup", mouseUp);
-        };
+      const mouseUp = () => {
+        window.removeEventListener("mousemove", mouseMove);
+        window.removeEventListener("mouseup", mouseUp);
+      };
 
-        window.addEventListener("mousemove", mouseMove);
-        window.addEventListener("mouseup", mouseUp);
-      },
-      [position, ip],
+      window.addEventListener("mousemove", mouseMove);
+      window.addEventListener("mouseup", mouseUp);
+    },
+    [position],
   );
 
   const [newPosition, setNewPosition] = useState({ x: cx, y: cy });
@@ -63,30 +62,29 @@ export function EspMap({
 
     const newData = {
       x: Math.round(newPosition.x),
-      y: Math.round(newPosition.y)
+      y: Math.round(newPosition.y),
     };
 
     try {
       const response = await fetch(apiurl, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${getToken()}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
         },
-        body: JSON.stringify(newData)
+        body: JSON.stringify(newData),
       });
 
       if (!response.ok) {
-        throw new Error(`Erreur lors de la mise à jour de la position: ${response.status} (${response.statusText})`);
+        throw new Error(
+          `Erreur lors de la mise à jour de la position: ${response.status} (${response.statusText})`,
+        );
       }
-
     } catch (error) {
-      console.error('Erreur :', error);
+      console.error("error :", error);
     }
-    window.location.reload()
+    window.location.reload();
   };
-
-
 
   return (
     <Popover

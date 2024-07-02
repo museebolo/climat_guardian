@@ -96,7 +96,7 @@ export function GetEspPosition(name: string) {
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
       });
-  }, []);
+  }, [name]);
   if (position.length == 0 || position[0].x == null || position[0].y == null) {
     return { x: 0, y: 0, name: name, ip: "" };
   }
@@ -111,12 +111,15 @@ interface DataRecord {
 }
 
 // Fonction pour calculer la moyenne d'une propriété spécifique
-export function calculateAverage(allData: DataRecord[], property: keyof DataRecord): number {
-    if (!Array.isArray(allData)) {
-      console.warn('Warning: allData is not an array');
-      return 0;
-    } else {
-      const total = allData.reduce((sum, record) => sum + record[property], 0);
-      return total / allData.length;
-    }
+export function calculateAverage(
+  allData: DataRecord[],
+  property: keyof DataRecord,
+): number {
+  if (!Array.isArray(allData)) {
+    console.warn("Warning: allData is not an array");
+    return 0;
+  } else {
+    const total = allData.reduce((sum, record) => sum + record[property], 0);
+    return total / allData.length;
   }
+}
