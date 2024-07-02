@@ -103,7 +103,6 @@ export function GetEspPosition(name: string) {
   return position[0];
 }
 
-
 // Définir une interface pour les objets dans allData
 interface DataRecord {
   avg_temperature: number;
@@ -121,4 +120,3 @@ export function calculateAverage(allData: DataRecord[], property: keyof DataReco
       return total / allData.length;
     }
   }
-
