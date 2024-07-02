@@ -57,9 +57,9 @@ export default function EspLinksElement() {
             key={link.name}
             href={href}
             className={clsx(
-              "flex items-center gap-3 rounded-lg text-sm text-zinc-500 transition-all hover:text-primary md:py-2",
+              "flex items-center gap-3 rounded-lg text-sm text-zinc-500 transition-all hover:text-primary dark:hover:text-zinc-200 md:py-2",
               {
-                "text-zinc-900": pathname === href,
+                "text-zinc-900 dark:text-zinc-200": pathname === href,
               },
             )}
           >
@@ -69,7 +69,7 @@ export default function EspLinksElement() {
       })}
       <Popover>
         <PopoverTrigger asChild>
-          <button className="text-zinc-500 hover:text-black">
+          <button className="text-zinc-500 hover:text-black dark:hover:text-zinc-200">
             + ajouter un esp
           </button>
         </PopoverTrigger>

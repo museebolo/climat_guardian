@@ -1,8 +1,9 @@
 "use client";
 
 import { Pie, PieChart } from "recharts";
-import React from "react";
+import React, { useContext } from "react";
 import { getHumiColor } from "@/lib/getColor";
+import { ThemeContext } from "@/lib/Theme";
 
 interface CustomizedLabelProps {
   cx: number;
@@ -16,14 +17,17 @@ interface CustomizedLabelProps {
 
 export function PieChartHumidity({ data }: { data: any }) {
   let newFade = getHumiColor(data);
+  const { darkMode } = useContext(ThemeContext);
 
   // display the data at the center of the graph
   const renderCustomizedLabel = ({ cx, cy }: CustomizedLabelProps) => {
+    let textColor;
+    darkMode ? (textColor = "white") : (textColor = "black");
     return (
       <text
         x={cx}
         y={cy}
-        fill="black"
+        fill={textColor}
         textAnchor="middle"
         dominantBaseline="central"
         fontSize={24}

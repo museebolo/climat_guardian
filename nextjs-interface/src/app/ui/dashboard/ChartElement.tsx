@@ -11,10 +11,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-import React from "react";
+import React, { useContext } from "react";
 import { avgData } from "@/lib/context";
+import { ThemeContext } from "@/lib/Theme";
 
 export function ChartElement({ data }: { data: avgData[] }) {
+  const { darkMode } = useContext(ThemeContext);
+
+  let textColor;
+  darkMode ? (textColor = "white") : (textColor = "");
   return (
     <ResponsiveContainer width="100%" height={500}>
       <LineChart
@@ -28,6 +33,7 @@ export function ChartElement({ data }: { data: avgData[] }) {
           tickLine={false}
           axisLine={false}
           dataKey="date"
+          stroke={textColor}
           tickFormatter={(value: string) =>
             new Date(value).toLocaleDateString()
           }
@@ -37,11 +43,12 @@ export function ChartElement({ data }: { data: avgData[] }) {
           fontSize={16}
           tickLine={false}
           axisLine={false}
+          stroke={textColor}
           padding={{ top: 50, bottom: 10 }}
         />
         <ReferenceLine
           y={50}
-          label={{ value: "Max humidity", position: "top" }}
+          label={{ value: "Max humidity", position: "top", stroke: textColor }}
           stroke="red"
         />
         <Tooltip />

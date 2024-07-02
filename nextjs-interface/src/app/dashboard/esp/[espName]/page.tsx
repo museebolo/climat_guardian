@@ -40,9 +40,11 @@ export default function Page({ params }: { params: any }) {
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
   const precision = "minute";
 
-  // Get the ip of the selected esp and fetch the data
+  // Get the ip of the selected esp and fetch the data for the graphic
   const ip = findIpByName(params.espName);
   const allData = useFetchData(precision, ip, from, to);
+
+  // Data for the pie chart
   const temperature = useLastData("temperature", ip);
   const humidity = useLastData("humidity", ip);
 
@@ -58,7 +60,7 @@ export default function Page({ params }: { params: any }) {
     <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5 pt-2">
       <div className="flex justify-between">
         <DateRangeElement date={date} setDate={setDate} />
-        <p className="text-2xl font-bold uppercase text-black">
+        <p className="text-2xl font-bold uppercase text-black dark:text-white">
           {params.espName}
         </p>
       </div>
