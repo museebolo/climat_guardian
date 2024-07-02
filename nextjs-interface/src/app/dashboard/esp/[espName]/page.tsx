@@ -20,7 +20,7 @@ import findIpByName, {
 // import libraries
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 // main component
 export default function Page({ params }: { params: any }) {
@@ -48,7 +48,6 @@ export default function Page({ params }: { params: any }) {
 
   const averageTemperature = calculateAverage(allData, "avg_temperature");
   const averageHumidity = calculateAverage(allData, "avg_humidity");
-
 
   const [hoveredCircle, setHoveredCircle] = useState<string>("");
   const mouseClick = (circle: string) => {
