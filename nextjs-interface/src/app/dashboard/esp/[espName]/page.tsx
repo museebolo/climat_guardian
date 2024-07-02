@@ -8,6 +8,8 @@ import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 // import components
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
 import { EspMap } from "@/app/ui/plan/espMap";
+import {Button} from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 // import script
 import findIpByName, {
@@ -21,9 +23,8 @@ import findIpByName, {
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
 import React from "react";
-import { Input } from "@/components/ui/input";
+
 import {getToken} from "@/lib/context";
-import {Button} from "@/components/ui/button";
 
 // main component
 export default function Page({ params }: { params: any }) {
@@ -38,8 +39,6 @@ export default function Page({ params }: { params: any }) {
       to: endOfMonth(now),
     };
   });
-
-  const [nothing, setNothing] = React.useState("");
 
   const position = GetEspPosition(params.espName);
 
@@ -56,7 +55,6 @@ export default function Page({ params }: { params: any }) {
   const temperature = useLastData("temperature", ip);
   const humidity = useLastData("humidity", ip);
 
-  // Data for the average pie chart
   const averageTemperature = calculateAverage(allData, "avg_temperature");
   const averageHumidity = calculateAverage(allData, "avg_humidity");
 
@@ -78,6 +76,12 @@ export default function Page({ params }: { params: any }) {
     } else {
     }
   };
+
+    const [hoveredCircle, setHoveredCircle] = useState<string>("");
+  const mouseClick = (circle: string) => {
+    setHoveredCircle(circle);
+  };
+
   return (
     <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5 pt-2">
       <div className="flex justify-between">
@@ -158,10 +162,9 @@ export default function Page({ params }: { params: any }) {
                 cy={position.y}
                 ip={position.ip}
                 name={position.name}
-                hoveredCircle=""
-                setHoveredCircle={setNothing}
-                mouseClick={() => {}}
-                deleteEsp={() => {}}
+                hoveredCircle={hoveredCircle}
+                setHoveredCircle={setHoveredCircle}
+                mouseClick={mouseClick}
               />
             </g>
           </g>

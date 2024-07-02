@@ -96,7 +96,7 @@ export function GetEspPosition(name: string) {
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
       });
-  }, []);
+  }, [name]);
   if (position.length == 0 || position[0].x == null || position[0].y == null) {
     return { x: 0, y: 0, name: name, ip: "" };
   }

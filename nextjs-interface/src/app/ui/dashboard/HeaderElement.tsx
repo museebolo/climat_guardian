@@ -42,7 +42,10 @@ export function HeaderElement() {
           </SheetContent>
         </Sheet>
         <div className="flex h-14 items-center border-b lg:h-[60px]">
-          <Link href="/" className="flex items-center gap-2 font-semibold">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2 font-semibold"
+          >
             <Landmark className="h-6 w-6" />
             <span className="">Musée Bolo</span>
           </Link>
