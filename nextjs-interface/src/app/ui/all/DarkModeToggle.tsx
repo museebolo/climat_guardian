@@ -11,9 +11,9 @@ const DarkModeToggle = () => {
   }, [darkMode]);
 
   return (
-    <div onClick={toggleDarkMode} className="cursor-pointer pr-14">
+    <div onClick={toggleDarkMode} className="cursor-pointer">
       {darkMode ? (
-        <Sun className="h-full w-full rounded-full bg-secondary p-2 transition" />
+        <Sun className="h-full w-full rounded-full dark:bg-slate-700 p-2 transition" />
       ) : (
         <Moon className="h-full w-full rounded-full bg-secondary p-2" />
       )}
