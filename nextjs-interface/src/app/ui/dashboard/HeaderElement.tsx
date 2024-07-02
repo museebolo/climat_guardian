@@ -37,7 +37,7 @@ export function HeaderElement() {
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="flex flex-col">
+            <SheetContent side="left" className="flex flex-col dark:bg-slate-800">
               <NavLinksElement />
               <EspLinksElement />
             </SheetContent>
