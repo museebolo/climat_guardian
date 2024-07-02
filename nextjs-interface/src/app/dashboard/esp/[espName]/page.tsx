@@ -83,14 +83,14 @@ export default function Page({ params }: { params: any }) {
   };
 
   return (
-    <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5 pt-2">
-      <div className="flex justify-between">
+    <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5">
+      <div className="flex flex-col sm:flex-row justify-between">
         <DateRangeElement date={date} setDate={setDate} />
         <div className="flex gap-2">
           <div className="flex flex-col">
             <Input
               type="text"
-              className="w-fit border-transparent text-end text-2xl font-bold text-black dark:bg-gray-900 dark:text-white"
+              className="border-transparent p-0 sm:text-end text-2xl font-bold text-black bg-transparent dark:text-white"
               value={espName}
               onChange={(e) => {
                 setEspName(e.target.value);
@@ -117,21 +117,21 @@ export default function Page({ params }: { params: any }) {
           )}
         </div>
       </div>
-      <div className="flex flex-row gap-x-5">
-        <div className="flex w-1/2 flex-col gap-y-3">
-          <p className="text-xl">Last data :</p>
-          <div className="flex flex-row rounded-xl border-2 border-alto-200 p-5">
+      <div className="flex flex-col lg:flex-row gap-x-5">
+        <div className="flex w-full lg:w-1/2 flex-col gap-y-3">
+          <p className="text-xl">Last data</p>
+          <div className="flex flex-col justify-center sm:justify-normal sm:flex-row rounded-xl border-2 border-alto-200 p-5">
             <PieChartTemperature data={temperature} />
             <PieChartHumidity data={humidity} />
           </div>
         </div>
-        <div className="flex w-1/2 flex-col gap-y-3">
+        <div className="flex w-full lg:w-1/2 flex-col gap-y-3">
           <p className="text-xl">
             Average data ( From{" "}
             {date?.from ? format(date.from, "yyyy-MM-dd") : ""} to{" "}
-            {date?.to ? format(date.to, "yyyy-MM-dd") : ""}) :
+            {date?.to ? format(date.to, "yyyy-MM-dd") : ""})
           </p>
-          <div className="flex flex-row rounded-xl border-2 border-alto-200 p-5">
+          <div className="flex flex-col justify-center sm:justify-normal sm:flex-row rounded-xl border-2 border-alto-200 p-5">
             <PieChartTemperature data={averageTemperature} />
             <PieChartHumidity data={averageHumidity} />
           </div>
