@@ -43,6 +43,7 @@ export default function EspLinksElement() {
       }
 
       setNewLink({ name: "", ip: "" });
+      window.location.reload();
     } catch (e) {
       console.error("Une erreur s'est produite :", e);
     }

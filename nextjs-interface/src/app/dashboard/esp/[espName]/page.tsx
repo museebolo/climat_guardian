@@ -2,12 +2,14 @@
 
 // import charts
 import { PieChartHumidity } from "@/app/ui/dashboard/PieChartHumidity";
-import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 import { PieChartTemperature } from "@/app/ui/dashboard/PieChartTemperature";
+import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 
-// import compoenents
+// import components
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
 import { EspMap } from "@/app/ui/plan/espMap";
+import {Button} from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 // import script
 import findIpByName, {
@@ -20,10 +22,15 @@ import findIpByName, {
 // import libraries
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
-import React, { useState } from "react";
+import React from "react";
+
+import {getToken} from "@/lib/context";
 
 // main component
 export default function Page({ params }: { params: any }) {
+  const [confirm, setConfirm] = React.useState(false);
+  const [espName, setEspName] = React.useState(params.espName);
+
   // Date range selector
   const [date, setDate] = React.useState<DateRange | undefined>(() => {
     const now = new Date();
@@ -51,7 +58,26 @@ export default function Page({ params }: { params: any }) {
   const averageTemperature = calculateAverage(allData, "avg_temperature");
   const averageHumidity = calculateAverage(allData, "avg_humidity");
 
-  const [hoveredCircle, setHoveredCircle] = useState<string>("");
+  const updateEspName = async (newName: string, ip: string) => {
+    const url = `/postgrest/esp?ip=eq.${ip}`;
+    const response = await fetch(url, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ name: newName })
+    });
+    window.location.href = `/dashboard/esp/${newName}`;
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error(`An error occurred: ${response.status}`, errorData);
+      throw new Error(`An error occurred: ${response.status}`);
+    } else {
+    }
+  };
+
+    const [hoveredCircle, setHoveredCircle] = useState<string>("");
   const mouseClick = (circle: string) => {
     setHoveredCircle(circle);
   };
@@ -60,9 +86,35 @@ export default function Page({ params }: { params: any }) {
     <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5 pt-2">
       <div className="flex justify-between">
         <DateRangeElement date={date} setDate={setDate} />
-        <p className="text-2xl font-bold uppercase text-black dark:text-white">
-          {params.espName}
-        </p>
+        <div className="flex gap-2">
+          <Input
+              type="text"
+              className="w-fit text-end text-2xl font-bold uppercase text-black dark:bg-gray-900 dark:text-white"
+              value={espName}
+              onChange={(e) => {
+                setEspName(e.target.value)
+                setConfirm(true);
+              }
+          }
+          />
+          {confirm ? (
+            <Button
+              onClick={async () => {
+                try {
+                  await updateEspName(espName, ip);
+                  setConfirm(false);
+                } catch (e) {
+                  console.error(e);
+                }
+              }}
+              className="p-2 text-white"
+            >
+              Confirm edit
+            </Button>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
       <div className="flex flex-row gap-x-5">
         <div className="flex w-1/2 flex-col gap-y-3">
