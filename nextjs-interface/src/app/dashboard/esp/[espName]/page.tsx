@@ -8,7 +8,7 @@ import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 // import components
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
 import { EspMap } from "@/app/ui/plan/espMap";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 // import script
@@ -22,9 +22,9 @@ import findIpByName, {
 // import libraries
 import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
-import React from "react";
+import React, { useState } from "react";
 
-import {getToken} from "@/lib/context";
+import { getToken } from "@/lib/context";
 
 // main component
 export default function Page({ params }: { params: any }) {
@@ -61,12 +61,12 @@ export default function Page({ params }: { params: any }) {
   const updateEspName = async (newName: string, ip: string) => {
     const url = `/postgrest/esp?ip=eq.${ip}`;
     const response = await fetch(url, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getToken()}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
       },
-      body: JSON.stringify({ name: newName })
+      body: JSON.stringify({ name: newName }),
     });
     window.location.href = `/dashboard/esp/${newName}`;
     if (!response.ok) {
@@ -77,7 +77,7 @@ export default function Page({ params }: { params: any }) {
     }
   };
 
-    const [hoveredCircle, setHoveredCircle] = useState<string>("");
+  const [hoveredCircle, setHoveredCircle] = useState<string>("");
   const mouseClick = (circle: string) => {
     setHoveredCircle(circle);
   };
@@ -88,14 +88,13 @@ export default function Page({ params }: { params: any }) {
         <DateRangeElement date={date} setDate={setDate} />
         <div className="flex gap-2">
           <Input
-              type="text"
-              className="w-fit text-end text-2xl font-bold uppercase text-black dark:bg-gray-900 dark:text-white"
-              value={espName}
-              onChange={(e) => {
-                setEspName(e.target.value)
-                setConfirm(true);
-              }
-          }
+            type="text"
+            className="w-fit text-end text-2xl font-bold uppercase text-black dark:bg-gray-900 dark:text-white"
+            value={espName}
+            onChange={(e) => {
+              setEspName(e.target.value);
+              setConfirm(true);
+            }}
           />
           {confirm ? (
             <Button
