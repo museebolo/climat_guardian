@@ -7,7 +7,6 @@ export default function Plan() {
   const [hoveredCircle, setHoveredCircle] = useState<string>("");
   const [newX, setNewX] = useState(0);
   const [newY, setNewY] = useState(0);
-  const [open, setOpen] = useState(false);
 
   const mouseClick = (circle: string) => {
     setHoveredCircle(circle);
@@ -19,10 +18,6 @@ export default function Plan() {
     const rect = event.currentTarget.getBoundingClientRect();
     setNewX(((event.clientX - rect.left) / rect.width) * 100);
     setNewY(((event.clientY - rect.top) / rect.height) * 100);
-  };
-
-  const deleteEsp = (ip: string) => {
-    const updatedEsp = esp.filter((circle) => circle.ip !== ip);
   };
 
   return (
@@ -55,7 +50,6 @@ export default function Plan() {
               hoveredCircle={hoveredCircle}
               setHoveredCircle={setHoveredCircle}
               mouseClick={mouseClick}
-              deleteEsp={deleteEsp}
             />
           ))}
         </g>
