@@ -24,7 +24,7 @@ const logout = () => {
 export function HeaderElement() {
   return (
     <div className="flex flex-col">
-      <header className="flex h-14 items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+      <header className="flex w-screen h-14 items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
         <div className="flex flex-row gap-5 pt-5 lg:pt-0">
           <Sheet>
             <SheetTrigger asChild>
@@ -42,7 +42,7 @@ export function HeaderElement() {
               <EspLinksElement />
             </SheetContent>
           </Sheet>
-          <div className="flex h-14 items-center border-b lg:h-[60px] pb-4 lg:pb-0">
+          <div className="flex h-14 items-center lg:h-[60px] pb-4 lg:pb-0">
             <Link
               href="/dashboard"
               className="flex items-center gap-2 font-semibold"
