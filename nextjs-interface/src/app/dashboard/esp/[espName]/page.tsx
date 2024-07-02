@@ -87,15 +87,17 @@ export default function Page({ params }: { params: any }) {
       <div className="flex justify-between">
         <DateRangeElement date={date} setDate={setDate} />
         <div className="flex gap-2">
-          <Input
-            type="text"
-            className="w-fit text-end text-2xl font-bold uppercase text-black dark:bg-gray-900 dark:text-white"
-            value={espName}
-            onChange={(e) => {
-              setEspName(e.target.value);
-              setConfirm(true);
-            }}
-          />
+          <div className="flex flex-col">
+            <Input
+              type="text"
+              className="w-fit border-transparent text-end text-2xl font-bold text-black dark:bg-gray-900 dark:text-white"
+              value={espName}
+              onChange={(e) => {
+                setEspName(e.target.value);
+                setConfirm(true);
+              }}
+            />
+          </div>
           {confirm ? (
             <Button
               onClick={async () => {
