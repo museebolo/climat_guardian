@@ -9,11 +9,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export default function RenameElement({
-  id,
-}: {
-  id: string;
-}) {
+export default function RenameElement({ id }: { id: string }) {
   const [newName, setNewName] = useState("");
   const [confirm, setConfirm] = React.useState(false);
   const updateEspName = async (newName: string) => {
