@@ -52,10 +52,10 @@ export default function EspLinksElement() {
   return (
     <>
       {links.map((link) => {
-        const href = `/dashboard/esp/${link.name}`;
+        const href = `/dashboard/esp/${link.id}`;
         return (
           <Link
-            key={link.name}
+            key={link.id}
             href={href}
             className={clsx(
               "flex items-center gap-3 rounded-lg text-sm text-zinc-500 transition-all hover:text-primary dark:hover:text-zinc-200 md:py-2",
