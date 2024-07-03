@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "recharts";
 import { getToken } from "@/lib/context";
 import { useAllEsp } from "@/lib/data";
+import {CirclePlus} from "lucide-react";
 
 export default function EspLinksElement() {
   const pathname = usePathname();
@@ -50,58 +51,61 @@ export default function EspLinksElement() {
   };
 
   return (
-    <>
-      {links.map((link) => {
-        const href = `/dashboard/esp/${link.id}`;
-        return (
-          <Link
-            key={link.id}
-            href={href}
-            className={clsx(
-              "flex items-center gap-3 rounded-lg text-sm text-zinc-500 transition-all hover:text-primary dark:hover:text-zinc-200 md:py-2",
-              {
-                "text-zinc-900 dark:text-zinc-200": pathname === href,
-              },
-            )}
-          >
-            <p className="text-lg">{link.name}</p>
-          </Link>
-        );
-      })}
-      <Popover>
-        <PopoverTrigger asChild>
-          <button className="text-zinc-500 hover:text-black dark:hover:text-zinc-200">
-            + ajouter un esp
-          </button>
-        </PopoverTrigger>
-        <PopoverContent className="w-80">
-          <form onSubmit={handleSubmit}>
-            <div className="flex gap-2">
-              <Label>name</Label>
-              <Input
-                type="text"
-                id="name"
-                placeholder="name"
-                value={newLink.name}
-                onChange={handleInputChange}
-              />
+      <>
+        {links.map((link) => {
+          const href = `/dashboard/esp/${link.id}`;
+          return (
+              <Link
+                  key={link.id}
+                  href={href}
+                  className={clsx(
+                      "flex items-center gap-3 rounded-lg py-2 text-lg text-gray-500 transition-all hover:text-primary",
+                      {
+                        "text-zinc-950 dark:text-zinc-50": pathname === href,
+                      },
+                  )}
+              >
+                <p className="text-lg">{link.name}</p>
+              </Link>
+          );
+        })}
+        <div className="mb-3 border-b-2 dark:border-gray-400"/>
+        <Popover>
+          <PopoverTrigger asChild>
+            <button
+                className="flex w-full justify-between text-lg text-zinc-500 hover:text-black dark:hover:text-zinc-200">
+              <p>ajouter un esp</p>
+              <CirclePlus className="mt-1 w-[20px]"/>
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80">
+            <form onSubmit={handleSubmit}>
+              <div className="flex gap-2">
+                <Label>name</Label>
+                <Input
+                    type="text"
+                    id="name"
+                    placeholder="name"
+                    value={newLink.name}
+                    onChange={handleInputChange}
+                    required={true}
+                />
 
-              <Label>ip adress</Label>
-              <Input
-                type="text"
-                id="ip"
-                placeholder="ip adresse"
-                value={newLink.ip}
-                onChange={handleInputChange}
-              />
-            </div>
-            <Button
-              className="mt-2 w-full bg-black text-white"
-              type="submit"
-              variant="outline"
-            >
-              ajouter un esp
-            </Button>
+                <Label>ip adress</Label>
+                <Input
+                    type="text"
+                    id="ip"
+                    placeholder="ip adresse"
+                    value={newLink.ip}
+                    onChange={handleInputChange}
+                    required={true}
+                />
+              </div>
+            <button
+                className="flex w-full justify-between text-lg text-zinc-500 hover:text-black dark:hover:text-zinc-200">
+              <p>ajouter un esp</p>
+              <CirclePlus className="mt-1 w-[20px]"/>
+            </button>
           </form>
         </PopoverContent>
       </Popover>
