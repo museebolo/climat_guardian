@@ -45,12 +45,14 @@ export function LoginElement() {
       });
   };
   return (
-    <div className="flex h-screen justify-center items-center dark:bg-slate-700">
+    <div className="flex h-screen items-center justify-center dark:bg-slate-700">
       <form method="get" onSubmit={submit} className="mx-auto max-w-xs">
         <Card className="w-full max-w-lg dark:bg-gray-900">
           <CardHeader>
             <div className="flex flex-row justify-between">
-              <CardTitle className="flex text-2xl items-center">Login</CardTitle>
+              <CardTitle className="flex items-center text-2xl">
+                Login
+              </CardTitle>
               <DarkModeToggle />
             </div>
             <CardDescription className="dark:text-white">
@@ -85,7 +87,10 @@ export function LoginElement() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-5">
-            <Button className="w-full dark:bg-slate-700 dark:text-white" type={"submit"}>
+            <Button
+              className="w-full dark:bg-slate-700 dark:text-white"
+              type={"submit"}
+            >
               Sign in
             </Button>
           </CardFooter>
