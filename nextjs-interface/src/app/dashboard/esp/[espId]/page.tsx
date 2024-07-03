@@ -10,7 +10,7 @@ import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
 import { EspMap } from "@/app/ui/plan/espMap";
 
 // import script
-import findIpByName, {
+import {
   calculateAverage,
   GetEspPosition,
   useFetchData,
