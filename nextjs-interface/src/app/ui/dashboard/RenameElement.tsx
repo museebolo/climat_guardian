@@ -36,9 +36,10 @@ export default function RenameElement({ id }: { id: string }) {
                 <PopoverTrigger asChild>
                     <EllipsisVertical />
                 </PopoverTrigger>
-                <PopoverContent className="flex w-60 gap-2">
+                <PopoverContent className="flex w-60 rounded-xl mr-5 gap-2 bg-secondary dark:bg-gray-900">
                     <Input
                         type="text"
+                        className="bg-secondary text-black dark:bg-slate-700 dark:text-zinc-50"
                         placeholder="modifier l'esp"
                         value={newName}
                         onChange={(e) => {
@@ -56,7 +57,7 @@ export default function RenameElement({ id }: { id: string }) {
                                     console.error(e);
                                 }
                             }}
-                            className="p-2 text-white"
+                            className="p-2 bg-secondary text-black dark:bg-slate-700 dark:text-zinc-50"
                         >
                             Confirm
                         </Button>
