@@ -83,19 +83,21 @@ export default function Page({ params }: { params: any }) {
   };
 
   return (
-    <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5 pt-2">
-      <div className="flex justify-between">
+    <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5">
+      <div className="flex flex-col justify-between sm:flex-row">
         <DateRangeElement date={date} setDate={setDate} />
         <div className="flex gap-2">
-          <Input
-            type="text"
-            className="w-fit text-end text-2xl font-bold uppercase text-black dark:bg-gray-900 dark:text-white"
-            value={espName}
-            onChange={(e) => {
-              setEspName(e.target.value);
-              setConfirm(true);
-            }}
-          />
+          <div className="flex flex-col">
+            <Input
+              type="text"
+              className="border-transparent bg-transparent p-0 text-2xl font-bold text-black dark:text-white sm:text-end"
+              value={espName}
+              onChange={(e) => {
+                setEspName(e.target.value);
+                setConfirm(true);
+              }}
+            />
+          </div>
           {confirm ? (
             <Button
               onClick={async () => {
@@ -106,7 +108,7 @@ export default function Page({ params }: { params: any }) {
                   console.error(e);
                 }
               }}
-              className="p-2 text-white"
+              className="p-2 text-white dark:bg-slate-700 dark:text-zinc-50"
             >
               Confirm edit
             </Button>
@@ -115,21 +117,22 @@ export default function Page({ params }: { params: any }) {
           )}
         </div>
       </div>
-      <div className="flex flex-row gap-x-5">
-        <div className="flex w-1/2 flex-col gap-y-3">
-          <p className="text-xl">Last data :</p>
-          <div className="flex flex-row rounded-xl border-2 border-alto-200 p-5">
+
+      <div className="flex flex-col justify-center gap-x-5 sm:justify-normal lg:flex-row">
+        <div className="flex w-full flex-col gap-y-3 lg:w-1/2">
+          <p className="text-xl">Last data</p>
+          <div className="flex w-fit flex-col justify-center rounded-xl border-2 border-alto-200 p-5 sm:w-auto sm:flex-row sm:justify-normal">
             <PieChartTemperature data={temperature} />
             <PieChartHumidity data={humidity} />
           </div>
         </div>
-        <div className="flex w-1/2 flex-col gap-y-3">
+        <div className="flex w-full flex-col gap-y-3 lg:w-1/2">
           <p className="text-xl">
-            Average data ( From{" "}
+            Average data <br className="sm:hidden" />( From{" "}
             {date?.from ? format(date.from, "yyyy-MM-dd") : ""} to{" "}
-            {date?.to ? format(date.to, "yyyy-MM-dd") : ""}) :
+            {date?.to ? format(date.to, "yyyy-MM-dd") : ""})
           </p>
-          <div className="flex flex-row rounded-xl border-2 border-alto-200 p-5">
+          <div className="flex w-fit flex-col justify-center rounded-xl border-2 border-alto-200 p-5 sm:w-auto sm:flex-row sm:justify-normal">
             <PieChartTemperature data={averageTemperature} />
             <PieChartHumidity data={averageHumidity} />
           </div>

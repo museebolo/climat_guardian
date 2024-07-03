@@ -3,16 +3,18 @@ import { HeaderElement } from "@/app/ui/dashboard/HeaderElement";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="w-full dark:bg-gray-900">
-      <HeaderElement />
-      <div className="flex h-full flex-col pb-10 md:flex-row">
-        <div className="hidden w-full flex-none md:block md:w-64">
+    <>
+      <div className="w-full dark:bg-slate-700">
+        <HeaderElement />
+      </div>
+      <div className="flex flex-row w-full pb-5 lg:pl-0 pl-5 pr-5 gap-x-5 dark:bg-slate-800">
+        <div className="hidden lg:block pl-5 w-1/6 dark:bg-slate-700">
           <SideBarElement />
         </div>
-        <div className="mx-4 flex w-full justify-stretch md:mx-5 md:mt-2 lg:ml-14">
-          {children}
+        <div className="w-full pt-5 lg:w-5/6 dark:bg-slate-800">
+            {children}
         </div>
       </div>
-    </div>
+    </>
   );
 }

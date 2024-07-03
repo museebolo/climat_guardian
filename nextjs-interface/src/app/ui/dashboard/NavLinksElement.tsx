@@ -25,7 +25,7 @@ export default function NavLinksElement() {
             className={clsx(
               "flex items-center gap-3 rounded-lg py-2 text-lg text-gray-500 transition-all hover:text-primary",
               {
-                "text-gray-900 dark:text-zinc-200": pathname === link.href,
+                "text-zinc-950 dark:text-zinc-50": pathname === link.href,
               },
             )}
           >
@@ -34,7 +34,7 @@ export default function NavLinksElement() {
           </Link>
         );
       })}
-      <div className="border-b-2"></div>
+      <div className="border-b-2 dark:border-gray-400"></div>
     </>
   );
 }
