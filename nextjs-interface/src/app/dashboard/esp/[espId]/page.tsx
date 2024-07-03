@@ -8,8 +8,6 @@ import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 // import components
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
 import { EspMap } from "@/app/ui/plan/espMap";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 // import script
 import findIpByName, {
@@ -25,11 +23,11 @@ import { DateRange } from "react-day-picker";
 import React, { useState } from "react";
 
 import { getToken } from "@/lib/context";
+import RenameElement from "@/app/ui/dashboard/RenameElement";
 
 // main component
 export default function Page({ params }: { params: any }) {
-  const [confirm, setConfirm] = React.useState(false);
-  const [espName, setEspName] = React.useState(params.espName);
+  const esp = GetEspPosition(params.espId);
 
   // Date range selector
   const [date, setDate] = React.useState<DateRange | undefined>(() => {
@@ -40,15 +38,13 @@ export default function Page({ params }: { params: any }) {
     };
   });
 
-  const position = GetEspPosition(params.espName);
-
   // Get data from the selected esp and date range
   const from = date?.from ? format(date.from, "yyyy-MM-dd") : "";
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
-  const precision = "minute";
+  const precision = "hour";
 
   // Get the ip of the selected esp and fetch the data for the graphic
-  const ip = findIpByName(params.espName);
+  const ip = findIpByName(params.espId);
   const allData = useFetchData(precision, ip, from, to);
 
   // Data for the pie chart
@@ -58,25 +54,6 @@ export default function Page({ params }: { params: any }) {
   const averageTemperature = calculateAverage(allData, "avg_temperature");
   const averageHumidity = calculateAverage(allData, "avg_humidity");
 
-  const updateEspName = async (newName: string, ip: string) => {
-    const url = `/postgrest/esp?ip=eq.${ip}`;
-    const response = await fetch(url, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken()}`,
-      },
-      body: JSON.stringify({ name: newName }),
-    });
-    window.location.href = `/dashboard/esp/${newName}`;
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error(`An error occurred: ${response.status}`, errorData);
-      throw new Error(`An error occurred: ${response.status}`);
-    } else {
-    }
-  };
-
   const [hoveredCircle, setHoveredCircle] = useState<string>("");
   const mouseClick = (circle: string) => {
     setHoveredCircle(circle);
@@ -84,36 +61,12 @@ export default function Page({ params }: { params: any }) {
 
   return (
     <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5 pt-2">
+      <div className="flex justify-between text-xl font-bold uppercase">
+        <div>{esp.name}</div>
+        <RenameElement name={esp.name} id={params.espId} />
+      </div>
       <div className="flex justify-between">
         <DateRangeElement date={date} setDate={setDate} />
-        <div className="flex gap-2">
-          <Input
-            type="text"
-            className="w-fit text-end text-2xl font-bold uppercase text-black dark:bg-gray-900 dark:text-white"
-            value={espName}
-            onChange={(e) => {
-              setEspName(e.target.value);
-              setConfirm(true);
-            }}
-          />
-          {confirm ? (
-            <Button
-              onClick={async () => {
-                try {
-                  await updateEspName(espName, ip);
-                  setConfirm(false);
-                } catch (e) {
-                  console.error(e);
-                }
-              }}
-              className="p-2 text-white"
-            >
-              Confirm edit
-            </Button>
-          ) : (
-            ""
-          )}
-        </div>
       </div>
       <div className="flex flex-row gap-x-5">
         <div className="flex w-1/2 flex-col gap-y-3">
@@ -157,10 +110,10 @@ export default function Page({ params }: { params: any }) {
             <g className="text-[3px] text-blue-300 transition-all duration-500 ease-in-out">
               <EspMap
                 key={ip}
-                cx={position.x}
-                cy={position.y}
-                ip={position.ip}
-                name={position.name}
+                cx={esp.x}
+                cy={esp.y}
+                ip={esp.ip}
+                name={esp.name}
                 hoveredCircle={hoveredCircle}
                 setHoveredCircle={setHoveredCircle}
                 mouseClick={mouseClick}

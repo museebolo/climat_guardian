@@ -88,14 +88,14 @@ export function useFindNameById(id: string) {
   useEffect(() => {
     const url = `/postgrest/esp?select=name&id=eq.${id}`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
-        .then((response) => response.json())
-        .then((apiIp: esp[]) => {
-          console.log("useFindIpByName", apiIp);
-          setName(apiIp[0].name);
-        })
-        .catch((e) => {
-          console.error("Une erreur s'est produite :", e);
-        });
+      .then((response) => response.json())
+      .then((apiIp: esp[]) => {
+        console.log("useFindIpByName", apiIp);
+        setName(apiIp[0].name);
+      })
+      .catch((e) => {
+        console.error("Une erreur s'est produite :", e);
+      });
   }, [id]);
   return name;
 }
