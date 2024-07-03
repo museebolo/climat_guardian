@@ -64,11 +64,11 @@ export const useAllEsp = () => {
   return esp;
 };
 
-export default function useFindIpByName(name: string) {
+export default function useFindIpById(id: string) {
   const [ip, setIp] = useState<string>("");
 
   useEffect(() => {
-    const url = `/postgrest/esp?select=ip&name=eq.${name}`;
+    const url = `/postgrest/esp?select=ip&id=eq.${id}`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiIp: esp[]) => {
@@ -78,15 +78,33 @@ export default function useFindIpByName(name: string) {
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
       });
-  }, [name]);
+  }, [id]);
   return ip;
 }
 
-export function GetEspPosition(name: string) {
+export function useFindNameById(id: string) {
+  const [name, setName] = useState<string>("");
+
+  useEffect(() => {
+    const url = `/postgrest/esp?select=name&id=eq.${id}`;
+    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
+        .then((response) => response.json())
+        .then((apiIp: esp[]) => {
+          console.log("useFindIpByName", apiIp);
+          setName(apiIp[0].name);
+        })
+        .catch((e) => {
+          console.error("Une erreur s'est produite :", e);
+        });
+  }, [id]);
+  return name;
+}
+
+export function GetEspPosition(id: string) {
   const [position, setPosition] = useState<esp[]>([]);
 
   useEffect(() => {
-    const url = `/postgrest/esp?select=x,y,name,ip&name=eq.${name}`;
+    const url = `/postgrest/esp?select=x,y,name,ip&id=eq.${id}`;
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiPosition: esp[]) => {
@@ -96,9 +114,9 @@ export function GetEspPosition(name: string) {
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
       });
-  }, [name]);
+  }, [id]);
   if (position.length == 0 || position[0].x == null || position[0].y == null) {
-    return { x: 0, y: 0, name: name, ip: "" };
+    return { x: 0, y: 0, name: "", ip: "" };
   }
   return position[0];
 }
