@@ -90,7 +90,7 @@ export default function EspLinksElement() {
             <CirclePlus className="mt-1 w-[20px]" />
           </button>
         </PopoverTrigger>
-        <PopoverContent className="w-80 bg-secondary dark:bg-gray-900">
+        <PopoverContent className="w-80 ml-5 bg-secondary dark:bg-gray-900">
           <form onSubmit={handleSubmit}>
             <div className="flex gap-2">
               <Label>name</Label>
