@@ -51,7 +51,30 @@ export function ChartElement({ data }: { data: avgData[] }) {
           label={{ value: "Max humidity", position: "top", stroke: textColor }}
           stroke="red"
         />
-        <Tooltip />
+        <Tooltip
+          cursor={{
+            stroke: "#334155",
+            radius: 4,
+          }}
+          content={({ active, payload }) => {
+            if (!active || !payload || payload.length === 0) return null;
+            return (
+              <>
+                <div className="w-[250px] rounded-xl bg-secondary dark:bg-gray-900">
+                  <div className="p-5">
+                    <div className="flex flex-col">
+                      <h1 className="text-black dark:text-zinc-50">Date : {new Date(payload[0].payload.date).toLocaleDateString()}</h1>
+                        <p className="text-black dark:text-zinc-50">
+                            Temperature : {payload[0].payload.avg_temperature.toFixed(2)}°C</p>
+                        <p className="text-black dark:text-zinc-50">
+                                Humidity : {payload[0].payload.avg_humidity.toFixed(2)}%</p>
+                    </div>
+                  </div>
+                </div>
+              </>
+            );
+          }}
+        />
         <Legend />
         <Line
           type="monotone"
