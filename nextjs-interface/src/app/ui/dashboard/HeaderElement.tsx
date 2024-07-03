@@ -52,7 +52,7 @@ export function HeaderElement() {
           </Sheet>
           <div className="flex h-14 items-center pb-4 lg:h-[60px] lg:pb-0">
             <Link
-              href="/dashboard"
+              href={"/dashboard"}
               className="flex items-center gap-2 font-semibold"
             >
               <Landmark className="h-6 w-6" />
