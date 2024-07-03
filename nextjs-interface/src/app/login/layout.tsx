@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import React from "react";
+import { Providers } from "@/app/ui/all/providers";
 
 export const metadata: Metadata = {
   title: "Login page",
@@ -11,8 +13,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+      <html lang="en">
+      <body>
+      <Providers>
+        {children}
+      </Providers>
+      </body>
+      </html>
   );
 }

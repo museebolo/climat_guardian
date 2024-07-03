@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import DarkModeToggle from "@/app/ui/all/DarkModeToggle";
 
 export function LoginElement() {
   const [username, setUsername] = useState("");
@@ -44,13 +45,16 @@ export function LoginElement() {
       });
   };
   return (
-    <div className="mt-80 flex justify-center">
+    <div className="flex h-screen justify-center items-center dark:bg-slate-700">
       <form method="get" onSubmit={submit} className="mx-auto max-w-xs">
-        <Card className="w-full max-w-lg">
+        <Card className="w-full max-w-lg dark:bg-gray-900">
           <CardHeader>
-            <CardTitle className="text-2xl">Login</CardTitle>
-            <CardDescription>
-              Enter your email below to login to your account.
+            <div className="flex flex-row justify-between">
+              <CardTitle className="flex text-2xl items-center">Login</CardTitle>
+              <DarkModeToggle />
+            </div>
+            <CardDescription className="dark:text-white">
+              Enter your username below to login to your account.
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
@@ -60,6 +64,7 @@ export function LoginElement() {
                 value={username}
                 autoComplete={"username"}
                 onChange={(e) => setUsername(e.target.value)}
+                className="bg-secondary dark:bg-slate-700"
                 id="username"
                 type="text"
                 placeholder="Username"
@@ -71,6 +76,7 @@ export function LoginElement() {
               <Input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="bg-secondary dark:bg-slate-700"
                 id="password"
                 type="password"
                 placeholder="*****************"
@@ -79,15 +85,9 @@ export function LoginElement() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-5">
-            <Button className="w-full" type={"submit"}>
+            <Button className="w-full dark:bg-slate-700 dark:text-white" type={"submit"}>
               Sign in
             </Button>
-            <a
-              href="/dashboard"
-              className="w-full rounded-[7px] border-2 border-gray-800 p-2 text-center hover:bg-gray-800 hover:text-white"
-            >
-              Go to dashboard
-            </a>
           </CardFooter>
         </Card>
         {error && <p className="mt-2 text-red-500">{error}</p>}
