@@ -8,13 +8,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Label } from "recharts";
 
 export default function RenameElement({
-  name,
   id,
 }: {
-  name: string;
   id: string;
 }) {
   const [newName, setNewName] = useState("");

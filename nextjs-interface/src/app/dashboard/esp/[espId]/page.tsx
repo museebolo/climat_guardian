@@ -22,7 +22,6 @@ import { endOfMonth, format, startOfMonth } from "date-fns";
 import { DateRange } from "react-day-picker";
 import React, { useState } from "react";
 
-import { getToken } from "@/lib/context";
 import RenameElement from "@/app/ui/dashboard/RenameElement";
 
 // main component
@@ -63,7 +62,7 @@ export default function Page({ params }: { params: any }) {
     <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5 pt-2">
       <div className="flex justify-between text-xl font-bold uppercase">
         <div>{esp.name}</div>
-        <RenameElement name={esp.name} id={params.espId} />
+        <RenameElement id={params.espId} />
       </div>
       <div className="flex justify-between">
         <DateRangeElement date={date} setDate={setDate} />
