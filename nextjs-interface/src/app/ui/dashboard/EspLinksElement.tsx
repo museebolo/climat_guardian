@@ -8,7 +8,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "recharts";
 import { getToken } from "@/lib/context";
@@ -53,7 +52,7 @@ export default function EspLinksElement() {
   return (
       <>
         {links.map((link) => {
-          const href = `/dashboard/esp/${link.name}`;
+          const href = `/dashboard/esp/${link.id}`;
           return (
               <>          <Link
                   key={link.name}
@@ -102,13 +101,11 @@ export default function EspLinksElement() {
                     required={true}
                 />
               </div>
-              <Button
-                  className="mt-2 w-full bg-black text-white"
-                  type="submit"
-                  variant="outline"
-              >
-                Ajouter un esp
-              </Button>
+              <button
+                  className="flex w-full justify-between text-lg text-zinc-500 hover:text-black dark:hover:text-zinc-200">
+                <p>ajouter un esp</p>
+                <CirclePlus className="mt-1 w-[20px]"/>
+              </button>
             </form>
           </PopoverContent>
         </Popover>
