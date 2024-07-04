@@ -11,7 +11,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <div className="hidden w-1/6 pl-5 dark:bg-slate-700 lg:block">
           <SideBarElement />
         </div>
-        <div className="w-full h-screen pt-5 dark:bg-slate-800 lg:w-5/6">{children}</div>
+        <div className="h-screen w-full pt-5 dark:bg-slate-800 lg:w-5/6">
+          {children}
+        </div>
       </div>
     </>
   );
