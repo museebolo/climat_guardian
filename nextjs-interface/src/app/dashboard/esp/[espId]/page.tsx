@@ -49,7 +49,7 @@ export default function Page({ params }: { params: any }) {
   // Get data from the selected esp and date range
   const from = date?.from ? format(date.from, "yyyy-MM-dd") : "";
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
-  const [precision, setPrecision] = useState("Minute");
+  const [precision, setPrecision] = useState("Day");
 
   // Get the ip of the selected esp and fetch the data for the graphic
   const ip = useFindIpById(params.espId);
