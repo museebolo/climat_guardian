@@ -1,17 +1,13 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import {fetchWithAuth} from "@/lib/data";
 
 export async function middleware(request: NextRequest) {
-
-
   const token = request.cookies.get("token");
-  const {pathname} = request.nextUrl;
+  const { pathname } = request.nextUrl;
 
   if (pathname === "/" && !token) {
     const loginUrl = new URL("/login", request.nextUrl.origin).toString();
     return NextResponse.redirect(loginUrl);
-
   }
 
   if ((pathname === "/dashboard" || pathname === "/dashboard/plan") && !token) {
@@ -28,5 +24,11 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/dashboard", "/login", "/dashboard/plan", "/dashboard/esp/:path*"],
+  matcher: [
+    "/",
+    "/dashboard",
+    "/login",
+    "/dashboard/plan",
+    "/dashboard/esp/:path*",
+  ],
 };
