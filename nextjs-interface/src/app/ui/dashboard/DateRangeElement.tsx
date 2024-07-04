@@ -27,7 +27,7 @@ export function DateRangeElement({
             id="date"
             variant={"outline"}
             className={cn(
-              "w-[300px] justify-start text-left font-normal dark:bg-slate-700",
+              "w-[300px] justify-start text-left font-normal dark:border-zinc-700 dark:bg-zinc-900",
               !date && "text-muted-foreground",
             )}
           >

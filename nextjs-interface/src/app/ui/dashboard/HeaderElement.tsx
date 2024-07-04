@@ -36,13 +36,13 @@ export function HeaderElement() {
               <Button
                 variant="outline"
                 size="icon"
-                className="shrink-0 lg:hidden dark:bg-slate-800"
+                className="shrink-0 lg:hidden dark:bg-zinc-800"
               >
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="flex flex-col dark:bg-slate-800">
+            <SheetContent side="left" className="flex flex-col dark:bg-zinc-800">
               <NavLinksElement />
               <EspLinksElement />
             </SheetContent>
@@ -64,14 +64,14 @@ export function HeaderElement() {
               <Button
                 variant="secondary"
                 size="icon"
-                className="rounded-full dark:bg-slate-800"
+                className="rounded-full dark:bg-zinc-800"
               >
                 <CircleUser className="h-5 w-5" />
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <Button className="w-full dark:bg-slate-800 dark:text-white" onClick={logout}>
+              <Button className="w-full dark:bg-gray-800 dark:text-white" onClick={logout}>
                 log out
               </Button>
             </DropdownMenuContent>
