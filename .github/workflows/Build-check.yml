@@ -1,0 +1,34 @@
+name: check docker build
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: copie .env file
+        run: | 
+          cp .env.example .env
+          cp esp32/config/secrets.yaml.example esp32/config/secrets.yaml
+
+      - name: generate random jwt secret token
+        run: |
+          sed -i '/JWT_SECRET/d' .env
+          echo "JWT_SECRET=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
+
+      - name: generate random password for jwt token
+        run: |
+          sed -i '/POSTGRES_PASSWORD/d' .env
+          echo "POSTGRES_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
+
+      - name: build and test
+        run: docker compose -f docker-compose.prod.yml up -d --remove-orphans --build
