@@ -8,11 +8,9 @@ import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 // import components
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
 import { EspMap } from "@/app/ui/plan/espMap";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 // import script
-import findIpByName, {
+import {
   calculateAverage,
   GetEspPosition,
   useFetchData,

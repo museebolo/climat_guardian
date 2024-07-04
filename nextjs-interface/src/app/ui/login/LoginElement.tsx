@@ -45,9 +45,9 @@ export function LoginElement() {
       });
   };
   return (
-    <div className="flex h-screen items-center justify-center dark:bg-gray-900">
+    <div className="flex h-screen items-center justify-center dark:bg-zinc-900">
       <form method="get" onSubmit={submit} className="mx-auto max-w-xs">
-        <Card className="w-full max-w-lg dark:bg-gray-800">
+        <Card className="w-full max-w-lg dark:bg-zinc-800">
           <CardHeader>
             <div className="flex flex-row justify-between">
               <CardTitle className="flex items-center text-2xl">
@@ -66,7 +66,7 @@ export function LoginElement() {
                 value={username}
                 autoComplete={"username"}
                 onChange={(e) => setUsername(e.target.value)}
-                className="bg-secondary dark:bg-slate-700"
+                className="bg-secondary dark:bg-zinc-700"
                 id="username"
                 type="text"
                 placeholder="Username"
@@ -78,7 +78,7 @@ export function LoginElement() {
               <Input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="bg-secondary dark:bg-slate-700"
+                className="bg-secondary dark:bg-zinc-700"
                 id="password"
                 type="password"
                 placeholder="*****************"
@@ -88,7 +88,7 @@ export function LoginElement() {
           </CardContent>
           <CardFooter className="flex flex-col gap-5">
             <Button
-              className="w-full dark:bg-slate-700 dark:text-white"
+              className="w-full dark:bg-zinc-700 dark:text-white"
               type={"submit"}
             >
               Sign in
