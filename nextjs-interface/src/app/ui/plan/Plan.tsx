@@ -23,7 +23,7 @@ export default function Plan() {
   return (
     <div>
       <svg
-        className="h-[1000px] w-[1000px]"
+        className="xl:h-[1000px] xl:w-[1000px]"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 100 100"
         onClick={getPosition}
