@@ -36,7 +36,7 @@ export function HeaderElement() {
               <Button
                 variant="outline"
                 size="icon"
-                className="shrink-0 lg:hidden dark:bg-slate-700"
+                className="shrink-0 lg:hidden dark:bg-slate-800"
               >
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle navigation menu</span>
@@ -64,14 +64,14 @@ export function HeaderElement() {
               <Button
                 variant="secondary"
                 size="icon"
-                className="rounded-full dark:bg-slate-700"
+                className="rounded-full dark:bg-slate-800"
               >
                 <CircleUser className="h-5 w-5" />
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <Button className="w-full dark:bg-slate-700 dark:text-white" onClick={logout}>
+              <Button className="w-full dark:bg-slate-800 dark:text-white" onClick={logout}>
                 log out
               </Button>
             </DropdownMenuContent>

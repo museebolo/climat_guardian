@@ -45,9 +45,9 @@ export function LoginElement() {
       });
   };
   return (
-    <div className="flex h-screen justify-center items-center dark:bg-slate-700">
+    <div className="flex h-screen justify-center items-center dark:bg-slate-900">
       <form method="get" onSubmit={submit} className="mx-auto max-w-xs">
-        <Card className="w-full max-w-lg dark:bg-gray-900">
+        <Card className="w-full max-w-lg dark:bg-gray-800">
           <CardHeader>
             <div className="flex flex-row justify-between">
               <CardTitle className="flex text-2xl items-center">Login</CardTitle>
