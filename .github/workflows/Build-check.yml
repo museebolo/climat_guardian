@@ -32,3 +32,9 @@ jobs:
 
       - name: build and test
         run: docker compose -f docker-compose.prod.yml up -d --remove-orphans --build
+
+      - name: test login with admin return token
+        # testing the login make sure that the database, the php, nginx, postgrest and the migration works
+        run: |
+            curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://localhost/php/login.php | jq ".token"
+          
