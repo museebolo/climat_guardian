@@ -113,10 +113,10 @@ export default function EspLinksElement() {
                 required={true}
               />
             </div>
-              <Button
-                className="mt-2 w-full bg-white text-black dark:bg-zinc-700 dark:hover:bg-black  dark:text-white"
-                type="submit"
-                variant="outline"
+            <Button
+              className="mt-2 w-full bg-white text-black dark:bg-zinc-700 dark:text-white dark:hover:bg-black"
+              type="submit"
+              variant="outline"
             >
               Ajouter un esp
             </Button>
