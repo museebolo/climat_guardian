@@ -17,14 +17,9 @@ import {
 import { CircleUser, Landmark, Menu } from "lucide-react";
 
 const logout = () => {
-  const darkModeSetting = localStorage.getItem("darkMode");
-
   document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   window.location.href = "/";
   localStorage.clear();
-  if (darkModeSetting) {
-    localStorage.setItem("darkMode", darkModeSetting);
-  }
 };
 export function HeaderElement() {
   return (
