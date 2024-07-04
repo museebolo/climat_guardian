@@ -85,7 +85,7 @@ export default function EspLinksElement() {
       <div className="mb-3 border-b-2 dark:border-gray-400" />
       <Popover>
         <PopoverTrigger asChild>
-          <button className="flex w-full justify-between text-lg text-zinc-500 hover:text-black dark:hover:text-zinc-200">
+          <button className="flex w-full justify-between text-start text-lg text-zinc-500 hover:text-black dark:hover:text-zinc-200">
             <p>ajouter un esp</p>
             <CirclePlus className="mt-1 w-[20px]" />
           </button>

@@ -78,7 +78,7 @@ export default function Page({ params }: { params: any }) {
         <div>{esp.name}</div>
         <RenameElement id={params.espId} />
       </div>
-      <div className="flex gap-x-5">
+      <div className="flex flex-col gap-x-5 gap-y-5 sm:flex-row">
         <DateRangeElement date={date} setDate={setDate} />
         <div className="w-fit">
           <Select onValueChange={handleSelect}>
@@ -92,28 +92,45 @@ export default function Page({ params }: { params: any }) {
               position="popper"
               className="flex w-60 gap-2 dark:bg-zinc-800"
             >
-              <SelectItem value="Month">Month</SelectItem>
-              <SelectItem value="Day">Day</SelectItem>
-              <SelectItem value="Hour">Hour</SelectItem>
-              <SelectItem value="Minute">Minute</SelectItem>
+              <SelectItem value="Month" className="cursor-pointer">
+                Month
+              </SelectItem>
+              <SelectItem
+                value="Day"
+                className="cursor-pointer rounded-none border-t-2 border-gray-600"
+              >
+                Day
+              </SelectItem>
+              <SelectItem
+                value="Hour"
+                className="cursor-pointer rounded-none border-t-2 border-gray-600"
+              >
+                Hour
+              </SelectItem>
+              <SelectItem
+                value="Minute"
+                className="cursor-pointer rounded-none border-t-2 border-gray-600"
+              >
+                Minute
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
-      <div className="flex flex-row gap-x-5">
-        <Card className="w-1/2 dark:border-zinc-700 dark:bg-zinc-900">
+      <div className="flex w-full flex-col gap-x-5 gap-y-5 xl:flex-row">
+        <Card className="w-full dark:border-zinc-700 dark:bg-zinc-900">
           <CardTitle>
             <p className="pl-6 pt-6 text-xl">Last data :</p>
           </CardTitle>
-          <CardContent>
-            <div className="flex flex-row rounded-xl p-5">
+          <CardContent className="w-full">
+            <div className="flex flex-col rounded-xl p-5 sm:flex-row">
               <PieChartTemperature data={temperature} />
               <PieChartHumidity data={humidity} />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="w-1/2 dark:border-zinc-700 dark:bg-zinc-900">
+        <Card className="w-full dark:border-zinc-700 dark:bg-zinc-900">
           <CardTitle>
             <p className="pl-6 pt-6 text-xl">
               Average data ( From{" "}
@@ -122,7 +139,7 @@ export default function Page({ params }: { params: any }) {
             </p>
           </CardTitle>
           <CardContent>
-            <div className="flex flex-row rounded-xl p-5">
+            <div className="flex flex-col rounded-xl p-5 sm:flex-row">
               <PieChartTemperature data={averageTemperature} />
               <PieChartHumidity data={averageHumidity} />
             </div>
@@ -130,7 +147,7 @@ export default function Page({ params }: { params: any }) {
         </Card>
       </div>
 
-      <Card className="dark:border-zinc-700 dark:bg-zinc-900">
+      <Card className="w-full dark:border-zinc-700 dark:bg-zinc-900">
         <CardContent>
           <ChartElement data={allData} />
         </CardContent>
@@ -138,7 +155,7 @@ export default function Page({ params }: { params: any }) {
       <Card className="flex justify-center rounded-xl dark:border-zinc-700 dark:bg-zinc-900">
         <CardContent>
           <svg
-            className="h-[1000px] w-[1000px]"
+            className="h-[500px] w-[500px]"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 100 100"
           >
