@@ -24,14 +24,14 @@ const logout = () => {
 export function HeaderElement() {
   return (
     <div className="flex flex-col">
-      <header className="flex h-14 w-full items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+      <header className="flex h-14 w-screen items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
         <div className="flex flex-row gap-5 pt-5 lg:pt-0">
           <Sheet>
             <SheetTrigger asChild>
               <Button
                 variant="outline"
                 size="icon"
-                className="shrink-0 dark:bg-slate-700 lg:hidden"
+                className="shrink-0 dark:bg-zinc-800 lg:hidden"
               >
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle navigation menu</span>
@@ -39,7 +39,7 @@ export function HeaderElement() {
             </SheetTrigger>
             <SheetContent
               side="left"
-              className="flex flex-col dark:bg-slate-800"
+              className="flex flex-col dark:bg-zinc-800"
             >
               <NavLinksElement />
               <EspLinksElement />
@@ -62,7 +62,7 @@ export function HeaderElement() {
               <Button
                 variant="secondary"
                 size="icon"
-                className="rounded-full dark:bg-slate-700"
+                className="rounded-full dark:bg-zinc-800"
               >
                 <CircleUser className="h-5 w-5" />
                 <span className="sr-only">Toggle user menu</span>
@@ -70,7 +70,7 @@ export function HeaderElement() {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <Button
-                className="w-full dark:bg-slate-700 dark:text-white"
+                className="w-full dark:bg-gray-800 dark:text-white"
                 onClick={logout}
               >
                 log out
