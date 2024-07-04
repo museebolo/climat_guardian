@@ -1,7 +1,6 @@
 # Use postgres/example user/password credentials
-version: '3.9'
+version: "3.9"
 services:
-
   esphome:
     image: esphome/esphome:2024.4
     volumes:
@@ -32,8 +31,6 @@ services:
     image: sqitch-memoires-info
     environment:
       SQITCH_TARGET: "db:pg://postgres:${POSTGRES_PASSWORD}@db:5432/memoires-info"
-    volumes:
-      - "./database/migration:/repo"
     depends_on:
       db:
         condition: service_healthy
@@ -58,15 +55,21 @@ services:
     depends_on:
       - postg-rest
 
+  interface:
+    build:
+      context: .
+      dockerfile: Dockerfile/Dockerfile.Node
+    image: interface-memoires-info
+
   web:
     build:
       context: .
       dockerfile: Dockerfile/Dockerfile.Nginx
     image: nginx-memoires-info
     ports:
-      - '80:80'
+      - "80:80"
     depends_on:
       - php
       - postg-rest
       - esphome
-
+      - interface

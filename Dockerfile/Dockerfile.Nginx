@@ -1,14 +1,5 @@
-# node 20, build the application
-FROM node:20.12.2-alpine3.19
-COPY ../Interface .
-RUN npm install
-RUN npm run build
-
-
 # nginx 1.26 on port 80, keep the build output, nginx config
 FROM nginx:1.26-alpine-otel
-EXPOSE 80
-COPY --from=0 ../dist /var/www/memoires-info/html
 COPY ../.env /var/www/memoires-info/html/.env
 
 # copy the nginx config
