@@ -92,10 +92,10 @@ export default function Page({ params }: { params: any }) {
               position="popper"
               className="flex w-60 gap-2 dark:bg-zinc-800"
             >
-              <SelectItem value="Month">Month</SelectItem>
-              <SelectItem value="Day">Day</SelectItem>
-              <SelectItem value="Hour">Hour</SelectItem>
-              <SelectItem value="Minute">Minute</SelectItem>
+              <SelectItem value="Month" className="cursor-pointer">Month</SelectItem>
+              <SelectItem value="Day" className="border-t-2 border-gray-600 rounded-none cursor-pointer">Day</SelectItem>
+              <SelectItem value="Hour" className="border-t-2 border-gray-600 rounded-none cursor-pointer">Hour</SelectItem>
+              <SelectItem value="Minute" className="border-t-2 border-gray-600 rounded-none cursor-pointer">Minute</SelectItem>
             </SelectContent>
           </Select>
         </div>
