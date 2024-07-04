@@ -1,20 +1,26 @@
 "use client";
+
+// import react libraries
 import { useState } from "react";
+
+// import theme context
 import { ThemeContext } from "@/lib/Theme";
 
-export function Providers({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+// import scripts
+import { getCookie, setCookie } from "@/lib/cookies";
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  // set dark mode
   const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem("darkMode");
-    return savedMode ? JSON.parse(savedMode) : false;
+    const savedMode = getCookie("darkMode");
+    return savedMode ? savedMode === "true" : false;
   });
+
+  // toggle dark mode
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
-    localStorage.setItem("darkMode", JSON.stringify(newDarkMode));
+    setCookie({ name: "darkMode", value: newDarkMode });
   };
 
   return (

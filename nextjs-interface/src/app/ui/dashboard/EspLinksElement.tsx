@@ -1,18 +1,29 @@
 "use client";
+
+// import nextjs and react
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+
+// import recharts components
+import { Label } from "recharts";
+
+// import context and scripts
+import { getToken } from "@/lib/context";
+import { useAllEsp } from "@/lib/data";
+
+// import lucide icons
+import { CirclePlus } from "lucide-react";
+
+// import shacl-ui components
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
-import { Label } from "recharts";
-import { getToken } from "@/lib/context";
-import { useAllEsp } from "@/lib/data";
-import { CirclePlus } from "lucide-react";
 
 export default function EspLinksElement() {
   const pathname = usePathname();
@@ -57,7 +68,7 @@ export default function EspLinksElement() {
           <>
             {" "}
             <Link
-              key={link.name}
+              key={link.id}
               href={href}
               className={clsx(
                 "flex items-center gap-3 rounded-lg py-2 text-lg text-gray-500 transition-all hover:text-primary",
@@ -102,10 +113,13 @@ export default function EspLinksElement() {
                 required={true}
               />
             </div>
-            <button className="flex w-full justify-between text-lg text-zinc-500 hover:text-black dark:hover:text-zinc-200">
-              <p>ajouter un esp</p>
-              <CirclePlus className="mt-1 w-[20px]" />
-            </button>
+              <Button
+                className="mt-2 w-full bg-white text-black dark:bg-zinc-700 dark:hover:bg-black  dark:text-white"
+                type="submit"
+                variant="outline"
+            >
+              Ajouter un esp
+            </Button>
           </form>
         </PopoverContent>
       </Popover>
