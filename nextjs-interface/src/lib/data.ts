@@ -1,6 +1,22 @@
 import { useEffect, useState } from "react";
 import { getToken, data, avgData, esp } from "@/lib/context";
 
+export const fetchWithAuth = async (url: string,token: string | null | undefined) => {
+  try {
+    const response = await fetch(url, {headers: {Authorization: `Bearer ${getToken()}`}});
+    if (!response.ok) {
+      if (response.status === 401) {
+        window.location.href = '/login';
+      }
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Une erreur s'est produite :", error);
+    throw error;
+  }
+};
+
 export const useFetchData = (
   precision: string,
   ip: string,
@@ -11,6 +27,7 @@ export const useFetchData = (
 
   useEffect(() => {
     const url = `/postgrest/rpc/avg_date?delta=${precision}&ip=eq.${ip}&and=(date.gte.${from},date.lt.${to})`;
+    fetchWithAuth(url,getToken())
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiData: avgData[]) => {
@@ -29,6 +46,7 @@ export function useLastData(type: string, ip: string) {
 
   useEffect(() => {
     const url = `/postgrest/data_view?limit=1&order=timestamp.desc&ip=eq.${ip}`;
+    fetchWithAuth(url,getToken())
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiData: data[]) => {
@@ -51,6 +69,7 @@ export const useAllEsp = () => {
 
   useEffect(() => {
     const url = `/postgrest/esp`;
+    fetchWithAuth(url,getToken())
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiEsp: esp[]) => {
@@ -69,6 +88,7 @@ export default function useFindIpById(id: string) {
 
   useEffect(() => {
     const url = `/postgrest/esp?select=ip&id=eq.${id}`;
+    fetchWithAuth(url,getToken())
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiIp: esp[]) => {
@@ -87,6 +107,7 @@ export function useFindNameById(id: string) {
 
   useEffect(() => {
     const url = `/postgrest/esp?select=name&id=eq.${id}`;
+    fetchWithAuth(url,getToken())
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiIp: esp[]) => {
@@ -105,6 +126,7 @@ export function GetEspPosition(id: string) {
 
   useEffect(() => {
     const url = `/postgrest/esp?select=x,y,name,ip&id=eq.${id}`;
+    fetchWithAuth(url,getToken())
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiPosition: esp[]) => {

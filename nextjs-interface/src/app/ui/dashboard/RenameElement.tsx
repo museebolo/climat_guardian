@@ -31,7 +31,7 @@ export default function RenameElement({ id }: { id: string }) {
     }
   };
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 cursor-pointer">
       <Popover>
         <PopoverTrigger asChild>
           <EllipsisVertical />
