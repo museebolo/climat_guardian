@@ -25,7 +25,13 @@ import React, { useState } from "react";
 
 import RenameElement from "@/app/ui/dashboard/RenameElement";
 import useFindIpById from "@/lib/data";
-import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // main component
 export default function Page({ params }: { params: any }) {
@@ -43,7 +49,7 @@ export default function Page({ params }: { params: any }) {
   // Get data from the selected esp and date range
   const from = date?.from ? format(date.from, "yyyy-MM-dd") : "";
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
-  const [precision, setPrecision] = useState("Minute")
+  const [precision, setPrecision] = useState("Minute");
 
   // Get the ip of the selected esp and fetch the data for the graphic
   const ip = useFindIpById(params.espId);
@@ -61,7 +67,7 @@ export default function Page({ params }: { params: any }) {
     setHoveredCircle(circle);
   };
 
-  const handleSelect = (value:any) => {
+  const handleSelect = (value: any) => {
     setPrecision(value);
     console.log(value);
   };
@@ -76,10 +82,16 @@ export default function Page({ params }: { params: any }) {
         <DateRangeElement date={date} setDate={setDate} />
         <div className="w-fit">
           <Select onValueChange={handleSelect}>
-            <SelectTrigger id="select-precision" className="w-[200px] dark:border-zinc-700 dark:bg-zinc-900">
+            <SelectTrigger
+              id="select-precision"
+              className="w-[200px] dark:border-zinc-700 dark:bg-zinc-900"
+            >
               <SelectValue placeholder="Select precision" />
             </SelectTrigger>
-            <SelectContent position="popper" className="flex w-60 gap-2 dark:bg-zinc-800">
+            <SelectContent
+              position="popper"
+              className="flex w-60 gap-2 dark:bg-zinc-800"
+            >
               <SelectItem value="Month">Month</SelectItem>
               <SelectItem value="Day">Day</SelectItem>
               <SelectItem value="Hour">Hour</SelectItem>
