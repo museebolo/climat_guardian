@@ -8,13 +8,13 @@ export function Providers({
   children: React.ReactNode;
 }>) {
   const [darkMode, setDarkMode] = useState(() => {
-    const savedMode = localStorage.getItem('darkMode');
+    const savedMode = localStorage.getItem("darkMode");
     return savedMode ? JSON.parse(savedMode) : false;
   });
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
-    localStorage.setItem('darkMode', JSON.stringify(newDarkMode));
+    localStorage.setItem("darkMode", JSON.stringify(newDarkMode));
   };
 
   return (

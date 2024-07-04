@@ -115,8 +115,11 @@ export function EspMap({
         </g>
       </PopoverTrigger>
       <PopoverContent className="w-44 gap-4 font-bold dark:bg-zinc-800">
-        <p className="text-center pb-4">{name}</p>
-        <Button className="w-full dark:bg-zinc-700 dark:text-white dark:hover:bg-black" onClick={updatePosition}>
+        <p className="pb-4 text-center">{name}</p>
+        <Button
+          className="w-full dark:bg-zinc-700 dark:text-white dark:hover:bg-black"
+          onClick={updatePosition}
+        >
           confirmer la position
         </Button>
       </PopoverContent>
