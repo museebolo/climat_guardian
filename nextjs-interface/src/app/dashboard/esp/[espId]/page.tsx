@@ -122,7 +122,7 @@ export default function Page({ params }: { params: any }) {
           <CardTitle>
             <p className="pl-6 pt-6 text-xl">Last data :</p>
           </CardTitle>
-          <CardContent className="w-full flex justify-center">
+          <CardContent className="flex w-full justify-center">
             <div className="flex flex-col gap-x-36 rounded-xl p-5 sm:flex-row">
               <PieChartTemperature data={temperature} />
               <PieChartHumidity data={humidity} />
@@ -138,7 +138,7 @@ export default function Page({ params }: { params: any }) {
               {date?.to ? format(date.to, "yyyy-MM-dd") : ""}) :
             </p>
           </CardTitle>
-          <CardContent className="w-full flex justify-center">
+          <CardContent className="flex w-full justify-center">
             <div className="flex flex-col gap-x-36 rounded-xl p-5 sm:flex-row">
               <PieChartTemperature data={averageTemperature} />
               <PieChartHumidity data={averageHumidity} />
@@ -155,7 +155,7 @@ export default function Page({ params }: { params: any }) {
       <Card className="flex justify-center rounded-xl dark:border-zinc-700 dark:bg-zinc-900">
         <CardContent>
           <svg
-              className="h-[500px] w-[500px] xl:w-[1000px] xl:h-[1000px]"
+            className="h-[500px] w-[500px] xl:h-[1000px] xl:w-[1000px]"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 100 100"
           >
