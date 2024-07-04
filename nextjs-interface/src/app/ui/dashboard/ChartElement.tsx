@@ -22,12 +22,7 @@ export function ChartElement({ data }: { data: avgData[] }) {
   darkMode ? (textColor = "white") : (textColor = "");
   return (
     <ResponsiveContainer width="100%" height={500}>
-      <LineChart
-        className="rounded-2xl border-2 border-gray-300"
-        width={800}
-        height={500}
-        data={data}
-      >
+      <LineChart width={800} height={500} data={data}>
         <XAxis
           fontSize={16}
           tickLine={false}

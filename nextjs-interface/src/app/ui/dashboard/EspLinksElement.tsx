@@ -18,12 +18,12 @@ import { CirclePlus } from "lucide-react";
 
 // import shacl-ui components
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Input } from "@/components/ui/input";
 
 export default function EspLinksElement() {
   const pathname = usePathname();
@@ -90,14 +90,13 @@ export default function EspLinksElement() {
             <CirclePlus className="mt-1 w-[20px]" />
           </button>
         </PopoverTrigger>
-        <PopoverContent className="ml-5 w-80 bg-secondary dark:bg-gray-900">
+        <PopoverContent className="w-80">
           <form onSubmit={handleSubmit}>
             <div className="flex gap-2">
               <Label>name</Label>
               <Input
                 type="text"
                 id="name"
-                className="bg-secondary dark:bg-slate-700"
                 placeholder="name"
                 value={newLink.name}
                 onChange={handleInputChange}
@@ -108,7 +107,6 @@ export default function EspLinksElement() {
               <Input
                 type="text"
                 id="ip"
-                className="bg-secondary dark:bg-slate-700"
                 placeholder="ip adresse"
                 value={newLink.ip}
                 onChange={handleInputChange}
@@ -116,7 +114,7 @@ export default function EspLinksElement() {
               />
             </div>
             <Button
-              className="mt-2 w-full bg-white text-black dark:bg-slate-700 dark:text-white"
+              className="mt-2 w-full bg-white text-black dark:bg-zinc-700 dark:text-white dark:hover:bg-black"
               type="submit"
               variant="outline"
             >

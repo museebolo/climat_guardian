@@ -37,4 +37,4 @@ jobs:
         # testing the login make sure that the database, the php, nginx, postgrest and the migration works
         run: |
             curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://localhost/php/login.php | jq ".token"
-          
+            
