@@ -8,6 +8,7 @@ import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 // import components
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
 import { EspMap } from "@/app/ui/plan/espMap";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
 // import script
 import {
@@ -24,7 +25,7 @@ import React, { useState } from "react";
 
 import RenameElement from "@/app/ui/dashboard/RenameElement";
 import useFindIpById from "@/lib/data";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 // main component
 export default function Page({ params }: { params: any }) {
@@ -42,7 +43,7 @@ export default function Page({ params }: { params: any }) {
   // Get data from the selected esp and date range
   const from = date?.from ? format(date.from, "yyyy-MM-dd") : "";
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
-  const precision = "hour";
+  const [precision, setPrecision] = useState("Minute")
 
   // Get the ip of the selected esp and fetch the data for the graphic
   const ip = useFindIpById(params.espId);
@@ -60,14 +61,32 @@ export default function Page({ params }: { params: any }) {
     setHoveredCircle(circle);
   };
 
+  const handleSelect = (value:any) => {
+    setPrecision(value);
+    console.log(value);
+  };
+
   return (
     <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5 pt-2">
       <div className="flex justify-between text-xl font-bold uppercase">
         <div>{esp.name}</div>
         <RenameElement id={params.espId} />
       </div>
-      <div className="flex justify-between">
+      <div className="flex gap-x-5">
         <DateRangeElement date={date} setDate={setDate} />
+        <div className="w-fit">
+          <Select onValueChange={handleSelect}>
+            <SelectTrigger id="select-precision" className="w-[200px] dark:border-zinc-700 dark:bg-zinc-900">
+              <SelectValue placeholder="Select precision" />
+            </SelectTrigger>
+            <SelectContent position="popper" className="flex w-60 gap-2 dark:bg-zinc-800">
+              <SelectItem value="Month">Month</SelectItem>
+              <SelectItem value="Day">Day</SelectItem>
+              <SelectItem value="Hour">Hour</SelectItem>
+              <SelectItem value="Minute">Minute</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       <div className="flex flex-row gap-x-5">
         <Card className="w-1/2 dark:border-zinc-700 dark:bg-zinc-900">
