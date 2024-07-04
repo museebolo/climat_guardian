@@ -2,9 +2,8 @@ name: Check formatting of project files with Prettier
 
 on:
   pull_request:
-    types: [opened, edited, synchronize]
     branches:
-      - Dev
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
