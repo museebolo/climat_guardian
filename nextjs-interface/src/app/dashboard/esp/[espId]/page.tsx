@@ -78,7 +78,7 @@ export default function Page({ params }: { params: any }) {
         <div>{esp.name}</div>
         <RenameElement id={params.espId} />
       </div>
-      <div className="flex gap-x-5">
+      <div className="flex flex-col gap-y-5 sm:flex-row gap-x-5">
         <DateRangeElement date={date} setDate={setDate} />
         <div className="w-fit">
           <Select onValueChange={handleSelect}>
@@ -100,20 +100,20 @@ export default function Page({ params }: { params: any }) {
           </Select>
         </div>
       </div>
-      <div className="flex flex-row gap-x-5">
-        <Card className="w-1/2 dark:border-zinc-700 dark:bg-zinc-900">
+      <div className="flex flex-col w-full gap-y-5 xl:flex-row gap-x-5">
+        <Card className="w-full dark:border-zinc-700 dark:bg-zinc-900">
           <CardTitle>
             <p className="pl-6 pt-6 text-xl">Last data :</p>
           </CardTitle>
-          <CardContent>
-            <div className="flex flex-row rounded-xl p-5">
+          <CardContent className="w-full">
+            <div className="flex flex-col sm:flex-row rounded-xl p-5">
               <PieChartTemperature data={temperature} />
               <PieChartHumidity data={humidity} />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="w-1/2 dark:border-zinc-700 dark:bg-zinc-900">
+        <Card className="w-full dark:border-zinc-700 dark:bg-zinc-900">
           <CardTitle>
             <p className="pl-6 pt-6 text-xl">
               Average data ( From{" "}
@@ -122,7 +122,7 @@ export default function Page({ params }: { params: any }) {
             </p>
           </CardTitle>
           <CardContent>
-            <div className="flex flex-row rounded-xl p-5">
+            <div className="flex flex-col sm:flex-row rounded-xl p-5">
               <PieChartTemperature data={averageTemperature} />
               <PieChartHumidity data={averageHumidity} />
             </div>
@@ -130,7 +130,7 @@ export default function Page({ params }: { params: any }) {
         </Card>
       </div>
 
-      <Card className="dark:border-zinc-700 dark:bg-zinc-900">
+      <Card className="w-full dark:border-zinc-700 dark:bg-zinc-900">
         <CardContent>
           <ChartElement data={allData} />
         </CardContent>
@@ -138,7 +138,7 @@ export default function Page({ params }: { params: any }) {
       <Card className="flex justify-center rounded-xl dark:border-zinc-700 dark:bg-zinc-900">
         <CardContent>
           <svg
-            className="h-[1000px] w-[1000px]"
+            className="h-[500px] w-[500px]"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 100 100"
           >
@@ -169,5 +169,5 @@ export default function Page({ params }: { params: any }) {
         </CardContent>
       </Card>
     </div>
-  );
+);
 }
