@@ -18,10 +18,7 @@ $app->addErrorMiddleware(true, true, true);
 
 # the router is used to require the php files
 $app->post('/login', App\Login::class);
-$app->post('/esp', function (Request $request, Response $response, $args) {
-    require __DIR__ . '/../private/esp.php';
-    return $response;
-});
+$app->post('/esp', App\Esp::class);
 
 $app->run();
 

@@ -8,9 +8,9 @@ use Firebase\JWT\JWT;
 
 class Login {
     public function __invoke(Request $request, Response $response, mixed $args): Response {
-
         $data = json_decode(file_get_contents("php://input"), true);
 
+        // Check if the username and password are provided
         if (!isset($data['username']) || !isset($data['password']))
             return output($response, ['error' => 'Username and password are required'], 400);
 
