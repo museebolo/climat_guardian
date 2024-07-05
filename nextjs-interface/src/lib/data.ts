@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getToken, data, avgData, esp } from "@/lib/context";
+import { getToken, data, avgData, esp, user } from "@/lib/context";
 
 export const fetchWithAuth = async (url: string) => {
   try {
@@ -123,6 +123,25 @@ export function useFindNameById(id: string) {
   return name;
 }
 
+export function useAllUsers() {
+  const [users, setUsers] = useState<user[]>([]);
+
+  useEffect(() => {
+    const url = `/postgrest/users`;
+    fetchWithAuth(url);
+    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
+      .then((response) => response.json())
+      .then((apiUsers: user[]) => {
+        setUsers(apiUsers);
+        console.log("useAllusers", apiUsers);
+      })
+      .catch((e) => {
+        console.error("Une erreur s'est produite :", e);
+      });
+  }, []);
+  return users;
+}
+
 export function GetEspPosition(id: string) {
   const [position, setPosition] = useState<esp[]>([]);
 
@@ -151,6 +170,25 @@ interface DataRecord {
   avg_humidity: number;
   // Ajoutez d'autres propriétés si nécessaire
 }
+
+export const useFetchToken = (ip: any) => {
+  const [data, setData] = useState<string>("");
+  const url = `/php/esp.php`;
+  const response = fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify({ ip: ip }),
+  })
+    .then((response) => response.json())
+    .then((data: { token: string }) => {
+      setData(data.token);
+    })
+    .catch((e) => console.error("error c'est produite : ", e));
+  return data;
+};
 
 // Fonction pour calculer la moyenne d'une propriété spécifique
 export function calculateAverage(
