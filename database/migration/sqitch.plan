@@ -7,3 +7,4 @@ roles 2024-06-07T18:32:02Z Nils <nils@fedora> # create the role used by the user
 data 2024-06-07T20:09:18Z Nils <nils@fedora> # Add table to store data
 user 2024-06-07T20:47:39Z Nils <nils@fedora> # create a user table to store every user and password
 esp 2024-06-26T08:20:01Z dylan <dylanbossoku@dylan> # create a esp table to stove every esp data
+2024-07-05 2024-07-05T08:58:10Z Nils <nils@fedora> # Grant user the ability to remove users
