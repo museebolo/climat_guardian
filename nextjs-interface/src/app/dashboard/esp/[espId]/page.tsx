@@ -97,19 +97,19 @@ export default function Page({ params }: { params: any }) {
               </SelectItem>
               <SelectItem
                 value="Day"
-                className="cursor-pointer rounded-none border-t-2 border-gray-600"
+                className="cursor-pointer rounded-none border-t-2 border-secondary  dark:border-gray-700"
               >
                 Day
               </SelectItem>
               <SelectItem
                 value="Hour"
-                className="cursor-pointer rounded-none border-t-2 border-gray-600"
+                className="cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700"
               >
                 Hour
               </SelectItem>
               <SelectItem
                 value="Minute"
-                className="cursor-pointer rounded-none border-t-2 border-gray-600"
+                className="cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700"
               >
                 Minute
               </SelectItem>
