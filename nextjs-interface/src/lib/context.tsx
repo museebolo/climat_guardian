@@ -4,6 +4,11 @@ export function getToken() {
   }
 }
 
+export interface user {
+  ip: string;
+  username: string;
+}
+
 export interface AverageData {
   avg_temperature: number;
   avg_humidity: number;
