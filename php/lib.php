@@ -1,6 +1,6 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
+use Psr\Http\Message\ResponseInterface as Response;
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
@@ -14,11 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 /**
  * @param array<string, mixed> $messages
  */
-#[NoReturn] function output(array $messages, int $code = 200): void {
-	header('Content-Type: application/json');
-	http_response_code($code);
-	echo json_encode($messages);
-	exit;
+function output(Response $response, array $messages, int $code = 200): Response {
+    $response->getBody()->write(json_encode($messages));
+    return $response->withHeader('Content-Type', 'application/json')->withStatus($code);
 }
 
 /**

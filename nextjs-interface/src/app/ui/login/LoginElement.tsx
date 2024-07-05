@@ -22,11 +22,13 @@ export function LoginElement() {
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await fetch(`/php/login.php?username=${username}&password=${password}`, {
+    await fetch(`/php/login`, {
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ username: username, password: password }),
     })
       .then((response) => response.json())
       .then((reponse) => {
