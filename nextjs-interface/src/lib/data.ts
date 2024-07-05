@@ -173,7 +173,7 @@ interface DataRecord {
 
 export const useFetchToken = (ip: any) => {
   const [data, setData] = useState<string>("");
-  const url = `/php/esp.php`;
+  const url = `/php/esp`;
   const response = fetch(url, {
     method: "POST",
     headers: {
