@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { HomeIcon } from "./homeIcon";
-import { PlanIcon } from "@/app/ui/dashboard/planIcon";
+import { HomeIcon } from "../svgs/homeIcon";
+import { PlanIcon } from "@/app/ui/svgs/planIcon";
+import { UserIcon } from "@/app/ui/svgs/UserIcon";
 
 const links = [
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
   { name: "Plan", href: "/dashboard/plan", icon: PlanIcon },
+  { name: "users", href: "/dashboard/users", icon: UserIcon },
 ];
 
 export default function NavLinksElement() {
