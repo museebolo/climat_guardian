@@ -1,7 +1,6 @@
 <?php
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use Symfony\Component\Dotenv\Dotenv;
 
 $data = match ($_SERVER['REQUEST_METHOD']) {
         'GET' => $_GET,
@@ -12,10 +11,6 @@ $data = match ($_SERVER['REQUEST_METHOD']) {
 // check if the esp's ip is provided
 if (!isset($data['ip']))
     output(['error' => 'IP is required'], 400);
-
-// Load environment variables
-$dotenv = new Dotenv();
-$dotenv->load(__DIR__ . '/../.env');
 
 // check if the user is authenticated
 $user = getallheaders()['Authorization'];

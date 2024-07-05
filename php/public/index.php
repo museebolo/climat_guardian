@@ -5,6 +5,11 @@ require_once __DIR__ . '/../lib.php';
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
+use Symfony\Component\Dotenv\Dotenv;
+
+// Load environment variables
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__ . '/../.env');
 
 // Set up the router
 $app = AppFactory::create();

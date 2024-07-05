@@ -6,10 +6,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Firebase\JWT\JWT;
 
-// Load environment variables
-$dotenv = new Dotenv();
-$dotenv->load(__DIR__ . '/../.env');
-
 class Login {
     public function __invoke(Request $request, Response $response, mixed $args): Response {
 
