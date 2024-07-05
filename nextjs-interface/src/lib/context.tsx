@@ -5,8 +5,8 @@ export function getToken() {
 }
 
 export interface user {
-  ip: string;
   username: string;
+  password: string;
 }
 
 export interface AverageData {

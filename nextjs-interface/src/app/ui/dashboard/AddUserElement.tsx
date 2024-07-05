@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { getToken } from "@/lib/context";
+import { getToken, user } from "@/lib/context";
 import bcrypt from "bcryptjs";
 
-export function AddUserElement() {
+export function AddUserElement({ users, setUsers }: { users: user[], setUsers: Dispatch<SetStateAction<user[]>> }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
@@ -13,7 +13,7 @@ export function AddUserElement() {
         e.preventDefault();
 
         // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword:string = await bcrypt.hash(password, 10);
         const token = getToken();
 
         try {
@@ -30,20 +30,21 @@ export function AddUserElement() {
             });
 
             if (response.ok) {
+                const newUser: user = { username, password: hashedPassword };
+                setUsers([...users, newUser]);
                 setMessage("User added successfully!");
-                setUsername(""); // Clear input fields after successful addition
+                setUsername("");
                 setPassword("");
             } else {
-                setMessage("Failed to add user. Please try again."); // Handle other response statuses as needed
+                setMessage("Failed to add user. Please try again.");
             }
-        } catch (error:any) {
+        } catch (error: any) {
             setMessage("Error: " + error.message);
         }
     };
 
     return (
         <div>
-            <h2>Add User</h2>
             <div className="flex">
                 <Input
                     className="w-72"
@@ -65,7 +66,7 @@ export function AddUserElement() {
 
                 <Button onClick={handleAddUser}>Add User</Button>
             </div>
-            {message && <p>{message}</p>}
+            {message && <p className="text-emerald-600 mt-6">{message}</p>}
         </div>
     );
 }
