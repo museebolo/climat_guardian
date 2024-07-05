@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getToken, data, avgData, esp } from "@/lib/context";
+import { getToken, data, avgData, esp, user } from "@/lib/context";
 
 export const fetchWithAuth = async (url: string) => {
   try {
@@ -121,6 +121,25 @@ export function useFindNameById(id: string) {
       });
   }, [id]);
   return name;
+}
+
+export function useAllUsers() {
+  const [users, setUsers] = useState<user[]>([]);
+
+  useEffect(() => {
+    const url = `/postgrest/users`;
+    fetchWithAuth(url);
+    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
+      .then((response) => response.json())
+      .then((apiUsers: user[]) => {
+        setUsers(apiUsers);
+        console.log("useAllusers", apiUsers);
+      })
+      .catch((e) => {
+        console.error("Une erreur s'est produite :", e);
+      });
+  }, []);
+  return users;
 }
 
 export function GetEspPosition(id: string) {

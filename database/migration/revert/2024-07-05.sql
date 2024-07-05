@@ -2,6 +2,7 @@
 
 BEGIN;
 
-        revoke delete on api.users from web_user; -- any user can remove users
+        revoke delete, select on api.users from web_user; -- any user can remove users
+        alter table api.users alter column password type varchar(60);
 
 COMMIT;

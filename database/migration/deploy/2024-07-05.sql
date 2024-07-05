@@ -2,6 +2,7 @@
 
 BEGIN;
 
-        grant delete on api.users to web_user; -- any user can remove users
+        grant delete, select on api.users to web_user; -- any user can remove users
+        alter table api.users alter column password type varchar(255);
 
 COMMIT;
