@@ -152,6 +152,26 @@ interface DataRecord {
   // Ajoutez d'autres propriétés si nécessaire
 }
 
+export const useFetchToken = (ip: any) => {
+  const [data, setData] = useState<string>("");
+  const url = `/php/esp.php`;
+  const response = fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify({ ip: ip }),
+  })
+    .then((response) => response.json())
+    .then((data: { token: string }) => {
+      setData(data.token);
+      console.log("quelquechose" + data);
+    })
+    .catch((e) => console.error("error c'est produite : ", e));
+  return data;
+};
+
 // Fonction pour calculer la moyenne d'une propriété spécifique
 export function calculateAverage(
   allData: DataRecord[],
