@@ -166,7 +166,6 @@ export const useFetchToken = (ip: any) => {
     .then((response) => response.json())
     .then((data: { token: string }) => {
       setData(data.token);
-      console.log("quelquechose" + data);
     })
     .catch((e) => console.error("error c'est produite : ", e));
   return data;
