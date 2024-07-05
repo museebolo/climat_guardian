@@ -53,7 +53,7 @@ export function AddUserElement({
 
   return (
     <div>
-      <div className="flex">
+      <div className="flex gap-3">
         <Input
           className="w-72"
           placeholder="Username"
