@@ -78,6 +78,7 @@ export default function Page({ params }: { params: any }) {
         <div>{esp.name}</div>
         <RenameElement id={params.espId} />
       </div>
+      <div className="mt-0 text-zinc-500">{esp.ip}</div>
       <div className="flex flex-col gap-x-5 gap-y-5 sm:flex-row">
         <DateRangeElement date={date} setDate={setDate} />
         <div className="w-fit">
