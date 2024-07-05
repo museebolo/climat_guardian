@@ -97,7 +97,7 @@ export default function Page({ params }: { params: any }) {
               </SelectItem>
               <SelectItem
                 value="Day"
-                className="cursor-pointer rounded-none border-t-2 border-secondary  dark:border-gray-700"
+                className="cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700"
               >
                 Day
               </SelectItem>
