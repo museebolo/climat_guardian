@@ -17,39 +17,37 @@ import {
 import { CircleUser, Landmark, Menu } from "lucide-react";
 
 const logout = () => {
-  const darkModeSetting = localStorage.getItem('darkMode');
-
   document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   window.location.href = "/";
   localStorage.clear();
-  if (darkModeSetting) {
-    localStorage.setItem('darkMode', darkModeSetting);
-  }
 };
 export function HeaderElement() {
   return (
     <div className="flex flex-col">
-      <header className="flex w-screen h-14 items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+      <header className="flex h-14 w-full items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-5">
         <div className="flex flex-row gap-5 pt-5 lg:pt-0">
           <Sheet>
             <SheetTrigger asChild>
               <Button
                 variant="outline"
                 size="icon"
-                className="shrink-0 lg:hidden dark:bg-slate-700"
+                className="shrink-0 dark:bg-zinc-800 lg:hidden"
               >
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle navigation menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="flex flex-col dark:bg-slate-800">
+            <SheetContent
+              side="left"
+              className="flex flex-col dark:bg-zinc-800"
+            >
               <NavLinksElement />
               <EspLinksElement />
             </SheetContent>
           </Sheet>
-          <div className="flex h-14 items-center lg:h-[60px] pb-4 lg:pb-0">
+          <div className="flex h-14 items-center pb-4 lg:h-[60px] lg:pb-0">
             <Link
-              href="/dashboard"
+              href={"/dashboard"}
               className="flex items-center gap-2 font-semibold"
             >
               <Landmark className="h-6 w-6" />
@@ -64,14 +62,17 @@ export function HeaderElement() {
               <Button
                 variant="secondary"
                 size="icon"
-                className="rounded-full dark:bg-slate-700"
+                className="rounded-full dark:bg-zinc-800"
               >
                 <CircleUser className="h-5 w-5" />
                 <span className="sr-only">Toggle user menu</span>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <Button className="w-full dark:bg-slate-700 dark:text-white" onClick={logout}>
+              <Button
+                className="w-full dark:bg-gray-800 dark:text-white"
+                onClick={logout}
+              >
                 log out
               </Button>
             </DropdownMenuContent>
