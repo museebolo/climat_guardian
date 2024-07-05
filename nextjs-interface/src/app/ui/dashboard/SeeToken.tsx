@@ -5,7 +5,9 @@ import ShowToken from "@/app/ui/dashboard/ShowToken";
 export default function SeeToken(ip: any) {
   const [showToken, setShowToken] = useState(false);
 
-  const toggleToken = () => {setShowToken(!showToken)}
+  const toggleToken = () => {
+    setShowToken(!showToken);
+  };
 
   return (
     <div>
@@ -15,9 +17,7 @@ export default function SeeToken(ip: any) {
       >
         {showToken ? "Cacher le Token" : "Afficher et Copier le Token"}
       </Button>
-      {showToken && (
-        <ShowToken ip={ip}/>
-      )}
+      {showToken && <ShowToken ip={ip} />}
     </div>
   );
 }
