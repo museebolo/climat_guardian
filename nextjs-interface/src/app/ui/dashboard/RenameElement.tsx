@@ -9,6 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import useFindIpById from "@/lib/data";
 
 export default function RenameElement({ id }: { id: string }) {
   const [newName, setNewName] = useState("");
@@ -32,6 +33,7 @@ export default function RenameElement({ id }: { id: string }) {
     } else {
     }
   };
+  const ip = useFindIpById(id);
 
   return (
     <div className="flex cursor-pointer gap-2">
@@ -67,7 +69,7 @@ export default function RenameElement({ id }: { id: string }) {
               </Button>
             )}
           </div>
-          <SeeToken />
+          <SeeToken ip={ip} />
         </PopoverContent>
       </Popover>
     </div>

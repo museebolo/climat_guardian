@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import ShowToken from "@/app/ui/dashboard/ShowToken";
 
-export default function SeeToken(ip: any) {
+export default function SeeToken({ ip }: { ip: string }) {
   const [showToken, setShowToken] = useState(false);
 
   const toggleToken = () => {
