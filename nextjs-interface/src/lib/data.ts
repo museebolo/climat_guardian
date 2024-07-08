@@ -34,7 +34,6 @@ export const useFetchData = (
       .then((response) => response.json())
       .then((apiData: avgData[]) => {
         setData(apiData);
-        console.log("useFetchData", apiData);
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
@@ -52,7 +51,6 @@ export function useLastData(type: string, ip: string) {
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiData: data[]) => {
-        console.log("useLastData", apiData);
         if (apiData && apiData.length > 0) {
           if (type == "humidity") {
             setValue(apiData[0].humidity);
@@ -76,7 +74,6 @@ export const useAllEsp = () => {
       .then((response) => response.json())
       .then((apiEsp: esp[]) => {
         setEsp(apiEsp);
-        console.log("useAllEsp", apiEsp);
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
@@ -94,7 +91,6 @@ export default function useFindIpById(id: string) {
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiIp: esp[]) => {
-        console.log("useFindIpByName", apiIp);
         setIp(apiIp[0].ip);
       })
       .catch((e) => {
@@ -113,7 +109,6 @@ export function useFindNameById(id: string) {
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiIp: esp[]) => {
-        console.log("useFindIpByName", apiIp);
         setName(apiIp[0].name);
       })
       .catch((e) => {
@@ -133,7 +128,6 @@ export function useAllUsers() {
       .then((response) => response.json())
       .then((apiUsers: user[]) => {
         setUsers(apiUsers);
-        console.log("useAllusers", apiUsers);
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
@@ -152,7 +146,6 @@ export function GetEspPosition(id: string) {
       .then((response) => response.json())
       .then((apiPosition: esp[]) => {
         setPosition(apiPosition);
-        console.log("GetEspPosition", apiPosition);
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
