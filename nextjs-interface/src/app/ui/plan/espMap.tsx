@@ -83,7 +83,6 @@ export function EspMap({
     } catch (error) {
       console.error("error :", error);
     }
-    window.location.reload();
   };
 
   return (
