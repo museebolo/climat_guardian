@@ -19,7 +19,7 @@ import {
 } from "@/lib/data";
 
 // import libraries
-import { endOfMonth, format, startOfMonth } from "date-fns";
+import { differenceInDays, endOfWeek, format, startOfWeek } from "date-fns";
 import { DateRange } from "react-day-picker";
 import React, { useState } from "react";
 
@@ -39,8 +39,8 @@ export default function Page({ params }: { params: any }) {
   const [date, setDate] = React.useState<DateRange | undefined>(() => {
     const now = new Date();
     return {
-      from: startOfMonth(now),
-      to: endOfMonth(now),
+      from: startOfWeek(now),
+      to: endOfWeek(now),
     };
   });
 
@@ -69,8 +69,9 @@ export default function Page({ params }: { params: any }) {
 
   const handleSelect = (value: any) => {
     setPrecision(value);
-    console.log(value);
   };
+  const dateRangeInDays =
+    date?.from && date?.to ? differenceInDays(date.to, date.from) : 0;
 
   return (
     <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5 pt-2">
@@ -104,15 +105,10 @@ export default function Page({ params }: { params: any }) {
               </SelectItem>
               <SelectItem
                 value="Hour"
-                className="cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700"
+                className={`cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700 ${dateRangeInDays > 7 ? "cursor-not-allowed opacity-50" : ""}`}
+                disabled={dateRangeInDays > 7}
               >
                 Hour
-              </SelectItem>
-              <SelectItem
-                value="Minute"
-                className="cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700"
-              >
-                Minute
               </SelectItem>
             </SelectContent>
           </Select>
