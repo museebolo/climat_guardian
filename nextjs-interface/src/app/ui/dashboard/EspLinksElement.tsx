@@ -10,7 +10,7 @@ import clsx from "clsx";
 import { Label } from "recharts";
 
 // import context and scripts
-import { getToken } from "@/lib/context";
+import { esp, getToken } from "@/lib/context";
 import { useAllEsp } from "@/lib/data";
 
 // import lucide icons
@@ -30,6 +30,7 @@ export default function EspLinksElement() {
 
   const links = useAllEsp();
   const [newLink, setNewLink] = useState({ name: "", ip: "" });
+  const [newLinkName, setNewLinkName] = useState<esp[]>([]);
 
   const handleInputChange = (e: any) => {
     setNewLink({ ...newLink, [e.target.id]: e.target.value });
@@ -44,6 +45,7 @@ export default function EspLinksElement() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Prefer: "return=representation",
           Authorization: `Bearer ${getToken()}`,
         },
         body: JSON.stringify(newLink),
@@ -53,8 +55,10 @@ export default function EspLinksElement() {
         Error("Erreur lors de l'envoi des données à l'API");
       }
 
+      const responseData = await response.json();
+
+      setNewLinkName(responseData);
       setNewLink({ name: "", ip: "" });
-      window.location.reload();
     } catch (e) {
       console.error("Une erreur s'est produite :", e);
     }
@@ -82,6 +86,26 @@ export default function EspLinksElement() {
           </>
         );
       })}
+      {newLinkName.map((link) => {
+        const href = `/dashboard/esp/${link.id}`;
+        return (
+          <>
+            {" "}
+            <Link
+              key={link.id}
+              href={href}
+              className={clsx(
+                "flex items-center gap-3 rounded-lg py-2 text-lg text-gray-500 transition-all hover:text-primary",
+                {
+                  "text-zinc-950 dark:text-zinc-50": pathname === href,
+                },
+              )}
+            >
+              <p className="text-lg">{link.name}</p>
+            </Link>
+          </>
+        );
+      })}
       <div className="mb-3 border-b-2 dark:border-gray-400" />
       <Popover>
         <PopoverTrigger asChild>
@@ -90,9 +114,9 @@ export default function EspLinksElement() {
             <CirclePlus className="mt-1 w-[20px]" />
           </button>
         </PopoverTrigger>
-        <PopoverContent className="w-80">
+        <PopoverContent className="mx-5">
           <form onSubmit={handleSubmit}>
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2">
               <Label>name</Label>
               <Input
                 type="text"
@@ -100,14 +124,14 @@ export default function EspLinksElement() {
                 placeholder="name"
                 value={newLink.name}
                 onChange={handleInputChange}
-                required={true}
+                required
               />
 
-              <Label>ip adress</Label>
+              <Label>ip address</Label>
               <Input
                 type="text"
                 id="ip"
-                placeholder="ip adresse"
+                placeholder="ip address"
                 value={newLink.ip}
                 onChange={handleInputChange}
                 required={true}
