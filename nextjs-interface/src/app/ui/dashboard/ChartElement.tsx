@@ -60,7 +60,7 @@ export function ChartElement({ data }: { data: avgData[] }) {
                     <div className="flex flex-col">
                       <h1 className="text-black dark:text-zinc-50">
                         Date :{" "}
-                        {new Date(payload[0].payload.date).toLocaleDateString()}
+                        {new Date(payload[0].payload.date).toLocaleDateString() + " " + new Date(payload[0].payload.date).toLocaleTimeString()}
                       </h1>
                       <p className="text-black dark:text-zinc-50">
                         Temperature :{" "}
