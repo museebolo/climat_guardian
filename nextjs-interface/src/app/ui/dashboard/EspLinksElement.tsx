@@ -56,7 +56,7 @@ export default function EspLinksElement() {
       });
 
       if (!response.ok) {
-        throw new Error("Erreur lors de l'envoi des données à l'API");
+        Error("Erreur lors de l'envoi des données à l'API");
       }
 
       const responseData = await response.json();
