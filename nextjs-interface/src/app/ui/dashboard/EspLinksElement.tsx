@@ -1,7 +1,7 @@
 "use client";
 
 // import nextjs and react
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -60,7 +60,9 @@ export default function EspLinksElement() {
       }
 
       const responseData = await response.json();
-      const newLinks = Array.isArray(responseData) ? responseData.flat() : [responseData];
+      const newLinks = Array.isArray(responseData)
+        ? responseData.flat()
+        : [responseData];
 
       setAllLinks([...allLinks, ...newLinks]);
       setNewLink({ name: "", ip: "" });
@@ -69,7 +71,7 @@ export default function EspLinksElement() {
     }
   };
 
-  console.log(allLinks)
+  console.log(allLinks);
 
   return (
     <>
