@@ -1,7 +1,7 @@
 "use client";
 
 // import nextjs and react
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -10,7 +10,7 @@ import clsx from "clsx";
 import { Label } from "recharts";
 
 // import context and scripts
-import { getToken } from "@/lib/context";
+import { esp, getToken } from "@/lib/context";
 import { useAllEsp } from "@/lib/data";
 
 // import lucide icons
@@ -29,13 +29,18 @@ export default function EspLinksElement() {
   const pathname = usePathname();
 
   const links = useAllEsp();
+  const [allLinks, setAllLinks] = useState<esp[]>(links);
   const [newLink, setNewLink] = useState({ name: "", ip: "" });
 
-  const handleInputChange = (e: any) => {
+  useEffect(() => {
+    setAllLinks(links);
+  }, [links]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewLink({ ...newLink, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const url = `/postgrest/esp`;
 
@@ -44,6 +49,7 @@ export default function EspLinksElement() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Prefer: "return=representation",
           Authorization: `Bearer ${getToken()}`,
         },
         body: JSON.stringify(newLink),
@@ -53,16 +59,23 @@ export default function EspLinksElement() {
         Error("Erreur lors de l'envoi des données à l'API");
       }
 
+      const responseData = await response.json();
+      const newLinks = Array.isArray(responseData)
+        ? responseData.flat()
+        : [responseData];
+
+      setAllLinks([...allLinks, ...newLinks]);
       setNewLink({ name: "", ip: "" });
-      window.location.reload();
     } catch (e) {
       console.error("Une erreur s'est produite :", e);
     }
   };
 
+  console.log(allLinks);
+
   return (
     <>
-      {links.map((link) => {
+      {allLinks.map((link) => {
         const href = `/dashboard/esp/${link.id}`;
         return (
           <>
@@ -90,9 +103,9 @@ export default function EspLinksElement() {
             <CirclePlus className="mt-1 w-[20px]" />
           </button>
         </PopoverTrigger>
-        <PopoverContent className="w-80">
+        <PopoverContent className="mx-5">
           <form onSubmit={handleSubmit}>
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2">
               <Label>name</Label>
               <Input
                 type="text"
@@ -100,14 +113,14 @@ export default function EspLinksElement() {
                 placeholder="name"
                 value={newLink.name}
                 onChange={handleInputChange}
-                required={true}
+                required
               />
 
-              <Label>ip adress</Label>
+              <Label>ip address</Label>
               <Input
                 type="text"
                 id="ip"
-                placeholder="ip adresse"
+                placeholder="ip address"
                 value={newLink.ip}
                 onChange={handleInputChange}
                 required={true}
