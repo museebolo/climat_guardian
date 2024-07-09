@@ -1,7 +1,7 @@
 "use client";
 
 // import nextjs and react
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -29,14 +29,18 @@ export default function EspLinksElement() {
   const pathname = usePathname();
 
   const links = useAllEsp();
+  const [allLinks, setAllLinks] = useState<esp[]>(links);
   const [newLink, setNewLink] = useState({ name: "", ip: "" });
-  const [newLinkName, setNewLinkName] = useState<esp[]>([]);
 
-  const handleInputChange = (e: any) => {
+  useEffect(() => {
+    setAllLinks(links);
+  }, [links]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewLink({ ...newLink, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const url = `/postgrest/esp`;
 
@@ -52,41 +56,24 @@ export default function EspLinksElement() {
       });
 
       if (!response.ok) {
-        Error("Erreur lors de l'envoi des données à l'API");
+        throw new Error("Erreur lors de l'envoi des données à l'API");
       }
 
       const responseData = await response.json();
+      const newLinks = Array.isArray(responseData) ? responseData.flat() : [responseData];
 
-      setNewLinkName(responseData);
+      setAllLinks([...allLinks, ...newLinks]);
       setNewLink({ name: "", ip: "" });
     } catch (e) {
       console.error("Une erreur s'est produite :", e);
     }
   };
 
+  console.log(allLinks)
+
   return (
     <>
-      {links.map((link) => {
-        const href = `/dashboard/esp/${link.id}`;
-        return (
-          <>
-            {" "}
-            <Link
-              key={link.id}
-              href={href}
-              className={clsx(
-                "flex items-center gap-3 rounded-lg py-2 text-lg text-gray-500 transition-all hover:text-primary",
-                {
-                  "text-zinc-950 dark:text-zinc-50": pathname === href,
-                },
-              )}
-            >
-              <p className="text-lg">{link.name}</p>
-            </Link>
-          </>
-        );
-      })}
-      {newLinkName.map((link) => {
+      {allLinks.map((link) => {
         const href = `/dashboard/esp/${link.id}`;
         return (
           <>
