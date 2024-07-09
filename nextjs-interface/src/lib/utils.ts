@@ -18,6 +18,6 @@ export const copyToClipboard = (text: string) => {
 
 export function validateIp(ip: string): boolean {
   const ipRegex =
-      /^(?:25[0-5]|2[0-4]\d|1\d{2}|\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|1\d{2}|\d{1,2})){3}$/;
+    /^(?:25[0-5]|2[0-4]\d|1\d{2}|\d{1,2})(?:\.(?:25[0-5]|2[0-4]\d|1\d{2}|\d{1,2})){3}$/;
   return ipRegex.test(ip);
 }
