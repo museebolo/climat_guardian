@@ -15,3 +15,9 @@ export const copyToClipboard = (text: string) => {
       console.error("Failed to copy token: ", err);
     });
 };
+
+export function validateIp(ip: string): boolean {
+  const ipRegex =
+    /^((25[0-5]|2[0-4]\d|[01]?\d{1,2})\.){3}(25[0-5]|2[0-4]\d|[01]?\d{1,2})$/;
+  return ipRegex.test(ip);
+}

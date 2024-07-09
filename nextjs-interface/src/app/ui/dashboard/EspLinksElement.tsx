@@ -12,6 +12,7 @@ import { Label } from "recharts";
 // import context and scripts
 import { esp, getToken } from "@/lib/context";
 import { useAllEsp } from "@/lib/data";
+import { validateIp } from "@/lib/utils";
 
 // import lucide icons
 import { CirclePlus } from "lucide-react";
@@ -44,6 +45,10 @@ export default function EspLinksElement() {
     e.preventDefault();
     const url = `/postgrest/esp`;
 
+    if (!validateIp(newLink.ip)) {
+      alert("L'adresse IP n'est pas valide");
+      return;
+    }
     try {
       const response = await fetch(url, {
         method: "POST",
