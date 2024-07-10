@@ -76,8 +76,6 @@ export default function EspLinksElement() {
     }
   };
 
-  console.log(allLinks);
-
   return (
     <>
       {allLinks.map((link) => {
