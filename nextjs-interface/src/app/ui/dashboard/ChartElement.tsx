@@ -41,10 +41,12 @@ export function ChartElement({ data }: { data: avgData[] }) {
           axisLine={false}
           dataKey="date"
           stroke={textColor}
-          tickFormatter={(value: string) =>
-            new Date(value).toLocaleDateString()
-          }
-          padding={{ left: 20, right: 50 }}
+          tickFormatter={(value: string) => {
+            const date = new Date(value);
+            return `${date.toLocaleDateString()}\n${date.toLocaleTimeString()}`;
+          }}
+          tick={{ fill: textColor, fontSize: 12, width: 75, dy: 10 }}
+          height={60}
         />
         <YAxis
           fontSize={16}
