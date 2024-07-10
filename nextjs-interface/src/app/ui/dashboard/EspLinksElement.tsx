@@ -1,7 +1,7 @@
 "use client";
 
 // import nextjs and react
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -75,8 +75,6 @@ export default function EspLinksElement() {
       console.error("Une erreur s'est produite :", e);
     }
   };
-
-  console.log(allLinks);
 
   return (
     <>
