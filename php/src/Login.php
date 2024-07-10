@@ -16,7 +16,7 @@ class Login {
 
         // Generate a token and use it to get the user
         $token = JWT::encode(['role' => 'web_login', 'exp' => time()], $_ENV['JWT_SECRET'], 'HS256');
-        $user = callAPI('GET', $_ENV['POSTGREST_API'] . "/users?username=eq.{$data['username']}&limit=1&select=password,id", [], ["Authorization: Bearer $token"]);
+        $user = callAPI('GET', "http://postg-rest:3000/users?username=eq.{$data['username']}&limit=1&select=password,id", [], ["Authorization: Bearer $token"]);
 
         // Check if the answer is valid
         if ($user === false)
