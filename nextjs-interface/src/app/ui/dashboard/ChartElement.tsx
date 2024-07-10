@@ -43,7 +43,7 @@ export function ChartElement({ data }: { data: avgData[] }) {
           stroke={textColor}
           tickFormatter={(value: string) => {
             const date = new Date(value);
-            return `${date.toLocaleDateString()}\n${date.toLocaleTimeString()}`;
+            return `${date.toLocaleDateString()}\n${date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
           }}
           tick={{ fill: textColor, fontSize: 12, width: 75, dy: 10 }}
           height={60}
@@ -75,7 +75,7 @@ export function ChartElement({ data }: { data: avgData[] }) {
                           " " +
                           new Date(
                             payload[0].payload.date,
-                          ).toLocaleTimeString()}
+                          ).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
                       </h1>
                       <p className="text-black dark:text-zinc-50">
                         Temperature :{" "}
