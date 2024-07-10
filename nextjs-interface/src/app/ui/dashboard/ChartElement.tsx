@@ -1,5 +1,4 @@
-"use client";
-
+import React, { useContext } from "react";
 import {
   LineChart,
   Line,
@@ -10,16 +9,29 @@ import {
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
-
-import React, { useContext } from "react";
 import { avgData } from "@/lib/context";
 import { ThemeContext } from "@/lib/Theme";
 
 export function ChartElement({ data }: { data: avgData[] }) {
   const { darkMode } = useContext(ThemeContext);
 
-  let textColor;
-  darkMode ? (textColor = "white") : (textColor = "");
+  let textColor = darkMode ? "white" : "";
+
+  if (!Array.isArray(data) || data === undefined) {
+    console.error("Data is not an array or is undefined");
+    return null;
+  }
+
+  const dateChanges = data.reduce((acc: any[], curr, index, src) => {
+    if (
+      index > 0 &&
+      new Date(curr.date).getDate() !== new Date(src[index - 1].date).getDate()
+    ) {
+      acc.push(curr.date);
+    }
+    return acc;
+  }, []);
+
   return (
     <ResponsiveContainer width="100%" height={500}>
       <LineChart width={800} height={500} data={data}>
@@ -41,11 +53,6 @@ export function ChartElement({ data }: { data: avgData[] }) {
           stroke={textColor}
           padding={{ top: 50, bottom: 10 }}
         />
-        <ReferenceLine
-          y={50}
-          label={{ value: "Max humidity", position: "top", stroke: textColor }}
-          stroke="red"
-        />
         <Tooltip
           cursor={{
             stroke: "#334155",
@@ -60,7 +67,13 @@ export function ChartElement({ data }: { data: avgData[] }) {
                     <div className="flex flex-col">
                       <h1 className="text-black dark:text-zinc-50">
                         Date :{" "}
-                        {new Date(payload[0].payload.date).toLocaleDateString()}
+                        {new Date(
+                          payload[0].payload.date,
+                        ).toLocaleDateString() +
+                          " " +
+                          new Date(
+                            payload[0].payload.date,
+                          ).toLocaleTimeString()}
                       </h1>
                       <p className="text-black dark:text-zinc-50">
                         Temperature :{" "}
@@ -90,6 +103,15 @@ export function ChartElement({ data }: { data: avgData[] }) {
           strokeWidth="2px"
           stroke="#82ca9d"
         />
+        {dateChanges.map((date, index) => (
+          <ReferenceLine
+            key={index}
+            x={date}
+            stroke="Gray"
+            ifOverflow="extendDomain"
+            label={{ value: "Date change", position: "top", fill: "green" }}
+          />
+        ))}
       </LineChart>
     </ResponsiveContainer>
   );
