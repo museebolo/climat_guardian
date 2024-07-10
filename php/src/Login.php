@@ -21,22 +21,30 @@ class Login {
         // Check if the answer is valid
         if ($user === false)
             return output($response, ['error' =>
-                $_ENV['DETAILED_ERRORS'] === 'true' ? 
+                $_ENV['DEBUG'] === 'true' ?
                     'Unable to connect to the API' :
                     'Unknown error'
             ], 500);
         $user = json_decode($user, true);
         if (isset($user["message"]))
             return output($response, ['error' =>
-                $_ENV['DETAILED_ERRORS'] === 'true' ? 
+                $_ENV['DEBUG'] === 'true' ?
                     $user :
                     'Unknown error'
             ], 500);
 
         if (empty($user))
-            return output($response, ['error' => 'Unknown user'], 401);
+            return output($response, ['error' => 
+                $_ENV['DEBUG'] === 'true' ?
+                    'Unknown user' :
+                    'Invalid username or password'
+            ], 401);
         if (!password_verify($data['password'], $user[0]['password']))
-            return output($response, ['error' => 'Invalid password'], 401);
+            return output($response, ['error' =>
+                $_ENV['DEBUG'] === 'true' ?
+                    'Invalid password' :
+                    'Invalid username or password'
+            ], 401);
 
         // Generate a token for the user that expires at midnight
         $payload = [
