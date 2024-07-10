@@ -25,6 +25,8 @@ export function ChartElement({ data }: { data: avgData[] }) {
   const dateChanges = data.reduce((acc: any[], curr, index, src) => {
     if (
       index > 0 &&
+      curr?.date &&
+      src[index - 1]?.date &&
       new Date(curr.date).getDate() !== new Date(src[index - 1].date).getDate()
     ) {
       acc.push(curr.date);
@@ -43,7 +45,7 @@ export function ChartElement({ data }: { data: avgData[] }) {
           stroke={textColor}
           tickFormatter={(value: string) => {
             const date = new Date(value);
-            return `${date.toLocaleDateString()}\n${date.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}`;
+            return `${date.toLocaleDateString()}\n${date.toLocaleTimeString()}`;
           }}
           tick={{ fill: textColor, fontSize: 12, width: 75, dy: 10 }}
           height={60}
