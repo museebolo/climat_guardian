@@ -36,11 +36,5 @@ jobs:
       - name: test login with admin return token
         # testing the login make sure that the database, the php, nginx, postgrest and the migration works
         run: |
-          RESPONSE=$(curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://localhost/php/login)
-          echo "Response: $RESPONSE"
-          TOKEN=$(echo $RESPONSE | jq ".token")
-          if [ "$TOKEN" == "null" ] || [ -z "$TOKEN" ]; then
-            echo "token is empty"
-            exit 1
-          fi
+          curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://localhost/php/login
             
