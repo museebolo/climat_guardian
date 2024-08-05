@@ -25,6 +25,8 @@ export function ChartElement({ data }: { data: avgData[] }) {
   const dateChanges = data.reduce((acc: any[], curr, index, src) => {
     if (
       index > 0 &&
+      curr?.date &&
+      src[index - 1]?.date &&
       new Date(curr.date).getDate() !== new Date(src[index - 1].date).getDate()
     ) {
       acc.push(curr.date);
@@ -73,9 +75,10 @@ export function ChartElement({ data }: { data: avgData[] }) {
                           payload[0].payload.date,
                         ).toLocaleDateString() +
                           " " +
-                          new Date(
-                            payload[0].payload.date,
-                          ).toLocaleTimeString()}
+                          new Date(payload[0].payload.date).toLocaleTimeString(
+                            "fr-FR",
+                            { hour: "2-digit", minute: "2-digit" },
+                          )}
                       </h1>
                       <p className="text-black dark:text-zinc-50">
                         Temperature :{" "}
