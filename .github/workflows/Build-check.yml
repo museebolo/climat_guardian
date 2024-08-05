@@ -31,8 +31,16 @@ jobs:
           echo "POSTGRES_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
 
       - name: build and test
-        run: | 
-          docker compose -f docker-compose.prod.yml up -d --remove-orphans --build
-          docker ps
-          # testing the login make sure that the database, the php, nginx, postgrest and the migration works
+        run: docker compose -f docker-compose.prod.yml up -d --remove-orphans --build
+
+      - name: wait for services to be ready
+        run: |
+          # Wait for the services to be ready
+          while ! curl -sSf http://localhost/php/login > /dev/null; do
+            echo "Waiting for the server to be ready..."
+            sleep 5
+          done
+
+      - name: test login with admin return token
+        run: |
           curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://localhost/php/login
