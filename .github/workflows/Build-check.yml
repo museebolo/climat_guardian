@@ -36,7 +36,7 @@ jobs:
       - name: wait for services to be ready
         run: |
           # Wait for the services to be ready
-          while ! curl -sSf http://localhost/php/login > /dev/null; do
+          while ! curl -X POST -sSf http://localhost/php/login > /dev/null; do
             echo "Waiting for the server to be ready..."
             sleep 5
           done
