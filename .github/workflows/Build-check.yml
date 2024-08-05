@@ -33,14 +33,7 @@ jobs:
       - name: build and test
         run: docker compose -f docker-compose.prod.yml up -d --remove-orphans --build
 
-      - name: wait for services to be ready
-        run: |
-          # Wait for the services to be ready
-          while ! curl -X POST -sSf http://localhost/php/login > /dev/null; do
-            echo "Waiting for the server to be ready..."
-            sleep 5
-          done
-
       - name: test login with admin return token
         run: |
+          sleep 10
           curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://localhost/php/login
