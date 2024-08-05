@@ -31,10 +31,8 @@ jobs:
           echo "POSTGRES_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
 
       - name: build and test
-        run: docker compose -f docker-compose.prod.yml up -d --remove-orphans --build
-
-      - name: test login with admin return token
-        # testing the login make sure that the database, the php, nginx, postgrest and the migration works
-        run: |
+        run: | 
+          docker compose -f docker-compose.prod.yml up -d --remove-orphans --build
+          docker ps
+          # testing the login make sure that the database, the php, nginx, postgrest and the migration works
           curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://localhost/php/login
-            
