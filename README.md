@@ -56,7 +56,7 @@ sed -i '/POSTGRES_PASSWORD/d' .env
 echo "POSTGRES_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
 ```
 
-It is recommended to let the other environment variables as they are
+It is recommended to let the environment variables "DEBUG" on false for production
 
 ---
 Finally, you **have to** fill the Wi-Fi credentials in `esp32/config/secrets.yaml`\
