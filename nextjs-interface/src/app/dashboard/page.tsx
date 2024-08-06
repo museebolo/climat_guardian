@@ -1,8 +1,7 @@
 "use client";
 // import components
 import DataCircle from "@/app/ui/dashboard/DataCircle";
-import { useAllEsp, useAllFetchTemperatures } from "@/lib/data";
-import { ChartElement } from "@/app/ui/dashboard/ChartElement";
+import { useAllEsp } from "@/lib/data";
 import DataGraph from "@/app/ui/dashboard/DataGraph";
 
 export default function Page() {
