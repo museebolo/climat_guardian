@@ -81,21 +81,18 @@ export default function EspLinksElement() {
       {allLinks.map((link) => {
         const href = `/dashboard/esp/${link.id}`;
         return (
-          <>
-            {" "}
-            <Link
-              key={link.id}
-              href={href}
-              className={clsx(
-                "flex items-center gap-3 rounded-lg py-2 text-lg text-gray-500 transition-all hover:text-primary",
-                {
-                  "text-zinc-950 dark:text-zinc-50": pathname === href,
-                },
-              )}
-            >
-              <p className="text-lg">{link.name}</p>
-            </Link>
-          </>
+          <Link
+            key={link.id}
+            href={href}
+            className={clsx(
+              "flex items-center gap-3 rounded-lg py-2 text-lg text-gray-500 transition-all hover:text-primary",
+              {
+                "text-zinc-950 dark:text-zinc-50": pathname === href,
+              },
+            )}
+          >
+            <p className="text-lg">{link.name}</p>
+          </Link>
         );
       })}
       <div className="mb-3 border-b-2 dark:border-gray-400" />
