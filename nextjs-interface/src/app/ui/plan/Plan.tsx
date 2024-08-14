@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { EspMap } from "@/app/ui/plan/espMap";
 import { useAllEsp } from "@/lib/data";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { BatteryWarning, RotateCcw, ZoomIn, ZoomOut } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { RotateCcw, ZoomIn, ZoomOut } from "lucide-react";
 
 export default function Plan() {
   const [hoveredCircle, setHoveredCircle] = useState<string>("");
