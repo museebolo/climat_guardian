@@ -64,9 +64,9 @@ export function ChartElement({ data }: { data: avgData[] }) {
               const to = new Date(clickedDate);
               to.setDate(to.getDate() + 1);
 
-              const espId = pathname.split('/').pop();
+              const espId = pathname.split("/").pop();
               router.push(
-                  `/dashboard/esp/${espId}?precision=Hour&from=${from.toISOString()}&to=${to.toISOString()}`,
+                `/dashboard/esp/${espId}?precision=Hour&from=${from.toISOString()}&to=${to.toISOString()}`,
               );
               const swissDateFormat = from.toLocaleDateString("fr-CH", {
                 year: "numeric",
