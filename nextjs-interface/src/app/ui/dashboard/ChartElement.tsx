@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   LineChart,
   Line,
@@ -11,9 +11,15 @@ import {
 } from "recharts";
 import { avgData } from "@/lib/context";
 import { ThemeContext } from "@/lib/Theme";
+import {useRouter} from "next/navigation";
+import {ScanSearch} from "lucide-react";
 
 export function ChartElement({ data }: { data: avgData[] }) {
   const { darkMode } = useContext(ThemeContext);
+  const router = useRouter();
+  const [message, setMessage] = useState<string | null>(null);
+
+
 
   let textColor = darkMode ? "white" : "";
 
@@ -35,8 +41,32 @@ export function ChartElement({ data }: { data: avgData[] }) {
   }, []);
 
   return (
-    <ResponsiveContainer width="100%" height={500}>
-      <LineChart width={800} height={500} data={data}>
+      <div>
+        {message && (
+            <div
+                className="fixed gap-2 flex items-center top-5 z-50 right-5 border-l-4 border-l-green-900 bg-green-50 text-green-900 dark:border-l-green-700 dark:bg-green-900 dark:text-green-50 p-4 rounded shadow-lg animate-slide-in">
+              <ScanSearch/> <span dangerouslySetInnerHTML={{__html: message}}></span>
+            </div>
+        )}
+
+        <ResponsiveContainer width="100%" height={500}>
+          <LineChart width={800} height={500} data={data} onClick={(event) => {
+            if (event && event.activePayload && event.activePayload.length > 0) {
+              const clickedDate = new Date(event.activePayload[0].payload.date);
+              const from = new Date(clickedDate);
+          const to = new Date(clickedDate);
+          to.setDate(to.getDate() + 1);
+          router.push(`/dashboard/esp/1?precision=Hour&from=${from.toISOString()}&to=${to.toISOString()}`);
+
+          const swissDateFormat = from.toLocaleDateString('fr-CH', {
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit',
+          });
+          setMessage(`Jour du <strong>${swissDateFormat}</strong> affiché en détail`);
+          setTimeout(() => setMessage(null), 5000);
+        }
+      }}>
         <XAxis
           fontSize={16}
           tickLine={false}
@@ -119,5 +149,6 @@ export function ChartElement({ data }: { data: avgData[] }) {
         ))}
       </LineChart>
     </ResponsiveContainer>
+      </div>
   );
 }
