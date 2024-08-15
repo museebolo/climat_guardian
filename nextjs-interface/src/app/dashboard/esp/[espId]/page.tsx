@@ -21,7 +21,9 @@ import {
 // import libraries
 import { differenceInDays, endOfWeek, format, startOfWeek } from "date-fns";
 import { DateRange } from "react-day-picker";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { useRouter, useSearchParams } from "next/navigation";
 
 import RenameElement from "@/app/ui/dashboard/RenameElement";
 import useFindIpById from "@/lib/data";
@@ -35,8 +37,11 @@ import {
 
 // main component
 export default function Page({ params }: { params: any }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   // Date range selector
-  const [date, setDate] = React.useState<DateRange | undefined>(() => {
+  const [date, setDate] = useState<DateRange | undefined>(() => {
     const now = new Date();
     return {
       from: startOfWeek(now),
@@ -67,9 +72,38 @@ export default function Page({ params }: { params: any }) {
     setHoveredCircle(circle);
   };
 
+  const handleDateChange = (newDate: DateRange | undefined) => {
+    const from = newDate?.from ? newDate.from.toISOString() : "";
+    const to = newDate?.to ? newDate.to.toISOString() : "";
+    router.push(
+      `/dashboard/esp/${params.espId}?precision=${precision}&from=${from}&to=${to}`,
+    );
+  };
+
+  useEffect(() => {
+    const precisionParam = searchParams.get("precision");
+    const fromParam = searchParams.get("from");
+    const toParam = searchParams.get("to");
+
+    if (precisionParam) {
+      setPrecision(precisionParam);
+    }
+
+    if (fromParam && toParam) {
+      setDate({
+        from: new Date(fromParam),
+        to: new Date(toParam),
+      });
+    }
+  }, [searchParams]);
+
   const handleSelect = (value: any) => {
     setPrecision(value);
+    router.push(
+      `/dashboard/esp/${params.espId}?precision=${value}&from=${date?.from?.toISOString()}&to=${date?.to?.toISOString()}`,
+    );
   };
+
   const dateRangeInDays =
     date?.from && date?.to ? differenceInDays(date.to, date.from) : 0;
 
@@ -81,14 +115,21 @@ export default function Page({ params }: { params: any }) {
       </div>
       <div className="mt-0 text-zinc-500">{esp.ip}</div>
       <div className="flex flex-col gap-x-5 gap-y-5 sm:flex-row">
-        <DateRangeElement date={date} setDate={setDate} />
+        <DateRangeElement
+          date={date}
+          setDate={(newDate: DateRange | undefined) => {
+            setDate(newDate);
+            handleDateChange(newDate);
+          }}
+        />
+
         <div className="w-fit">
           <Select onValueChange={handleSelect}>
             <SelectTrigger
               id="select-precision"
               className="w-[200px] dark:border-zinc-700 dark:bg-zinc-900"
             >
-              <SelectValue placeholder="Select precision" />
+              <SelectValue placeholder={precision}></SelectValue>
             </SelectTrigger>
             <SelectContent
               position="popper"
@@ -144,11 +185,15 @@ export default function Page({ params }: { params: any }) {
         </Card>
       </div>
 
+      <h1>
+        {from} et {to}
+      </h1>
       <Card className="w-full dark:border-zinc-700 dark:bg-zinc-900">
         <CardContent>
           <ChartElement data={allData} />
         </CardContent>
       </Card>
+
       <Card className="flex justify-center rounded-xl dark:border-zinc-700 dark:bg-zinc-900">
         <CardContent>
           <svg
