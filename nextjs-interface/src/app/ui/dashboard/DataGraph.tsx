@@ -1,16 +1,14 @@
-import { ChartElement } from "@/app/ui/dashboard/ChartElement";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import {
   LineChart,
   Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import React, { PureComponent, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -19,12 +17,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import useFindIpById, {
-  calculateAverage,
-  GetEspPosition,
   useAllEsp,
   useFetchAllData,
   useFetchData,
-  useLastData,
 } from "@/lib/data";
 import { differenceInDays, endOfWeek, format, startOfWeek } from "date-fns";
 import { DateRange } from "react-day-picker";
@@ -54,12 +49,6 @@ export default function DataGraph() {
 
   const ip1 = useFindIpById(selectedEsp ? selectedEsp : "");
   const ip2 = useFindIpById(selectedEsp2 ? selectedEsp2 : "");
-
-  const temperature1 = useLastData("temperature", ip1);
-  const humidity1 = useLastData("humidity", ip1);
-
-  const temperature2 = useLastData("temperature", ip2);
-  const humidity2 = useLastData("humidity", ip2);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -122,13 +111,6 @@ export default function DataGraph() {
   }
 
   const combinedData = Array.from(combinedDataMap.values());
-
-  function setDataToDisplay(data: any) {
-    console.log("les datas en dessous");
-    console.log(data);
-  }
-
-  const dataToDisplay = selectedOption === "1" ? allDataEsp : combinedData;
 
   const { darkMode } = useContext(ThemeContext);
   let textColor = darkMode ? "white" : "";
@@ -403,25 +385,6 @@ export default function DataGraph() {
                       ))}
                   </SelectContent>
                 </Select>
-                {/* <Select onValueChange={(value) => setSelectedOption(value)} value={selectedOption}>
-                                    <SelectTrigger
-                                        id="select-precision"
-                                        className="w-[200px] dark:border-zinc-700 dark:bg-zinc-900"
-                                    >
-                                        <SelectValue placeholder="Comparer ..."></SelectValue>
-                                    </SelectTrigger>
-                                    <SelectContent
-                                        position="popper"
-                                        className="flex w-60 gap-2 dark:bg-zinc-800"
-                                    >
-                                        <SelectItem value="1" className="cursor-pointer bg-white dark:bg-zinc-900">
-                                            Comparer tout les esp
-                                        </SelectItem>
-                                        <SelectItem value="2" className="cursor-pointer bg-white dark:bg-zinc-900">
-                                            Comparer deux esp
-                                        </SelectItem>
-                                    </SelectContent>
-                                </Select>*/}
               </div>
 
               <div className="flex items-center">
@@ -462,8 +425,8 @@ export default function DataGraph() {
             </div>
           )}
           {selectedOption === "1" && (
-            <div className=" ">
-              <h1 className="flex items-center gap-2 rounded border border-green-400 bg-green-100 p-2 font-semibold text-green-800 dark:border-green-600 dark:bg-green-900 dark:text-white">
+            <div className="min-w-56">
+              <h1 className="flex items-center gap-2 rounded border border-green-400 bg-green-100 p-[7px] font-semibold text-green-800 dark:border-green-600 dark:bg-green-900 dark:text-white">
                 <Check /> Comparer tout les esp
               </h1>
             </div>
@@ -483,7 +446,7 @@ export default function DataGraph() {
             <Select onValueChange={handleSelect}>
               <SelectTrigger
                 id="select-precision"
-                className="w-fit dark:border-zinc-700 dark:bg-zinc-900"
+                className="w-fit min-w-[75px] dark:border-zinc-700 dark:bg-zinc-900"
               >
                 <SelectValue placeholder={precision}></SelectValue>
               </SelectTrigger>
@@ -510,6 +473,37 @@ export default function DataGraph() {
               </SelectContent>
             </Select>
           </div>
+        </div>
+
+        <div className="mx-auto flex w-full gap-2 overflow-x-auto px-20 py-10">
+          {selectedOption === "1" ? (
+            Array.isArray(allDataEsp) && esp.length > 0 ? (
+              esp.map((espItem, index) => {
+                const borderColor = colorPalette[index % colorPalette.length];
+                return (
+                  <div
+                    className={`flex min-w-44 flex-col justify-start gap-y-2 rounded border-l-4 p-2 pl-5`}
+                    key={index}
+                    style={{ borderColor }}
+                  >
+                    <h2
+                      className="text-left text-sm font-medium"
+                      style={{ color: borderColor }}
+                    >
+                      ESP {index + 1}
+                    </h2>
+                    <h1 className="text-left text-xl font-semibold text-gray-800 dark:text-white">
+                      {espItem.name}
+                    </h1>
+                  </div>
+                );
+              })
+            ) : (
+              <h1></h1>
+            )
+          ) : (
+            <h1></h1>
+          )}
         </div>
 
         <div className="w-full pl-20 pt-10">
@@ -540,40 +534,11 @@ export default function DataGraph() {
                 </h1>
               </div>
             )}
-
-            {selectedOption === "1" ? (
-              Array.isArray(allDataEsp) && esp.length > 0 ? (
-                esp.map((espItem, index) => {
-                  const borderColor = colorPalette[index % colorPalette.length];
-                  return (
-                    <div
-                      className={`flex min-w-44 flex-col justify-start gap-y-2 rounded border-l-4 p-2 pl-5`}
-                      key={index}
-                      style={{ borderColor }}
-                    >
-                      <h2
-                        className="text-left text-sm font-medium"
-                        style={{ color: borderColor }}
-                      >
-                        ESP {index + 1}
-                      </h2>
-                      <h1 className="text-left text-xl font-semibold text-gray-800 dark:text-white">
-                        {espItem.name}
-                      </h1>
-                    </div>
-                  );
-                })
-              ) : (
-                <h1></h1>
-              )
-            ) : (
-              <h1></h1>
-            )}
           </div>
         </div>
 
         <CardContent className="sm:py-auto flex h-full w-full pb-6 max-2xl:flex-col 2xl:flex-row">
-          <div className="flex w-1/2 flex-col justify-center gap-y-10 border-r-2 p-4 max-2xl:w-full">
+          <div className="flex w-1/2 flex-col justify-center gap-y-10 p-4 max-2xl:w-full 2xl:border-r-2">
             <h3 className="mx-auto flex items-center gap-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
               <CornerLeftDown /> Temperature
             </h3>

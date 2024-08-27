@@ -13,7 +13,7 @@ export default function DataCircle({ esp }: { esp: any }) {
       <CardTitle className="w-full border-b-2 pb-5 pt-5 text-center text-gray-800 dark:border-zinc-700 dark:text-white">
         {esp.name}
       </CardTitle>
-      <CardContent className="sm:py-auto flex h-full w-full flex-row py-14">
+      <CardContent className="sm:py-auto flex h-full w-full flex-row py-14 max-sm:flex-col max-sm:justify-center">
         <PieChartTemperature data={temperature} />
         <PieChartHumidity data={humidity} />
       </CardContent>

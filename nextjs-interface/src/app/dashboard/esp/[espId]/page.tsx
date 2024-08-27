@@ -108,7 +108,7 @@ export default function Page({ params }: { params: any }) {
     date?.from && date?.to ? differenceInDays(date.to, date.from) : 0;
 
   return (
-    <div className="flex h-full w-full min-w-[500px] flex-col gap-y-5 pt-2">
+    <div className="flex h-full w-full flex-col gap-y-5 pt-2">
       <div className="flex justify-between text-xl font-bold uppercase">
         <div>{esp.name}</div>
         <RenameElement id={params.espId} />
@@ -194,7 +194,7 @@ export default function Page({ params }: { params: any }) {
       <Card className="flex justify-center rounded-xl dark:border-zinc-700 dark:bg-zinc-900">
         <CardContent>
           <svg
-            className="h-[500px] w-[500px] xl:h-[1000px] xl:w-[1000px]"
+            className="h-[500px] w-[500px] max-sm:h-full max-sm:w-full xl:h-[1000px] xl:w-[1000px]"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 100 100"
           >
