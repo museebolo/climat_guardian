@@ -185,9 +185,6 @@ export default function Page({ params }: { params: any }) {
         </Card>
       </div>
 
-      <h1>
-        {from} et {to}
-      </h1>
       <Card className="w-full dark:border-zinc-700 dark:bg-zinc-900">
         <CardContent>
           <ChartElement data={allData} />
