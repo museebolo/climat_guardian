@@ -11,11 +11,12 @@ import {
 } from "recharts";
 import { avgData } from "@/lib/context";
 import { ThemeContext } from "@/lib/Theme";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { ScanSearch } from "lucide-react";
 
 export function ChartElement({ data }: { data: avgData[] }) {
   const { darkMode } = useContext(ThemeContext);
+  const pathname = usePathname();
   const router = useRouter();
   const [message, setMessage] = useState<string | null>(null);
 
@@ -62,10 +63,11 @@ export function ChartElement({ data }: { data: avgData[] }) {
               const from = new Date(clickedDate);
               const to = new Date(clickedDate);
               to.setDate(to.getDate() + 1);
-              router.push(
-                `/dashboard/esp/1?precision=Hour&from=${from.toISOString()}&to=${to.toISOString()}`,
-              );
 
+              const espId = pathname.split("/").pop();
+              router.push(
+                `/dashboard/esp/${espId}?precision=Hour&from=${from.toISOString()}&to=${to.toISOString()}`,
+              );
               const swissDateFormat = from.toLocaleDateString("fr-CH", {
                 year: "numeric",
                 month: "long",
