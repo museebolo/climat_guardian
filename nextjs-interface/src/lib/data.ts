@@ -1,6 +1,35 @@
 import { useEffect, useState } from "react";
 import { getToken, data, avgData, esp, user } from "@/lib/context";
 
+interface TemperatureAndHumidityData {
+  avg_temperature: number;
+  avg_humidity: number;
+}
+
+export const useFetchTemperatureAndHumidity = (
+  precision: string,
+  ip: string,
+  from: string,
+  to: string,
+) => {
+  const [data, setData] = useState<TemperatureAndHumidityData[]>([]);
+
+  useEffect(() => {
+    const url = `/postgrest/rpc/avg_date?delta=${precision}&ip=eq.${ip}&and=(date.gte.${from},date.lt.${to})`;
+    fetchWithAuth(url);
+    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
+      .then((response) => response.json())
+      .then((apiData: TemperatureAndHumidityData[]) => {
+        setData(apiData);
+      })
+      .catch((e) => {
+        console.error("Une erreur s'est produite :", e);
+      });
+  }, [from, ip, precision, to]);
+
+  return data;
+};
+
 export const fetchWithAuth = async (url: string) => {
   try {
     const response = await fetch(url, {
@@ -39,6 +68,28 @@ export const useFetchData = (
         console.error("Une erreur s'est produite :", e);
       });
   }, [from, ip, precision, to]);
+  return data;
+};
+
+export const useFetchAllData = (
+  precision: string,
+  from: string,
+  to: string,
+) => {
+  const [data, setData] = useState<avgData[]>([]);
+
+  useEffect(() => {
+    const url = `/postgrest/rpc/avg_date?delta=${precision}&and=(date.gte.${from},date.lt.${to})`;
+    fetchWithAuth(url);
+    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
+      .then((response) => response.json())
+      .then((apiData: avgData[]) => {
+        setData(apiData);
+      })
+      .catch((e) => {
+        console.error("Une erreur s'est produite :", e);
+      });
+  }, [from, precision, to]);
   return data;
 };
 

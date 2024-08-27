@@ -160,7 +160,6 @@ export function ChartElement({ data }: { data: avgData[] }) {
               x={date}
               stroke="Gray"
               ifOverflow="extendDomain"
-              label={{ value: "Date change", position: "top", fill: "green" }}
             />
           ))}
         </LineChart>
