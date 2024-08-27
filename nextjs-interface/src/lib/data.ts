@@ -20,7 +20,6 @@ export const useFetchTemperatureAndHumidity = (
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiData: TemperatureAndHumidityData[]) => {
-        console.log("API Data:", apiData); // Log the API response
         setData(apiData);
       })
       .catch((e) => {
