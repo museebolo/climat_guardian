@@ -6,7 +6,17 @@ This project was made for the non-profit organization memoires-informatiques\
 Memoires-informatiques has a lot of old computers and other electronic devices that need to be stored in a controlled environment\
 The goal of this project is to monitor the temperature and humidity of the different rooms of the organization and to display the data on a web interface
 
-# Setup
+## Documentation and development
+
+If you are interested in contributing or want to make specific configuration changes,
+don't hesitate to check the [documentation](./docs). You will find information
+to set up the development environment, architecture considerations and some details
+to correctly use the tooling.
+
+**! Warning**, the doc’s folder is a work in progress.
+For the moment, you can still find the old documentation below.
+
+## Setup
 From now on, the computer that runs the docker will be called "server" and
 the computer used by the user will be called "computer"
 

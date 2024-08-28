@@ -1,5 +1,0 @@
-FROM sqitch/sqitch:v1.4.1.0
-WORKDIR /repo
-COPY ../database/migration ./
-CMD ["deploy"]
-
