@@ -4,7 +4,7 @@ services:
   esphome:
     image: esphome/esphome:2024.4
     volumes:
-      - "${ESP_PATH}:/config"
+      - "./esp32/config:/config"
       - /etc/localtime:/etc/localtime:ro
       - /dev/ttyUSB0:/dev/ttyUSB0
     privileged: true
@@ -13,7 +13,7 @@ services:
     image: postgres:16.3-alpine
     shm_size: 128mb
     volumes:
-      - "${DB_PATH}:/var/lib/postgresql/data"
+      - "./database/data:/var/lib/postgresql/data"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
