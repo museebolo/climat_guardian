@@ -53,7 +53,7 @@ export default function Page() {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>Tout les utilisateurs</CardTitle>
+          <CardTitle>Tous les utilisateurs</CardTitle>
         </CardHeader>
         <CardContent>
           {users.map((user, index) => (
