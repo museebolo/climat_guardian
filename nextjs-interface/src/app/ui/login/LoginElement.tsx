@@ -58,7 +58,8 @@ export function LoginElement() {
               <DarkModeToggle />
             </div>
             <CardDescription className="dark:text-white">
-              Entrez votre nom d'utilisateur afin de vous connectez à votre compte
+              Entrez votre nom d'utilisateur afin de vous connectez à votre
+              compte
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
