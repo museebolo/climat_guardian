@@ -126,11 +126,11 @@ export function ChartElement({ data }: { data: avgData[] }) {
                             })}
                         </h1>
                         <p className="text-black dark:text-zinc-50">
-                          Temperature :{" "}
+                          Température :{" "}
                           {payload[0].payload.avg_temperature.toFixed(2)}°C
                         </p>
                         <p className="text-black dark:text-zinc-50">
-                          Humidity :{" "}
+                          Humidité :{" "}
                           {payload[0].payload.avg_humidity.toFixed(2)}%
                         </p>
                       </div>
