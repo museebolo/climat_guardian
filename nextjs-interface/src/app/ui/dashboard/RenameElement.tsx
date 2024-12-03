@@ -65,7 +65,7 @@ export default function RenameElement({ id }: { id: string }) {
                 }}
                 className="p-2 text-white dark:bg-zinc-700 dark:text-white dark:hover:bg-black"
               >
-                Confirm
+                Confirmer
               </Button>
             )}
           </div>
