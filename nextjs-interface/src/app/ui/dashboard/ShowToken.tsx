@@ -9,7 +9,7 @@ export default function ShowToken(ip: any) {
 
   return (
     <div className="mt-2 bg-zinc-200 p-2 text-sm dark:bg-zinc-800">
-      Token copier !: <br />
+      Token copié !<br />
       {newToken}
     </div>
   );
