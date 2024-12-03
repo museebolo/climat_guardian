@@ -54,7 +54,7 @@ export default function Page({ params }: { params: any }) {
   // Get data from the selected esp and date range
   const from = date?.from ? format(date.from, "yyyy-MM-dd") : "";
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
-  const [precision, setPrecision] = useState("Jour");
+  const [precision, setPrecision] = useState("Day");
 
   // Get the ip of the selected esp and fetch the data for the graphic
   const ip = useFindIpById(params.espId);
@@ -135,17 +135,17 @@ export default function Page({ params }: { params: any }) {
               position="popper"
               className="flex w-60 gap-2 dark:bg-zinc-800"
             >
-              <SelectItem value="Mois" className="cursor-pointer">
+              <SelectItem value="Month" className="cursor-pointer">
                 Mois
               </SelectItem>
               <SelectItem
-                value="Jour"
+                value="Day"
                 className="cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700"
               >
                 Jour
               </SelectItem>
               <SelectItem
-                value="Heure"
+                value="Hour"
                 className={`cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700 ${dateRangeInDays > 7 ? "cursor-not-allowed opacity-50" : ""}`}
                 disabled={dateRangeInDays > 7}
               >

@@ -37,7 +37,7 @@ export default function Page() {
       });
 
       if (!response.ok) {
-        console.error("Failed to delete user");
+        console.error("Erreur à la suppression de l'utilisateur");
         console.error(await response.json());
         return;
       }
