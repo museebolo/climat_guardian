@@ -73,7 +73,7 @@ export function HeaderElement() {
                 className="w-full dark:bg-gray-800 dark:text-white"
                 onClick={logout}
               >
-                log out
+                Se déconnecter
               </Button>
             </DropdownMenuContent>
           </DropdownMenu>

@@ -45,7 +45,7 @@ export default function RenameElement({ id }: { id: string }) {
           <div className="flex flex-row gap-x-5">
             <Input
               type="text"
-              placeholder="modifier l'esp"
+              placeholder="Modifier l'esp"
               value={newName}
               className="dark:bg-zinc-800"
               onChange={(e) => {
