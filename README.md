@@ -100,12 +100,12 @@ $${\color{gray} \text{[15:39:12]} \color{magenta} \text{[C]\[wifi:416\]:   IP Ad
 - You can now unplug the esp32 and plug it to any other power source
 - Connect yourself to the dashboard from another tab in the web browser of the computer
 - Press the ``ajouter un esp`` button on the left and enter the ip address of the esp32 with the name you want it to have in the interface
-- Press the ``...`` on the right of the page and press ``Afficher et Copier le Token``
 - Back on the esphome, press `Edit` at the bottom of the logs
 - Copy everything from the line 31 of the file `esp32/esp32.yaml` on the server and paste it at the end of your esp32's configuration file
 ```bash
 clear && cat esp32/esp32.yaml | sed -n '31,$p'
 ```
+- Press the ``...`` on the right of the page and press ``Afficher et Copier le Token``
 - Replace the XXX... at the end of the code with the token you copied
 - Press `INSTALL` and select `Wirelessly` (the 1st option)
 - Wait for the installation to finish
