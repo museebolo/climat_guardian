@@ -10,7 +10,7 @@ import { UserIcon } from "@/app/ui/svgs/UserIcon";
 const links = [
   { name: "Dashboard", href: "/dashboard", icon: HomeIcon },
   { name: "Plan", href: "/dashboard/plan", icon: PlanIcon },
-  { name: "users", href: "/dashboard/users", icon: UserIcon },
+  { name: "Utilisateurs", href: "/dashboard/users", icon: UserIcon },
 ];
 
 export default function NavLinksElement() {

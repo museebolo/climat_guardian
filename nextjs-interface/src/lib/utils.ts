@@ -9,10 +9,10 @@ export const copyToClipboard = (text: string) => {
   navigator.clipboard
     .writeText(text)
     .then(() => {
-      console.log("Token copied to clipboard");
+      console.log("Token copié dans le clipboard");
     })
     .catch((err) => {
-      console.error("Failed to copy token: ", err);
+      console.error("Copie du Token échoué : ", err);
     });
 };
 

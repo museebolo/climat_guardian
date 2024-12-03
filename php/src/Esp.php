@@ -13,12 +13,12 @@ class Esp {
 
         // check if the esp's ip is provided
         if (!isset($data['ip']))
-            return output($response, ['error' => 'IP is required'], 400);
+            return output($response, ['Erreur' => 'IP requis'], 400);
 
         // check if the user is authenticated
         $user = getallheaders()['Authorization'];
         if (!isset($user))
-            return output($response, ['error' => 'Unauthorized'], 401);
+            return output($response, ['Erreur' => 'Non-autorisé'], 401);
 
         // remove the Bearer prefix
         $user = substr($user, 7);
@@ -26,7 +26,7 @@ class Esp {
         // test if the user is web_user
         $decoded = JWT::decode($user, new Key($_ENV['JWT_SECRET'], 'HS256'));
         if ($decoded->role !== 'web_user')
-            return output($response, ['error' => 'Unauthorized'], 401);
+            return output($response, ['Erreur' => 'Non-autorisé'], 401);
 
         // Generate a token for the esp
         $token = JWT::encode(['role' => 'esp32', 'ip' => $data['ip']], $_ENV['JWT_SECRET'], 'HS256');

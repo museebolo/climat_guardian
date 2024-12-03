@@ -23,7 +23,7 @@ export default function Page() {
   }, [allUsers]);
 
   if (!allUsers) {
-    return <div>Loading...</div>;
+    return <div>Chargement...</div>;
   }
 
   const handleDelete = async (username: string) => {
@@ -53,7 +53,7 @@ export default function Page() {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>All Users</CardTitle>
+          <CardTitle>Tout les utilisateurs</CardTitle>
         </CardHeader>
         <CardContent>
           {users.map((user, index) => (
