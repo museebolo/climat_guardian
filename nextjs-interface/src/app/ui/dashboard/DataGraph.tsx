@@ -366,20 +366,20 @@ export default function DataGraph() {
                   className="flex w-60 gap-2 dark:bg-zinc-800"
                 >
                   <SelectItem value="Month" className="cursor-pointer">
-                    Month
+                    Mois
                   </SelectItem>
                   <SelectItem
                     value="Day"
                     className="cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700"
                   >
-                    Day
+                    Jour
                   </SelectItem>
                   <SelectItem
                     value="Hour"
                     className={`cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700 ${dateRangeInDays > 7 ? "cursor-not-allowed opacity-50" : ""}`}
                     disabled={dateRangeInDays > 7}
                   >
-                    Hour
+                    Heure
                   </SelectItem>
                 </SelectContent>
               </Select>
@@ -534,7 +534,8 @@ export default function DataGraph() {
 
             <div className="flex w-1/2 flex-col justify-center p-4 max-2xl:w-full">
               <h3 className="mx-auto flex items-center gap-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
-                Humidité<CornerRightDown />
+                Humidité
+                <CornerRightDown />
               </h3>
 
               <ResponsiveContainer width="100%" height={500}>
