@@ -76,7 +76,7 @@ npm i
 
 And also install php
 ```bash
-sudo dnf install php-cli php-fpm composer
+composer install
 ```
 
 ---
