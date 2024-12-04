@@ -69,12 +69,12 @@ echo "POSTGRES_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
 It is recommended to let the other environment variables as they are
 
 ---
-Then you have to install the project's dependencies
+Then you have to install the project's dependencies, in the nextjs-interface folder
 ```bash
 npm i
 ```
 
-And also install php
+And also install php, in the php folder
 ```bash
 composer install
 ```
