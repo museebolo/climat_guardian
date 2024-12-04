@@ -69,6 +69,17 @@ echo "POSTGRES_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
 It is recommended to let the other environment variables as they are
 
 ---
+Then you have to install the project's dependencies
+```bash
+npm i
+```
+
+And also install php
+```bash
+sudo dnf install php-cli php-fpm composer
+```
+
+---
 Finally, you **have to** fill the Wi-Fi credentials in `esp32/config/secrets.yaml`\
 You also **have to** change the `127.0.0.1` in `esp32/config/secrets.yaml` by the ip address of the server
 
@@ -79,6 +90,11 @@ docker compose -f docker-compose.prod.yml up -d --remove-orphans --build
 ```
 Once the docker is running you can access the web interface by going to the ip address of the server in the web browser of the computer\
 the default user is `admin` and has `admin` as password, it is recommended to create a new user and delete the default one once you are connected, you can do so under the ``Users`` tab
+
+You can check if all the docker by using the following command
+```bash
+docker compose ps
+```
 
 ![Dashboard](/.assets/dashboard.png)
 ![Plan](/.assets/plan.png)
