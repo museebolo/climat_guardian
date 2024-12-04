@@ -91,7 +91,7 @@ docker compose -f docker-compose.prod.yml up -d --remove-orphans --build
 Once the docker is running you can access the web interface by going to the ip address of the server in the web browser of the computer\
 the default user is `admin` and has `admin` as password, it is recommended to create a new user and delete the default one once you are connected, you can do so under the ``Users`` tab
 
-You can check if all the docker by using the following command
+You can check if all the containers are working by using the following command
 ```bash
 docker compose ps
 ```
