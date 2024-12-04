@@ -69,6 +69,17 @@ echo "POSTGRES_PASSWORD=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 32)" >> .env
 It is recommended to let the other environment variables as they are
 
 ---
+Then you have to install the project's dependencies, in the nextjs-interface folder
+```bash
+npm i
+```
+
+And also install php, in the php folder
+```bash
+composer install
+```
+
+---
 Finally, you **have to** fill the Wi-Fi credentials in `esp32/config/secrets.yaml`\
 You also **have to** change the `127.0.0.1` in `esp32/config/secrets.yaml` by the ip address of the server
 
@@ -79,6 +90,11 @@ docker compose -f docker-compose.prod.yml up -d --remove-orphans --build
 ```
 Once the docker is running you can access the web interface by going to the ip address of the server in the web browser of the computer\
 the default user is `admin` and has `admin` as password, it is recommended to create a new user and delete the default one once you are connected, you can do so under the ``Users`` tab
+
+You can check if all the containers are working by using the following command
+```bash
+docker compose ps
+```
 
 ![Dashboard](/.assets/dashboard.png)
 ![Plan](/.assets/plan.png)
@@ -100,12 +116,12 @@ $${\color{gray} \text{[15:39:12]} \color{magenta} \text{[C]\[wifi:416\]:   IP Ad
 - You can now unplug the esp32 and plug it to any other power source
 - Connect yourself to the dashboard from another tab in the web browser of the computer
 - Press the ``ajouter un esp`` button on the left and enter the ip address of the esp32 with the name you want it to have in the interface
-- Press the ``...`` on the right of the page and press ``Afficher et Copier le Token``
 - Back on the esphome, press `Edit` at the bottom of the logs
 - Copy everything from the line 31 of the file `esp32/esp32.yaml` on the server and paste it at the end of your esp32's configuration file
 ```bash
 clear && cat esp32/esp32.yaml | sed -n '31,$p'
 ```
+- Press the ``...`` on the right of the page and press ``Afficher et Copier le Token``
 - Replace the XXX... at the end of the code with the token you copied
 - Press `INSTALL` and select `Wirelessly` (the 1st option)
 - Wait for the installation to finish
