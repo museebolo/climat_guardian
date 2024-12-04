@@ -99,28 +99,28 @@ export default function EspLinksElement() {
       <Popover>
         <PopoverTrigger asChild>
           <button className="flex w-full justify-between text-start text-lg text-zinc-500 hover:text-black dark:hover:text-zinc-200">
-            <p>ajouter un esp</p>
+            <p>Ajouter un esp</p>
             <CirclePlus className="mt-1 w-[20px]" />
           </button>
         </PopoverTrigger>
         <PopoverContent className="mx-5">
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2">
-              <Label>name</Label>
+              <Label>Nom</Label>
               <Input
                 type="text"
                 id="name"
-                placeholder="name"
+                placeholder="Nom"
                 value={newLink.name}
                 onChange={handleInputChange}
                 required
               />
 
-              <Label>ip address</Label>
+              <Label>Adresse IP</Label>
               <Input
                 type="text"
                 id="ip"
-                placeholder="ip address"
+                placeholder="Adresse IP"
                 value={newLink.ip}
                 onChange={handleInputChange}
                 required={true}

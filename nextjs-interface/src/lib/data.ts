@@ -230,7 +230,7 @@ export const useFetchToken = (ip: any) => {
     .then((data: { token: string }) => {
       setData(data.token);
     })
-    .catch((e) => console.error("error c'est produite : ", e));
+    .catch((e) => console.error("Une erreur s'est produite : ", e));
   return data;
 };
 
@@ -240,7 +240,7 @@ export function calculateAverage(
   property: keyof DataRecord,
 ): number {
   if (!Array.isArray(allData)) {
-    console.warn("Warning: allData is not an array");
+    console.warn("Attention: allData n'est pas un array");
     return 0;
   } else {
     const total = allData.reduce((sum, record) => sum + record[property], 0);

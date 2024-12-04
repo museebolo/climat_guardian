@@ -23,7 +23,7 @@ export default function Page() {
   }, [allUsers]);
 
   if (!allUsers) {
-    return <div>Loading...</div>;
+    return <div>Chargement...</div>;
   }
 
   const handleDelete = async (username: string) => {
@@ -37,7 +37,7 @@ export default function Page() {
       });
 
       if (!response.ok) {
-        console.error("Failed to delete user");
+        console.error("Erreur à la suppression de l'utilisateur");
         console.error(await response.json());
         return;
       }
@@ -53,7 +53,7 @@ export default function Page() {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>All Users</CardTitle>
+          <CardTitle>Tous les utilisateurs</CardTitle>
         </CardHeader>
         <CardContent>
           {users.map((user, index) => (

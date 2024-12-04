@@ -26,8 +26,8 @@ export function EspMap({
   mouseClick: (circle: string) => void;
 }) {
   const [position, setPosition] = useState({ x: cx, y: cy });
-  const temperature = useLastData("temperature", ip) ?? 0;
-  const humidity = useLastData("humidity", ip) ?? 0;
+  const temperature = useLastData("Température", ip) ?? 0;
+  const humidity = useLastData("Humidité", ip) ?? 0;
 
   const mouseDown = useCallback(
     (e: { clientX: number; clientY: number }) => {
@@ -100,14 +100,14 @@ export function EspMap({
         >
           <circle cx={position.x} cy={position.y} r="3" opacity="1" />
           <text x={position.x - 4} y={position.y + 6} className="text-[3px]">
-            {temperature.toFixed(2) !== "pas de donnée"
+            {temperature.toFixed(2) !== "Pas de donnée"
               ? `${temperature.toFixed(2)} °C`
-              : "pas de donnée"}
+              : "Pas de donnée"}
           </text>
           <text x={position.x - 4} y={position.y - 5} className="text-[3px]">
             {humidity.toFixed(2) !== undefined
               ? `${humidity.toFixed(2)} %`
-              : "pas de donnée"}
+              : "Pas de donnée"}
           </text>
           <circle cx={position.x} cy={position.y} r="4" opacity=".3" />
           <circle cx={position.x} cy={position.y} r="6" opacity=".1" />
@@ -119,7 +119,7 @@ export function EspMap({
           className="w-full dark:bg-zinc-700 dark:text-white dark:hover:bg-black"
           onClick={updatePosition}
         >
-          confirmer la position
+          Confirmer la position
         </Button>
       </PopoverContent>
     </Popover>

@@ -4,7 +4,7 @@ import { Providers } from "@/app/ui/all/providers";
 
 export const metadata: Metadata = {
   title: "Climat guardian",
-  description: "connect to our site",
+  description: "Se connecter à notre site",
 };
 
 export default function RootLayout({

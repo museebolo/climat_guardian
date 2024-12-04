@@ -58,12 +58,13 @@ export function LoginElement() {
               <DarkModeToggle />
             </div>
             <CardDescription className="dark:text-white">
-              Enter your username below to login to your account.
+              Entrez votre nom d'utilisateur afin de vous connectez à votre
+              compte
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="username">Username</Label>
+              <Label htmlFor="username">Nom d'utilisateur</Label>
               <Input
                 value={username}
                 autoComplete={"username"}
@@ -71,12 +72,12 @@ export function LoginElement() {
                 className="bg-secondary dark:bg-zinc-700"
                 id="username"
                 type="text"
-                placeholder="Username"
+                placeholder="Nom d'utilisateur"
                 required
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Mot de passe</Label>
               <Input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -93,7 +94,7 @@ export function LoginElement() {
               className="w-full dark:bg-zinc-700 dark:text-white"
               type={"submit"}
             >
-              Sign in
+              S'identifier
             </Button>
           </CardFooter>
         </Card>

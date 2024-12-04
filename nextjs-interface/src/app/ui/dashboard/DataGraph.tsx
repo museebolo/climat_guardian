@@ -219,9 +219,9 @@ export default function DataGraph() {
         <Card className="flex h-fit w-full flex-col items-center text-center dark:border-zinc-700 dark:bg-zinc-900">
           <CardTitle className="w-full border-b-2 pb-5 pt-5 text-center text-gray-800 dark:border-zinc-700 dark:text-white">
             <h3>
-              Comparison of Temperature and Humidity
+              Comparaison de la température et de l'humidité
               <span className="font-normal italic text-gray-400">
-                (From {from || "..."} to {to || "..."} )
+                (Du {from || "..."} au {to || "..."} )
               </span>
             </h3>
           </CardTitle>
@@ -366,20 +366,20 @@ export default function DataGraph() {
                   className="flex w-60 gap-2 dark:bg-zinc-800"
                 >
                   <SelectItem value="Month" className="cursor-pointer">
-                    Month
+                    Mois
                   </SelectItem>
                   <SelectItem
                     value="Day"
                     className="cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700"
                   >
-                    Day
+                    Jour
                   </SelectItem>
                   <SelectItem
                     value="Hour"
                     className={`cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700 ${dateRangeInDays > 7 ? "cursor-not-allowed opacity-50" : ""}`}
                     disabled={dateRangeInDays > 7}
                   >
-                    Hour
+                    Heure
                   </SelectItem>
                 </SelectContent>
               </Select>
@@ -452,7 +452,7 @@ export default function DataGraph() {
           <CardContent className="sm:py-auto flex h-full w-full pb-6 max-2xl:flex-col 2xl:flex-row">
             <div className="flex w-1/2 flex-col justify-center gap-y-10 p-4 max-2xl:w-full 2xl:border-r-2">
               <h3 className="mx-auto flex items-center gap-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
-                <CornerLeftDown /> Temperature
+                <CornerLeftDown /> Température
               </h3>
 
               <ResponsiveContainer width="100%" height={500}>
@@ -534,7 +534,8 @@ export default function DataGraph() {
 
             <div className="flex w-1/2 flex-col justify-center p-4 max-2xl:w-full">
               <h3 className="mx-auto flex items-center gap-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
-                Humidity <CornerRightDown />
+                Humidité
+                <CornerRightDown />
               </h3>
 
               <ResponsiveContainer width="100%" height={500}>

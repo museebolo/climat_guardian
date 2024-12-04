@@ -40,11 +40,11 @@ export function AddUserElement({
       if (response.ok) {
         const newUser: user = { username, password: hashedPassword };
         setUsers([...users, newUser]);
-        setMessage("User added successfully!");
+        setMessage("Utilisateur ajouté avec succés !");
         setUsername("");
         setPassword("");
       } else {
-        setMessage("Failed to add user. Please try again.");
+        setMessage("Erreur à l'ajout 'un utilisateur. Veuillez réessayer.");
       }
     } catch (error: any) {
       setMessage("Error: " + error.message);
@@ -56,7 +56,7 @@ export function AddUserElement({
       <div className="flex gap-3">
         <Input
           className="w-72"
-          placeholder="Username"
+          placeholder="Nom d'utilisateur"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -65,14 +65,14 @@ export function AddUserElement({
 
         <Input
           className="w-72"
-          placeholder="Password"
+          placeholder="Mot de passe"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
 
-        <Button onClick={handleAddUser}>Add User</Button>
+        <Button onClick={handleAddUser}>Ajouter utilisateur</Button>
       </div>
       {message && <p className="mt-6 text-emerald-600">{message}</p>}
     </div>

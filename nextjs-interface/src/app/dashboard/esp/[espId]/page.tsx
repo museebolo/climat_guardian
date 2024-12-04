@@ -136,20 +136,20 @@ export default function Page({ params }: { params: any }) {
               className="flex w-60 gap-2 dark:bg-zinc-800"
             >
               <SelectItem value="Month" className="cursor-pointer">
-                Month
+                Mois
               </SelectItem>
               <SelectItem
                 value="Day"
                 className="cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700"
               >
-                Day
+                Jour
               </SelectItem>
               <SelectItem
                 value="Hour"
                 className={`cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700 ${dateRangeInDays > 7 ? "cursor-not-allowed opacity-50" : ""}`}
                 disabled={dateRangeInDays > 7}
               >
-                Hour
+                Heure
               </SelectItem>
             </SelectContent>
           </Select>
@@ -158,7 +158,7 @@ export default function Page({ params }: { params: any }) {
       <div className="flex w-full flex-col gap-x-5 gap-y-5 xl:flex-row">
         <Card className="w-full dark:border-zinc-700 dark:bg-zinc-900">
           <CardTitle>
-            <p className="pl-6 pt-6 text-xl">Last data :</p>
+            <p className="pl-6 pt-6 text-xl">Dernières données :</p>
           </CardTitle>
           <CardContent className="flex w-full justify-center">
             <div className="flex flex-col gap-x-36 rounded-xl p-5 sm:flex-row">
@@ -171,8 +171,8 @@ export default function Page({ params }: { params: any }) {
         <Card className="w-full dark:border-zinc-700 dark:bg-zinc-900">
           <CardTitle>
             <p className="pl-6 pt-6 text-xl">
-              Average data ( From{" "}
-              {date?.from ? format(date.from, "yyyy-MM-dd") : ""} to{" "}
+              Données moyennes ( Du{" "}
+              {date?.from ? format(date.from, "yyyy-MM-dd") : ""} au{" "}
               {date?.to ? format(date.to, "yyyy-MM-dd") : ""}) :
             </p>
           </CardTitle>
