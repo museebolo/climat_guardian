@@ -3,7 +3,7 @@ import React from "react";
 import { copyToClipboard } from "@/lib/utils";
 import { useFetchToken } from "@/lib/data";
 
-export default function ShowToken(ip: any) {
+export default function ShowToken({ ip }: { ip: string }) {
   const newToken = useFetchToken(ip);
   copyToClipboard(newToken);
 
