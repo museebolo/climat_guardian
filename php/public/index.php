@@ -9,7 +9,7 @@ use Symfony\Component\Dotenv\Dotenv;
 
 // Load environment variables
 $dotenv = new Dotenv();
-$dotenv->load(__DIR__ . '/../.env');
+$dotenv->load(__DIR__ . '/../../.env');
 
 // Set up the router
 $app = AppFactory::create();
