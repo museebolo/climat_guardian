@@ -26,8 +26,8 @@ export function EspMap({
   mouseClick: (circle: string) => void;
 }) {
   const [position, setPosition] = useState({ x: cx, y: cy });
-  const temperature = useLastData("Température", ip) ?? 0;
-  const humidity = useLastData("Humidité", ip) ?? 0;
+  const temperature = useLastData("temperature", ip) ?? 0;
+  const humidity = useLastData("humidity", ip) ?? 0;
 
   const mouseDown = useCallback(
     (e: { clientX: number; clientY: number }) => {

@@ -5,8 +5,8 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
 export default function DataCircle({ esp }: { esp: any }) {
   const ip = esp.ip;
-  const temperature = useLastData("Température", ip);
-  const humidity = useLastData("Humidité", ip);
+  const temperature = useLastData("temperature", ip);
+  const humidity = useLastData("humidity", ip);
 
   return (
     <Card className="flex h-fit flex-col items-center text-center dark:border-zinc-700 dark:bg-zinc-900">
