@@ -55,6 +55,10 @@ services:
     image: php-memoires-info
     depends_on:
       - postg-rest
+    environment:
+      POSTGREST_API: ${POSTGREST_API}
+      DETAILED_ERRORS: ${DETAILED_ERRORS}
+      JWT_SECRET: ${JWT_SECRET}
 
   interface:
     build:
