@@ -10,7 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import React, { useContext, useEffect, useState, Suspense } from "react";
+import React, {useContext, useEffect, useState, Suspense, useRef} from "react";
 import {
   Select,
   SelectContent,
@@ -26,7 +26,7 @@ import useFindIpById, {
 import { differenceInDays, endOfWeek, format, startOfWeek } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Check, CornerLeftDown, CornerRightDown } from "lucide-react";
 import { ThemeContext } from "@/lib/Theme";
 import { avgData } from "@/lib/context";
@@ -62,6 +62,9 @@ export default function DataGraph() {
   let allDataEsp1: avgData[] | null = useFetchData(precision, ip1, from, to);
   let allDataEsp2: avgData[] | null = useFetchData(precision, ip2, from, to);
 
+  let currentDataEsp1 = useRef(allDataEsp1);
+  let currentDataEsp2 = useRef(allDataEsp2);
+
   const combinedDataMap = new Map<string, any>();
 
   const allDataEsp = useFetchAllData(precision, from, to);
@@ -81,8 +84,8 @@ export default function DataGraph() {
       combinedDataMap.set(data.date, existingData);
     });
   } else {
-    if (Array.isArray(allDataEsp1)) {
-      allDataEsp1.forEach((data) => {
+    if (Array.isArray(currentDataEsp1)) {
+      currentDataEsp1.current.forEach((data) => {
         combinedDataMap.set(data.date, {
           ...data,
           avg_temperature_esp1: data.avg_temperature,
@@ -91,8 +94,8 @@ export default function DataGraph() {
       });
     }
 
-    if (Array.isArray(allDataEsp2)) {
-      allDataEsp2.forEach((data) => {
+    if (Array.isArray(currentDataEsp2)) {
+        currentDataEsp2.current.forEach((data) => {
         if (combinedDataMap.has(data.date)) {
           const existingData = combinedDataMap.get(data.date);
           combinedDataMap.set(data.date, {
@@ -133,8 +136,8 @@ export default function DataGraph() {
     if (selectedOption === "1") {
       query.delete("esp1");
       query.delete("esp2");
-      allDataEsp1 = [];
-      allDataEsp2 = [];
+      currentDataEsp1.current = [];
+      currentDataEsp2.current = [];
     }
 
     if (dateRangeInDays > 7) {
