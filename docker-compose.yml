@@ -75,8 +75,6 @@ services:
     image: interface-memoires-info
     volumes:
       - "./nextjs-interface:/var/www/memoires-info/html/"
-    env_file:
-      - .env
 
   web:
     image: nginx:1.26-alpine-otel
