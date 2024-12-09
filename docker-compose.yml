@@ -62,8 +62,10 @@ services:
       - "./php:/var/www/memoires-info/php/"
     depends_on:
       - postg-rest
-    env_file:
-      - .env
+    environment:
+      POSTGREST_API: ${POSTGREST_API}
+      DETAILED_ERRORS: ${DETAILED_ERRORS}
+      JWT_SECRET: ${JWT_SECRET}
 
 
   interface:
