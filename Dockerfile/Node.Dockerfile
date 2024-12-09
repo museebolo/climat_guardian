@@ -4,7 +4,6 @@ FROM node:20.12.2-alpine3.19 as base
 FROM base
 WORKDIR /app
 COPY ../nextjs-interface .
-COPY ../.env .
 RUN npm install
 RUN node_modules/.bin/next build
 
