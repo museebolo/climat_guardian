@@ -10,7 +10,13 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import React, {useContext, useEffect, useState, Suspense, useRef} from "react";
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  Suspense,
+  useRef,
+} from "react";
 import {
   Select,
   SelectContent,
@@ -95,7 +101,7 @@ export default function DataGraph() {
     }
 
     if (Array.isArray(currentDataEsp2)) {
-        currentDataEsp2.current.forEach((data) => {
+      currentDataEsp2.current.forEach((data) => {
         if (combinedDataMap.has(data.date)) {
           const existingData = combinedDataMap.get(data.date);
           combinedDataMap.set(data.date, {
