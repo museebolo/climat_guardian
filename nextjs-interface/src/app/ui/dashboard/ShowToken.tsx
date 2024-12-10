@@ -1,16 +1,16 @@
 import React from "react";
 
-import { copyToClipboard } from "@/lib/utils";
-import { useFetchToken } from "@/lib/data";
+import {copyToClipboard} from "@/lib/utils";
+import {useFetchToken} from "@/lib/data";
 
-export default function ShowToken({ ip }: { ip: string }) {
-  const newToken = useFetchToken(ip);
-  copyToClipboard(newToken);
+export default function ShowToken({ip}: { ip: string }) {
+    const newToken = useFetchToken(ip);
+    copyToClipboard(newToken);
 
-  return (
-    <div className="mt-2 bg-zinc-200 p-2 text-sm dark:bg-zinc-800">
-      Token copié !<br />
-      {newToken}
-    </div>
-  );
+    return (
+        <div className="mt-2 bg-zinc-200 p-2 text-sm dark:bg-zinc-800">
+            Token copié !<br/>
+            {newToken}
+        </div>
+    );
 }
