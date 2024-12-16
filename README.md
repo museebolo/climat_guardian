@@ -38,7 +38,7 @@ For this project to work you need to have the following installed on the server:
 First thing you need to do is to clone the repository from GitHub on the server
 ```bash
 git clone https://github.com/museebolo/climat_guardian.git
-cd climat-guardian
+cd climat_guardian
 ```
 
 --
