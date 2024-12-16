@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useAllUsers } from "@/lib/data";
-import { User, Trash2 } from "lucide-react";
+import {User, Trash2, Edit} from "lucide-react";
 import { AddUserElement } from "@/app/ui/dashboard/AddUserElement";
 import {
   Card,
@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { getToken, user } from "@/lib/context";
+import EditUsersData from "@/app/ui/dashboard/EditUsersData";
 
 export default function Page() {
   const [users, setUsers] = useState<user[]>([]);
@@ -26,6 +27,8 @@ export default function Page() {
     return <div>Chargement...</div>;
   }
 
+
+  // Fonction de suppression d'un utilisateur
   const handleDelete = async (username: string) => {
     try {
       const response = await fetch(`/postgrest/users?username=eq.${username}`, {
@@ -61,16 +64,22 @@ export default function Page() {
               className="mb-4 flex items-center justify-between border-b border-gray-200"
               key={index}
             >
+
               <div className="mb-4 flex items-center gap-4">
                 <User />
                 <span className="text-lg font-bold">{user.username}</span>
               </div>
-              <div>
+
+              <div className="mb-3 flex items-center gap-4">
+
+                <EditUsersData />
+
                 <Trash2
-                  className="delete-icon cursor-pointer"
-                  onClick={() => handleDelete(user.username)}
+                    className="delete-icon cursor-pointer"
+                    onClick={() => handleDelete(user.username)}
                 />
               </div>
+
             </div>
           ))}
         </CardContent>
