@@ -1,40 +1,60 @@
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import React, {useState} from "react";
-import {getToken} from "@/lib/context";
+import React, {useEffect, useState} from "react";
+import {getToken, user} from "@/lib/context";
 import {Edit} from "lucide-react";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
+import useFindIpById, {useAllUsers} from "@/lib/data";
+import bcrypt from "bcryptjs";
 
-export default function EditUsersData({username, password}:{username: string; password: string}) {
+
+export default function EditUsersData({username, password}: { username: string; password: string }) {
+
     const [newUsername, setNewUsername] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirm, setConfirm] = React.useState(false);
 
     const updateUsersData = async (newUsername: string, newPassword: string) => {
 
-        const url = `/postgrest/users?username=eq.${username}`;
 
-        const response = await fetch(url, {
+        const hashedPassword: string = await bcrypt.hash(password, 10);
+
+        const token = getToken();
+
+        const editDatas = await fetch(`/postgrest/users?username=eq.${username}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${getToken()}`,
+                Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({name: newUsername, password: newPassword}),
+            body: JSON.stringify({
+                username: newUsername,
+                password: hashedPassword
+            }),
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error(`An error occurred: ${response.status}`, errorData);
-            throw new Error(`An error occurred: ${response.status}`);
-        } else {
-            window.location.href = `/dashboard/users`;
+        window.location.href = `/dashboard/users`;
+
+        if (!editDatas.ok) {
+
+            const errorData = await editDatas.json();
+
+            console.error(`An error occurred: ${editDatas.status}`, errorData);
+            throw new Error(`An error occurred: ${editDatas.status}`);
+
         }
+
+        console.log("Ancien username: " + username);
+        console.log("Ancien password: " + password);
+        console.log("Nouveau username: " + newUsername);
+        console.log("Nouveau password: " + newPassword);
+
     };
+
 
     return (
         <div className="flex cursor-pointer gap-2">
@@ -44,6 +64,7 @@ export default function EditUsersData({username, password}:{username: string; pa
                 </PopoverTrigger>
                 <PopoverContent className="mr-5 mt-2 flex w-fit flex-col gap-2 dark:bg-zinc-800">
                     <div className="flex flex-row gap-x-5">
+
                         <Input
                             type="text"
                             placeholder="Nouveau nom d'utilisateur"
@@ -54,6 +75,7 @@ export default function EditUsersData({username, password}:{username: string; pa
                                 setConfirm(true)
                             }}
                         />
+
                         <Input
                             type="text"
                             placeholder="Nouveau mot de passe"
@@ -80,6 +102,7 @@ export default function EditUsersData({username, password}:{username: string; pa
                                 Confirmer
                             </Button>
                         )}
+
                     </div>
                 </PopoverContent>
             </Popover>

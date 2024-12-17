@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useAllUsers } from "@/lib/data";
-import {User, Trash2, Edit} from "lucide-react";
+import {User, Trash2} from "lucide-react";
 import { AddUserElement } from "@/app/ui/dashboard/AddUserElement";
 import {
   Card,
@@ -72,7 +72,7 @@ export default function Page() {
 
               <div className="mb-3 flex items-center gap-4">
 
-                <EditUsersData />
+                <EditUsersData username={user.username} password={user.password}/>
 
                 <Trash2
                     className="delete-icon cursor-pointer"
