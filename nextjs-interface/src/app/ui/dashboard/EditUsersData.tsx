@@ -16,12 +16,15 @@ export default function EditUsersData({username, password}: { username: string; 
 
     const [newUsername, setNewUsername] = useState("");
     const [newPassword, setNewPassword] = useState("");
+
+    const [message, setMessage] = useState("");
+
     const [confirm, setConfirm] = React.useState(false);
 
     const updateUsersData = async (newUsername: string, newPassword: string) => {
 
 
-        const hashedPassword: string = await bcrypt.hash(password, 10);
+        const hashedPassword: string = await bcrypt.hash(newPassword, 10);
 
         const token = getToken();
 
@@ -37,9 +40,15 @@ export default function EditUsersData({username, password}: { username: string; 
             }),
         });
 
-        window.location.href = `/dashboard/users`;
+        // window.location.href = `/dashboard/users`;
 
-        if (!editDatas.ok) {
+        if (editDatas.ok) {
+
+            setMessage("Utilisateur modifié avec succé !")
+
+        } else {
+
+            setMessage("Erreur lors de la modification de l'utilisateur");
 
             const errorData = await editDatas.json();
 
@@ -102,7 +111,6 @@ export default function EditUsersData({username, password}: { username: string; 
                                 Confirmer
                             </Button>
                         )}
-
                     </div>
                 </PopoverContent>
             </Popover>
