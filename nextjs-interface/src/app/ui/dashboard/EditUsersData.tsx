@@ -1,14 +1,14 @@
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import React, {useEffect, useState} from "react";
-import {getToken, user} from "@/lib/context";
+import React, {useState} from "react";
+import {getToken} from "@/lib/context";
 import {Edit} from "lucide-react";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-import useFindIpById, {useAllUsers} from "@/lib/data";
+
 import bcrypt from "bcryptjs";
 
 
@@ -22,47 +22,47 @@ export default function EditUsersData({username, password}: { username: string; 
     const [confirm, setConfirm] = React.useState(false);
 
     const updateUsersData = async (newUsername: string, newPassword: string) => {
-
-
-        const hashedPassword: string = await bcrypt.hash(newPassword, 10);
-
         const token = getToken();
 
-        const editDatas = await fetch(`/postgrest/users?username=eq.${username}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                username: newUsername,
-                password: hashedPassword
-            }),
-        });
-
-        // window.location.href = `/dashboard/users`;
-
-        if (editDatas.ok) {
-
-            setMessage("Utilisateur modifié avec succé !")
-
-        } else {
-
-            setMessage("Erreur lors de la modification de l'utilisateur");
-
-            const errorData = await editDatas.json();
-
-            console.error(`An error occurred: ${editDatas.status}`, errorData);
-            throw new Error(`An error occurred: ${editDatas.status}`);
-
+        // Construire dynamiquement les données à envoyer
+        const updateData: Record<string, string> = {};
+        if (newUsername.trim() !== "") {
+            updateData.username = newUsername;
+        }
+        if (newPassword.trim() !== "") {
+            updateData.password = await bcrypt.hash(newPassword, 10);
         }
 
-        console.log("Ancien username: " + username);
-        console.log("Ancien password: " + password);
-        console.log("Nouveau username: " + newUsername);
-        console.log("Nouveau password: " + newPassword);
+        // Vérifier qu'il y a au moins une donnée à mettre à jour
+        if (Object.keys(updateData).length === 0) {
+            setMessage("Aucune donnée à mettre à jour");
+            return;
+        }
 
+        try {
+            const response = await fetch(`/postgrest/users?username=eq.${username}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(updateData),
+            });
+
+            if (response.ok) {
+                setMessage("Utilisateur modifié avec succès !");
+                window.location.href = `/dashboard/users`;
+            } else {
+                const errorData = await response.json();
+                console.error(`An error occurred: ${response.status}`, errorData);
+                setMessage("Erreur lors de la modification de l'utilisateur");
+            }
+        } catch (error) {
+            console.error(error);
+            setMessage("Une erreur s'est produite lors de la modification de l'utilisateur");
+        }
     };
+
 
 
     return (
