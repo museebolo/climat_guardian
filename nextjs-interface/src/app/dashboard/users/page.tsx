@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useAllUsers } from "@/lib/data";
-import {User, Trash2} from "lucide-react";
+import { User, Trash2 } from "lucide-react";
 import { AddUserElement } from "@/app/ui/dashboard/AddUserElement";
 import {
   Card,
@@ -26,7 +26,6 @@ export default function Page() {
   if (!allUsers) {
     return <div>Chargement...</div>;
   }
-
 
   // Fonction de suppression d'un utilisateur
   const handleDelete = async (username: string) => {
@@ -64,22 +63,22 @@ export default function Page() {
               className="mb-4 flex items-center justify-between border-b border-gray-200"
               key={index}
             >
-
               <div className="mb-4 flex items-center gap-4">
                 <User />
                 <span className="text-lg font-bold">{user.username}</span>
               </div>
 
               <div className="mb-3 flex items-center gap-4">
-
-                <EditUsersData username={user.username} password={user.password}/>
+                <EditUsersData
+                  username={user.username}
+                  password={user.password}
+                />
 
                 <Trash2
-                    className="delete-icon cursor-pointer"
-                    onClick={() => handleDelete(user.username)}
+                  className="delete-icon cursor-pointer"
+                  onClick={() => handleDelete(user.username)}
                 />
               </div>
-
             </div>
           ))}
         </CardContent>
