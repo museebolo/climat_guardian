@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { getToken, user } from "@/lib/context";
+import EditUsersData from "@/app/ui/dashboard/EditUsersData";
 
 export default function Page() {
   const [users, setUsers] = useState<user[]>([]);
@@ -26,6 +27,7 @@ export default function Page() {
     return <div>Chargement...</div>;
   }
 
+  // Fonction de suppression d'un utilisateur
   const handleDelete = async (username: string) => {
     try {
       const response = await fetch(`/postgrest/users?username=eq.${username}`, {
@@ -65,7 +67,13 @@ export default function Page() {
                 <User />
                 <span className="text-lg font-bold">{user.username}</span>
               </div>
-              <div>
+
+              <div className="mb-3 flex items-center gap-4">
+                <EditUsersData
+                  username={user.username}
+                  password={user.password}
+                />
+
                 <Trash2
                   className="delete-icon cursor-pointer"
                   onClick={() => handleDelete(user.username)}
