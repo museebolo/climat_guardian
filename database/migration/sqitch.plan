@@ -10,3 +10,4 @@ esp 2024-06-26T08:20:01Z dylan <dylanbossoku@dylan> # create a esp table to stov
 2024-07-05 2024-07-05T08:58:10Z Nils <nils@fedora> # Grant user the ability to remove users
 2024-07-10 2024-07-10T08:08:27Z Nils <nils@fedora> # Give the esp permission to know it's id
 add_new_permission 2024-12-17T14:46:26Z Colin <colin@JT-24-11-07-Colin> # Add a permission for the user to edit the user's datas
+delete_esp_permission 2025-01-07T08:18:34Z Colin <colin@JT-24-11-07-Colin> # Add a permission for the user to delete ESP
