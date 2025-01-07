@@ -107,32 +107,6 @@ export default function Page({ params }: { params: any }) {
     );
   };
 
-  const deleteEsp = async ({ id }: { id: string }) => {
-    // Get the id in the URL of the page
-    const url = `postgrest/esp?id=eq.${id}`;
-
-    try {
-      const response = await fetch(url, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getToken()}`,
-        },
-      });
-
-      window.location.href = `/dashboard/esp/${id}`;
-
-      if (!response.ok) {
-        console.error(`une erreur lors de la suppression de l'ESP`);
-        console.error(await response.json());
-
-        return;
-      }
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  };
-
   const dateRangeInDays =
     date?.from && date?.to ? differenceInDays(date.to, date.from) : 0;
 
