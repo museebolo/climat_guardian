@@ -26,6 +26,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import RenameElement from "@/app/ui/dashboard/RenameElement";
+import { Trash2 } from "lucide-react";
 import useFindIpById from "@/lib/data";
 import {
   Select,
@@ -34,6 +35,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getToken } from "@/lib/context";
+import DeleteEsp from "@/app/ui/dashboard/DeleteEsp";
 
 // main component
 export default function Page({ params }: { params: any }) {
@@ -111,7 +114,10 @@ export default function Page({ params }: { params: any }) {
     <div className="flex h-full w-full flex-col gap-y-5 pt-2">
       <div className="flex justify-between text-xl font-bold uppercase">
         <div>{esp.name}</div>
-        <RenameElement id={params.espId} />
+        <div className="flex gap-4">
+          <RenameElement id={params.espId} />
+          <DeleteEsp id={params.espId} />
+        </div>
       </div>
       <div className="mt-0 text-zinc-500">{esp.ip}</div>
       <div className="flex flex-col gap-x-5 gap-y-5 sm:flex-row">
