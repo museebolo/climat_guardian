@@ -2,7 +2,7 @@
 
 BEGIN;
 
-    grant delete on api.esp to web.user; -- any user can delete ESP
-    grant delete on api.data to web.user; -- any user can delete ESP's data
+    grant delete on api.esp to web_user; -- any user can delete ESP
+    grant delete on api.data to web_user; -- any user can delete ESP's data
 
 COMMIT;
