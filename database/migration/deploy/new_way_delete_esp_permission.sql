@@ -14,16 +14,18 @@ GRANT DELETE ON api.data TO web_user;
 GRANT DELETE ON api.esp TO web_user;
 
 -- Delete the function if exists
-DROP FUNCTION IF EXISTS api.delete_data;
+DROP FUNCTION IF EXISTS api.delete_espData_Esp;
 
 -- Create the function
-CREATE OR REPLACE FUNCTION api.delete_data(id)
+CREATE OR REPLACE FUNCTION api.delete_espData_Esp(id)
     RETURNS VOID AS $$
 
 BEGIN
+
     -- DELETE on data and esp tables
-    DELETE FROM api.data WHERE id = id;
+    DELETE FROM api.data WHERE id_esp = id;
     DELETE FROM api.esp WHERE id = id;
+
 END;
 $$ LANGUAGE plpgsql;
 
