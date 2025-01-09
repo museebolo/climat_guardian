@@ -2,7 +2,7 @@
 
 BEGIN;
 
-    revoke delete on api.esp to web_user; -- any user can't anymore delete ESP
-    revoke delete on api.data to web_user; -- any user can't anymore delete ESP's data
+    revoke delete on api.esp from web_user; -- any user can't anymore delete ESP
+    revoke delete on api.data from web_user; -- any user can't anymore delete ESP's data
 
 COMMIT;
