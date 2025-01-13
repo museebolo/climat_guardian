@@ -22,12 +22,19 @@ CREATE FUNCTION api.delete_esp_data_and_esp(id INT)
 
 BEGIN
 
+    SET TRANSACTION READ WRITE;
+
+    ALTER DATABASE api SET default_transaction_read_only = off;
+
     -- DELETE on data and esp tables
     DELETE FROM api.data WHERE esp_id = id;
     DELETE FROM api.esp WHERE id = id;
 
 END;
 $$ LANGUAGE plpgsql;
+
+GRANT DELETE ON api.data TO web_user;
+GRANT DELETE ON api.esp TO web_user;
 
 
 COMMIT;
