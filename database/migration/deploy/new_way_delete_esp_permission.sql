@@ -23,7 +23,7 @@ CREATE FUNCTION api.delete_esp_data_and_esp()
 BEGIN
 
     -- DELETE on data and esp tables
-    DELETE FROM api.data WHERE id_esp = ${id};
+    DELETE FROM api.data WHERE esp_id = ${id};
     DELETE FROM api.esp WHERE id = ${id};
 
 END;
