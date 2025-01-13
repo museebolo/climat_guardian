@@ -14,10 +14,10 @@ GRANT DELETE ON api.data TO web_user;
 GRANT DELETE ON api.esp TO web_user;
 
 -- Delete the function if exists
-DROP FUNCTION IF EXISTS api.delete_esp_data_and_esp(id);
+DROP FUNCTION IF EXISTS api.delete_esp_data_and_esp();
 
 -- Create the function
-CREATE FUNCTION api.delete_esp_data_and_esp(id)
+CREATE FUNCTION api.delete_esp_data_and_esp()
     RETURNS VOID AS $$
 
 BEGIN
