@@ -6,25 +6,25 @@ BEGIN;
 
 
 -- Remove permission to DELETE on data and esp tables
-REVOKE DELETE ON api.data FROM web_user;
-REVOKE DELETE ON api.esp FROM web_user;
+REVOKE DELETE ON api.data FROM web_user;    -- Revoke permission for the user to DELETE datas on table DATA
+REVOKE DELETE ON api.esp FROM web_user;     -- Revoke permission for the user to DELETE datas on table ESP
 
 -- Add permission to DELETE on data and esp tables
-GRANT DELETE ON api.data TO web_user;
-GRANT DELETE ON api.esp TO web_user;
+GRANT DELETE ON api.data TO web_user;       -- Add permission for the user to DELETE datas on table DATA
+GRANT DELETE ON api.esp TO web_user;        -- Add permission for the user to DELETE datas on table ESP
 
 -- Delete the function if exists
-DROP FUNCTION IF EXISTS api.delete_esp_data_and_esp();
+-- DROP FUNCTION IF EXISTS api.delete_esp_data_and_esp();
 
 -- Create the function
-CREATE FUNCTION api.delete_esp_data_and_esp()
+CREATE FUNCTION api.delete_esp_data_and_esp(id INT)
     RETURNS VOID AS $$
 
 BEGIN
 
     -- DELETE on data and esp tables
-    DELETE FROM api.data WHERE esp_id = ${id};
-    DELETE FROM api.esp WHERE id = ${id};
+    DELETE FROM api.data WHERE esp_id = id;
+    DELETE FROM api.esp WHERE id = id;
 
 END;
 $$ LANGUAGE plpgsql;

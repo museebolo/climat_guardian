@@ -10,7 +10,6 @@ export default function DeleteEsp({ id }: { id: string }) {
     try {
       const response = await fetch(url, {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${getToken()}`,
         },
       });
