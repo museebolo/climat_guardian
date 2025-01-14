@@ -11,11 +11,11 @@ export default function DeleteEsp({ id }: { id: string }) {
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
-          id_data: id
+          id_data: id,
         }),
         headers: {
           Authorization: `Bearer ${getToken()}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
       });
 
@@ -25,7 +25,7 @@ export default function DeleteEsp({ id }: { id: string }) {
         console.error(`une erreur lors de la suppression de l'ESP`);
         console.error(await response.json());
       } else {
-        console.log("Tout bon")
+        console.log("Tout bon");
       }
     } catch (error) {
       console.error("Error: ", error);
