@@ -3,12 +3,12 @@
 BEGIN;
 
 
--- Remove permission to DELETE on data and esp tables
+-- DELETE the function if it exists
 DROP FUNCTION IF EXISTS api.delete_esp_data_and_esp(id);
 
-
-grant delete on api.esp to web_user; -- any user can delete ESP
-grant delete on api.data to web_user; -- any user can delete ESP's data
+-- Remove permission to delete
+REVOKE DELETE ON api.esp FROM web_user; -- no one can delete ESP
+REVOKE DELETE ON api.data FROM web_user; -- no one can delete ESP's data
 
 
 COMMIT;
