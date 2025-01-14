@@ -4,10 +4,6 @@
 
 BEGIN;
 
--- Remove permission to DELETE on data and esp tables
-REVOKE DELETE ON api.data FROM web_user;    -- Revoke permission for the user to DELETE datas on table DATA
-REVOKE DELETE ON api.esp FROM web_user;     -- Revoke permission for the user to DELETE datas on table ESP
-
 -- Delete the function if exists
 DROP FUNCTION IF EXISTS api.delete_esp_data_and_esp;
 
@@ -23,8 +19,5 @@ BEGIN
 
 END;
 $$ LANGUAGE plpgsql;
-
-GRANT DELETE ON api.data TO web_user;
-GRANT DELETE ON api.esp TO web_user;
 
 COMMIT;
