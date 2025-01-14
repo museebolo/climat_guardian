@@ -5,16 +5,21 @@ export default function DeleteEsp({ id }: { id: string }) {
   const deleteEsp = async (id: string) => {
     // Get the id in the URL of the page
 
-    const url = `/postgrest/rpc/delete_esp_data_and_esp?id=${id}`;
+    const url = `/postgrest/rpc/delete_esp_data_and_esp`;
 
     try {
       const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          id_data: id
+        }),
         headers: {
           Authorization: `Bearer ${getToken()}`,
+          "Content-Type": "application/json"
         },
       });
 
-      // window.location.href = `/dashboard`;
+      window.location.href = `/dashboard`;
 
       if (!response.ok) {
         console.error(`une erreur lors de la suppression de l'ESP`);
