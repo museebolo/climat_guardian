@@ -22,7 +22,9 @@ export default function DeleteEsp({ id }: { id: string }) {
       window.location.href = `/dashboard`;
 
       if (!response.ok) {
-        console.error(`Une erreur est survenue lors de la suppression de l'ESP`);
+        console.error(
+          `Une erreur est survenue lors de la suppression de l'ESP`,
+        );
         console.error(await response.json());
       } else {
         console.log("ESP supprimé avec succés");
