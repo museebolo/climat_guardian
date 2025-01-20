@@ -83,9 +83,10 @@ services:
     volumes:
       - "./.env:/var/www/memoires-info/html/.env"
       - "./nginx.conf:/etc/nginx/conf.d/default.conf"
+      - "./php:/var/www/memoires-info/php/"
+        # Nginx certificats
       - "./climateguardian_dev.com.pem:/etc/nginx"
       - "./climateguardian_dev.com-key.pem:/etc/nginx"
-      - "./php:/var/www/memoires-info/php/"
     depends_on:
       - php
       - postg-rest
