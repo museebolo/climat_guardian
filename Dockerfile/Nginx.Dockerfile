@@ -8,3 +8,6 @@ RUN sed -i '/location \/adminer\//,/}/d' /etc/nginx/conf.d/default.conf
 # copy php files for ngnix to know they exist
 COPY ../php/public /var/www/memoires-info/php/public
 
+COPY ../climateguardian_dev.com-key.pem /etc/nginx/ssl
+COPY ../climateguardian_dev.com.pem /etc/nginx/ssl
+
