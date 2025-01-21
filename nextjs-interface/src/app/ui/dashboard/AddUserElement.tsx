@@ -44,7 +44,7 @@ export function AddUserElement({
         setUsername("");
         setPassword("");
       } else {
-        setMessage("Erreur à l'ajout 'un utilisateur. Veuillez réessayer.");
+        setMessage("Erreur à l'ajout de l'utilisateur. Veuillez réessayer.");
       }
     } catch (error: any) {
       setMessage("Error: " + error.message);

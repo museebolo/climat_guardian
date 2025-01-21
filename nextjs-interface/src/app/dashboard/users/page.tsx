@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { getToken, user } from "@/lib/context";
 import EditUsersData from "@/app/ui/dashboard/EditUsersData";
+import DeleteUsersData from "@/app/ui/dashboard/DeleteUsersData";
 
 export default function Page() {
   const [users, setUsers] = useState<user[]>([]);
@@ -26,30 +27,6 @@ export default function Page() {
   if (!allUsers) {
     return <div>Chargement...</div>;
   }
-
-  // Fonction de suppression d'un utilisateur
-  const handleDelete = async (username: string) => {
-    try {
-      const response = await fetch(`/postgrest/users?username=eq.${username}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${getToken()}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.error("Erreur à la suppression de l'utilisateur");
-        console.error(await response.json());
-        return;
-      }
-
-      // Remove user from local state after successful deletion
-      setUsers(users.filter((user) => user.username !== username));
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
 
   return (
     <>
@@ -74,9 +51,8 @@ export default function Page() {
                   password={user.password}
                 />
 
-                <Trash2
-                  className="delete-icon cursor-pointer"
-                  onClick={() => handleDelete(user.username)}
+                <DeleteUsersData
+                  username={user.username}
                 />
               </div>
             </div>
