@@ -36,7 +36,7 @@ jobs:
       - name: test login with admin return token
         run: |
           sleep 10
-          export TOKEN=$(curl -X POST -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' http://localhost/php/login | jq ".token")
+          export TOKEN=$(curl -X POST -k -H "Content-Type: application/json" -d '{"username": "admin", "password": "admin"}' https://localhost/php/login | jq ".token")
           if [ "$TOKEN" == "null" ] || [ -z "$TOKEN" ]; then
             echo "token is empty"
             exit 1
