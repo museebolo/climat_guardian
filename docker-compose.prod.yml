@@ -73,6 +73,7 @@ services:
     image: nginx-memoires-info
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - php
       - postg-rest
