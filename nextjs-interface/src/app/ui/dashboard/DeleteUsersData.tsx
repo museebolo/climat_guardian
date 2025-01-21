@@ -8,8 +8,6 @@ import {
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAllUsers } from "@/lib/data";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
 
 export default function DeleteUserData({
   username
@@ -45,7 +43,7 @@ export default function DeleteUserData({
 
         return;
       } else {
-        // window.location.href = '/dashboard/users'
+        window.location.href = '/dashboard/users'
       }
 
       // Remove user from local state after successful deletion
@@ -63,7 +61,7 @@ export default function DeleteUserData({
             <Trash2 />
           </PopoverTrigger>
 
-          <PopoverContent>
+          <PopoverContent className="mr-5 mt-2 flex w-fit flex-col gap-2 dark:bg-zinc-800">
             <p>Supprimer cet utilisateur ?</p>
             <Button
               onClick={async () => {
