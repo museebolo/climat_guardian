@@ -51,9 +51,7 @@ export default function Page() {
                   password={user.password}
                 />
 
-                <DeleteUsersData
-                  username={user.username}
-                />
+                <DeleteUsersData username={user.username} />
               </div>
             </div>
           ))}
