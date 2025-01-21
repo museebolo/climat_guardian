@@ -1,5 +1,7 @@
 import { Trash2 } from "lucide-react";
 import { getToken } from "@/lib/context";
+import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
+import {Button} from "@/components/ui/button";
 
 export default function DeleteEsp({ id }: { id: string }) {
   const deleteEsp = async (id: string) => {
@@ -35,8 +37,29 @@ export default function DeleteEsp({ id }: { id: string }) {
   };
 
   return (
-    <div className="flex cursor-pointer gap-2">
-      <Trash2 onClick={() => deleteEsp(id)} />
-    </div>
+      <div className="flex cursor-pointer gap-2">
+        <Popover>
+          <PopoverTrigger>
+            <Trash2 />
+          </PopoverTrigger>
+
+          <PopoverContent className="mr-5 mt-2 flex w-fit flex-col gap-2 dark:bg-zinc-800">
+            <p>Supprimer cet ESP ?</p>
+            <Button
+                onClick={async () => {
+                  try {
+                    await deleteEsp(id);
+                  } catch (e) {
+                    console.error(e);
+                  }
+                }}
+                className="w-72"
+            >
+              OUI
+            </Button>
+            <Button className="w-72">NON</Button>
+          </PopoverContent>
+        </Popover>
+      </div>
   );
 }
