@@ -11,7 +11,7 @@ import { useAllUsers } from "@/lib/data";
 
 export default function DeleteUserData({ username }: { username: string }) {
 
-  // Fonction pour cacher la popup de suppression
+  // Function to hide the delete popup
   const [hidePopup, setHidePopup] = useState(false);
 
   const hidePopover = () => {
@@ -23,7 +23,7 @@ export default function DeleteUserData({ username }: { username: string }) {
 
 
 
-  // Fonction de suppression d'un utilisateur
+  // Function to delete a user
   const [users, setUsers] = useState<user[]>([]);
 
   const handleDelete = async () => {
