@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getToken, user } from "@/lib/context";
 import {
   Popover,
@@ -10,21 +10,24 @@ import { Button } from "@/components/ui/button";
 import { useAllUsers } from "@/lib/data";
 
 export default function DeleteUserData({ username }: { username: string }) {
-  const [users, setUsers] = useState<user[]>([]);
-  const allUsers = useAllUsers();
 
-  useEffect(() => {
-    if (allUsers) {
-      setUsers(allUsers);
-    }
-  }, [allUsers]);
+  // Fonction pour cacher la popup de suppression
+  const [hidePopup, setHidePopup] = useState(false);
 
-  if (!allUsers) {
-    return <div>Chargement...</div>;
+  const hidePopover = () => {
+
+    setHidePopup(!hidePopup);
+
+    console.log("Popover cachée");
   }
 
+
+
   // Fonction de suppression d'un utilisateur
-  const handleDelete = async (username: string) => {
+  const [users, setUsers] = useState<user[]>([]);
+
+  const handleDelete = async () => {
+
     try {
       const response = await fetch(`/postgrest/users?username=eq.${username}`, {
         method: "DELETE",
@@ -57,18 +60,15 @@ export default function DeleteUserData({ username }: { username: string }) {
         <PopoverContent className="mr-5 mt-2 flex w-fit flex-col gap-2 dark:bg-zinc-800">
           <p>Supprimer cet utilisateur ?</p>
           <Button
-            onClick={async () => {
-              try {
-                await handleDelete(username);
-              } catch (e) {
-                console.error(e);
-              }
-            }}
-            className="w-72"
-          >
+              onClick={handleDelete}
+              className="w-72">
             OUI
           </Button>
-          <Button className="w-72">NON</Button>
+          <Button
+              onClick={hidePopover}
+              className="w-72">
+            NON
+          </Button>
         </PopoverContent>
       </Popover>
     </div>
