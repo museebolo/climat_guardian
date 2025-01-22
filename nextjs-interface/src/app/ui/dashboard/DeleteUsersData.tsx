@@ -9,7 +9,13 @@ import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAllUsers } from "@/lib/data";
 
-export default function DeleteUserData({ username }: { username: string }) {
+export default function DeleteUserData({
+  username,
+  onDelete,
+}: {
+  username: string;
+  onDelete: (username: string) => void;
+}) {
   // Function to hide the delete popup
   const [isOpen, setIsOpen] = useState(false);
 
@@ -18,8 +24,8 @@ export default function DeleteUserData({ username }: { username: string }) {
   };
 
   const openPopover = () => {
-    setIsOpen(true)
-  }
+    setIsOpen(true);
+  };
 
   // Function to delete a user
   const [users, setUsers] = useState<user[]>([]);
@@ -36,10 +42,9 @@ export default function DeleteUserData({ username }: { username: string }) {
 
       if (!response.ok) {
         return;
-      } else {
-        // window.location.href = "/dashboard/users";
       }
 
+      onDelete(username);
       // Remove user from local state after successful deletion
       setUsers(users.filter((user) => user.username !== username));
       setIsOpen(false);
@@ -55,18 +60,18 @@ export default function DeleteUserData({ username }: { username: string }) {
           <Trash2 />
         </PopoverTrigger>
 
-          <PopoverContent className="mr-5 mt-2 flex w-fit flex-col gap-2 dark:bg-zinc-800">
-            <p>Supprimer {username} ?</p>
-            <Button onClick={handleDelete} className="w-72">
-              OUI
-            </Button>
-            <Button
-              onClick={hidePopover}
-              className="w-72 data-[state=closed]:animate-out"
-            >
-              NON
-            </Button>
-          </PopoverContent>
+        <PopoverContent className="mr-5 mt-2 flex w-fit flex-col gap-2 dark:bg-zinc-800">
+          <p>Supprimer {username} ?</p>
+          <Button onClick={handleDelete} className="w-72">
+            OUI
+          </Button>
+          <Button
+            onClick={hidePopover}
+            className="w-72 data-[state=closed]:animate-out"
+          >
+            NON
+          </Button>
+        </PopoverContent>
       </Popover>
     </div>
   );

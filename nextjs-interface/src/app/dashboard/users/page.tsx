@@ -24,6 +24,10 @@ export default function Page() {
     }
   }, [allUsers]);
 
+  const handleUserDelete = (username: string) => {
+    setUsers((prevUsers) => prevUsers.filter((user) => user.username !== username));
+  };
+
   if (!allUsers) {
     return <div>Chargement...</div>;
   }
@@ -51,7 +55,10 @@ export default function Page() {
                   password={user.password}
                 />
 
-                <DeleteUsersData username={user.username} />
+                <DeleteUsersData
+                    username={user.username}
+                    onDelete={handleUserDelete}
+                />
               </div>
             </div>
           ))}
