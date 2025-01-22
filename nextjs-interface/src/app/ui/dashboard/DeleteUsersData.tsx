@@ -11,13 +11,15 @@ import { useAllUsers } from "@/lib/data";
 
 export default function DeleteUserData({ username }: { username: string }) {
   // Function to hide the delete popup
-  const [hidePopup, setHidePopup] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const hidePopover = () => {
-    setHidePopup(!hidePopup);
-
-    console.log(hidePopup ? "Popover cachée" : "Popover affichée");
+    setIsOpen(false);
   };
+
+  const openPopover = () => {
+    setIsOpen(true)
+  }
 
   // Function to delete a user
   const [users, setUsers] = useState<user[]>([]);
@@ -40,6 +42,7 @@ export default function DeleteUserData({ username }: { username: string }) {
 
       // Remove user from local state after successful deletion
       setUsers(users.filter((user) => user.username !== username));
+      setIsOpen(false);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -47,12 +50,11 @@ export default function DeleteUserData({ username }: { username: string }) {
 
   return (
     <div className="flex cursor-pointer gap-2">
-      <Popover>
+      <Popover open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger>
           <Trash2 />
         </PopoverTrigger>
 
-        {hidePopup && (
           <PopoverContent className="mr-5 mt-2 flex w-fit flex-col gap-2 dark:bg-zinc-800">
             <p>Supprimer {username} ?</p>
             <Button onClick={handleDelete} className="w-72">
@@ -65,7 +67,6 @@ export default function DeleteUserData({ username }: { username: string }) {
               NON
             </Button>
           </PopoverContent>
-        )}
       </Popover>
     </div>
   );
