@@ -10,10 +10,8 @@ import { useState } from "react";
 
 export default function DeleteEsp({
   id,
-  onDelete,
 }: {
   id: string;
-  onDelete: (id: string) => void;
 }) {
   // Function to hide the delete popup
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +51,7 @@ export default function DeleteEsp({
       } else {
         console.log("ESP supprimé avec succés");
       }
-      onDelete(id);
+
       setIsOpen(false);
     } catch (error) {
       console.error("Error: ", error);
