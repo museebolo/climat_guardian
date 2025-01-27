@@ -83,6 +83,14 @@ export default function Page({ params }: { params: any }) {
     );
   };
 
+
+  // Redirect if id don't exist
+  const inexistant_id = () => {
+    if (ip !== esp.ip) {
+      window.location.href = `/dashboard`
+    }
+  }
+
   useEffect(() => {
     const precisionParam = searchParams.get("precision");
     const fromParam = searchParams.get("from");
@@ -105,6 +113,7 @@ export default function Page({ params }: { params: any }) {
     router.push(
       `/dashboard/esp/${params.espId}?precision=${value}&from=${date?.from?.toISOString()}&to=${date?.to?.toISOString()}`,
     );
+    inexistant_id();
   };
 
   const dateRangeInDays =
