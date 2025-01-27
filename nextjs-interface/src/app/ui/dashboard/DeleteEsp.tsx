@@ -6,7 +6,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import {useState} from "react";
+import { useState } from "react";
 
 export default function DeleteEsp({
   id,
@@ -53,8 +53,8 @@ export default function DeleteEsp({
       } else {
         console.log("ESP supprimé avec succés");
       }
-      onDelete(id)
-      setIsOpen(false)
+      onDelete(id);
+      setIsOpen(false);
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -81,10 +81,7 @@ export default function DeleteEsp({
           >
             OUI
           </Button>
-          <Button
-              onClick={hidePopover}
-              className="w-72"
-          >
+          <Button onClick={hidePopover} className="w-72">
             NON
           </Button>
         </PopoverContent>

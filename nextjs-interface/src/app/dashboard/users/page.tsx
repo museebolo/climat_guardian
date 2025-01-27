@@ -25,7 +25,9 @@ export default function Page() {
   }, [allUsers]);
 
   const handleUserDelete = (username: string) => {
-    setUsers((prevUsers) => prevUsers.filter((user) => user.username !== username));
+    setUsers((prevUsers) =>
+      prevUsers.filter((user) => user.username !== username),
+    );
   };
 
   if (!allUsers) {
@@ -56,8 +58,8 @@ export default function Page() {
                 />
 
                 <DeleteUsersData
-                    username={user.username}
-                    onDelete={handleUserDelete}
+                  username={user.username}
+                  onDelete={handleUserDelete}
                 />
               </div>
             </div>
