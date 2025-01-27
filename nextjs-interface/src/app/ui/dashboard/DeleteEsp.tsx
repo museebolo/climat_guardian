@@ -8,11 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
-export default function DeleteEsp({
-  id,
-}: {
-  id: string;
-}) {
+export default function DeleteEsp({ id }: { id: string }) {
   // Function to hide the delete popup
   const [isOpen, setIsOpen] = useState(false);
 
