@@ -84,12 +84,6 @@ export default function Page({ params }: { params: any }) {
   };
 
 
-  // Redirect if id don't exist
-  const inexistant_id = () => {
-    if (ip !== esp.ip) {
-      window.location.href = `/dashboard`
-    }
-  }
 
   useEffect(() => {
     const precisionParam = searchParams.get("precision");
@@ -106,14 +100,18 @@ export default function Page({ params }: { params: any }) {
         to: new Date(toParam),
       });
     }
-  }, [searchParams]);
+
+    // Redirect if id don't exist
+    if (!ip || ip !== params.espId) {
+      router.replace("/dashboard")
+    }
+  }, [searchParams, ip, params.espId, router]);
 
   const handleSelect = (value: any) => {
     setPrecision(value);
     router.push(
       `/dashboard/esp/${params.espId}?precision=${value}&from=${date?.from?.toISOString()}&to=${date?.to?.toISOString()}`,
     );
-    inexistant_id();
   };
 
   const dateRangeInDays =
