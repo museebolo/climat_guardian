@@ -142,7 +142,11 @@ export default function useFindIpById(id: string) {
     fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
       .then((response) => response.json())
       .then((apiIp: esp[]) => {
-        setIp(apiIp[0].ip);
+        if (apiIp.length > 0) {
+          setIp(apiIp[0].ip);
+        } else {
+          setIp("No IP");
+        }
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
