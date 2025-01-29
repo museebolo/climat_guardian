@@ -9,12 +9,16 @@ import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAllUsers } from "@/lib/data";
 
+import {userMessage} from "@/app/dashboard/message";
+
 export default function DeleteUserData({
   username,
   onDelete,
+    setMessage,
 }: {
   username: string;
   onDelete: (username: string) => void;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
 }) {
   // Function to hide the delete popup
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +44,10 @@ export default function DeleteUserData({
         },
       });
 
-      if (!response.ok) {
+      if (response.ok) {
+        setMessage(userMessage.deleteUser)
+      } else {
+        setMessage(userMessage.errorDeleteUser)
         return;
       }
 

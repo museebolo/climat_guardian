@@ -2,18 +2,22 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { getToken, user } from "@/lib/context";
+
+import {userMessage} from "@/app/dashboard/message";
+
 import bcrypt from "bcryptjs";
 
 export function AddUserElement({
   users,
   setUsers,
+    setMessage
 }: {
   users: user[];
   setUsers: Dispatch<SetStateAction<user[]>>;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
 
   const handleAddUser = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -40,14 +44,14 @@ export function AddUserElement({
       if (response.ok) {
         const newUser: user = { username, password: hashedPassword };
         setUsers([...users, newUser]);
-        setMessage("Utilisateur ajouté avec succés !");
+        setMessage(userMessage.addUser);
         setUsername("");
         setPassword("");
       } else {
-        setMessage("Erreur à l'ajout de l'utilisateur. Veuillez réessayer.");
+        setMessage(userMessage.errorAddUser);
       }
     } catch (error: any) {
-      setMessage("Error: " + error.message);
+      // setMessage("Error: " + error.message);
     }
   };
 
@@ -74,7 +78,6 @@ export function AddUserElement({
 
         <Button onClick={handleAddUser}>Ajouter utilisateur</Button>
       </div>
-      {message && <p className="mt-6 text-emerald-600">{message}</p>}
     </div>
   );
 }

@@ -9,27 +9,36 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+import {userMessage} from "@/app/dashboard/message";
+
 import bcrypt from "bcryptjs";
 
 export default function EditUsersData({
   username,
   password,
+    setMessage,
 }: {
   username: string;
   password: string;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  const [message, setMessage] = useState("");
-
   const [confirm, setConfirm] = React.useState(false);
 
-  const updateUsersData = async (newUsername: string, newPassword: string) => {
+  const updateUsersData = async (
+      newUsername: string,
+      newPassword: string,
+      e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+      ) => {
+    e.preventDefault();
+
     const token = getToken();
 
     // Construire dynamiquement les données à envoyer
     const updateData: Record<string, string> = {};
+
     if (newUsername.trim() !== "") {
       updateData.username = newUsername;
     }
@@ -54,18 +63,17 @@ export default function EditUsersData({
       });
 
       if (response.ok) {
-        setMessage("Utilisateur modifié avec succès !");
-        window.location.href = `/dashboard/users`;
+        setMessage(userMessage.editUser);
+        // window.location.href = `/dashboard/users`;
+        setNewUsername("");
+        setNewPassword("");
       } else {
         const errorData = await response.json();
         console.error(`An error occurred: ${response.status}`, errorData);
-        setMessage("Erreur lors de la modification de l'utilisateur");
+        setMessage(userMessage.errorEditUser);
       }
     } catch (error) {
       console.error(error);
-      setMessage(
-        "Une erreur s'est produite lors de la modification de l'utilisateur",
-      );
     }
   };
 
