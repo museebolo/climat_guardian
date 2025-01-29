@@ -29,16 +29,12 @@ export default function EditUsersData({
 
   const updateUsersData = async (
       newUsername: string,
-      newPassword: string,
-      e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-      ) => {
-    e.preventDefault();
+      newPassword: string) => {
 
     const token = getToken();
 
     // Construire dynamiquement les données à envoyer
     const updateData: Record<string, string> = {};
-
     if (newUsername.trim() !== "") {
       updateData.username = newUsername;
     }
