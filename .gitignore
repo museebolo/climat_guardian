@@ -1,0 +1,6 @@
+.idea/
+# vim backup files
+*.sw[pon]
+.env
+# nohup
+nohup.out
