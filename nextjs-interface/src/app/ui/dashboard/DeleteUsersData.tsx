@@ -9,12 +9,12 @@ import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAllUsers } from "@/lib/data";
 
-import {userMessage} from "@/app/dashboard/message";
+import { userMessage } from "@/app/dashboard/message";
 
 export default function DeleteUserData({
   username,
   onDelete,
-    setMessage,
+  setMessage,
 }: {
   username: string;
   onDelete: (username: string) => void;
@@ -45,9 +45,9 @@ export default function DeleteUserData({
       });
 
       if (response.ok) {
-        setMessage(userMessage.deleteUser)
+        setMessage(userMessage.deleteUser);
       } else {
-        setMessage(userMessage.errorDeleteUser)
+        setMessage(userMessage.errorDeleteUser);
         return;
       }
 
@@ -55,8 +55,8 @@ export default function DeleteUserData({
       // Remove user from local state after successful deletion
       setUsers(users.filter((user) => user.username !== username));
       setIsOpen(false);
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (error: any) {
+      console.error("Erreur :" + error.message);
     }
   };
 

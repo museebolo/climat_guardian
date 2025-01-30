@@ -13,13 +13,13 @@ import {
 import { getToken, user } from "@/lib/context";
 import EditUsersData from "@/app/ui/dashboard/EditUsersData";
 import DeleteUsersData from "@/app/ui/dashboard/DeleteUsersData";
-import {userMessage} from "@/app/dashboard/message";
+import { userMessage } from "@/app/dashboard/message";
 
 export default function Page() {
   const [users, setUsers] = useState<user[]>([]);
   const allUsers = useAllUsers();
 
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (allUsers) {
@@ -33,15 +33,17 @@ export default function Page() {
     );
   };
 
+  const handleUserEdit = (username: string, editedUsername: Partial<user>) => {
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user.username === username ? { ...user, ...editedUsername } : user,
+      ),
+    );
+  };
+
   if (!allUsers) {
     return <div>Chargement...</div>;
   }
-
-  // if (1 > 2) {
-  //   setMessage(userMessage.editUser);
-  // } else {
-  //   setMessage(userMessage.errorEditUser);
-  // }
 
   return (
     <>
@@ -63,9 +65,8 @@ export default function Page() {
               <div className="mb-3 flex items-center gap-4">
                 <EditUsersData
                   username={user.username}
-                  password={user.password}
+                  onChange={handleUserEdit}
                   setMessage={setMessage}
-
                 />
 
                 <DeleteUsersData
@@ -78,7 +79,11 @@ export default function Page() {
           ))}
         </CardContent>
         <CardFooter className="flex-col items-start">
-          <AddUserElement setUsers={setUsers} users={users} setMessage={setMessage}/>
+          <AddUserElement
+            setUsers={setUsers}
+            users={users}
+            setMessage={setMessage}
+          />
           {message && <p className="mt-6 text-emerald-600">{message}</p>}
         </CardFooter>
       </Card>

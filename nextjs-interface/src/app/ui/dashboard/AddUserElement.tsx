@@ -3,14 +3,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { getToken, user } from "@/lib/context";
 
-import {userMessage} from "@/app/dashboard/message";
+import { userMessage } from "@/app/dashboard/message";
 
 import bcrypt from "bcryptjs";
 
 export function AddUserElement({
   users,
   setUsers,
-    setMessage
+  setMessage,
 }: {
   users: user[];
   setUsers: Dispatch<SetStateAction<user[]>>;
@@ -51,7 +51,7 @@ export function AddUserElement({
         setMessage(userMessage.errorAddUser);
       }
     } catch (error: any) {
-      // setMessage("Error: " + error.message);
+      console.error("Erreur: " + error.message);
     }
   };
 
