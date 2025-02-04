@@ -12,7 +12,7 @@ class Login {
 
         // Check if the username and password are provided
         if (!isset($data['username']) || !isset($data['password']))
-            return output($response, ['error' => 'Username and password are required'], 400);
+            return output($response, ['error' => "Nom d'utilisateur et mot de passe requis"], 400);
 
         // Generate a token and use it to get the user
         $token = JWT::encode(['role' => 'web_login', 'exp' => time()], $_ENV['JWT_SECRET'], 'HS256');
@@ -22,21 +22,21 @@ class Login {
         if ($user === false)
             return output($response, ['error' =>
                 $_ENV['DETAILED_ERRORS'] === 'true' ? 
-                    'Unable to connect to the API' :
-                    'Unknown error'
+                    "Connexion à l'API impossible":
+                    'Erreur inconnue'
             ], 500);
         $user = json_decode($user, true);
         if (isset($user["message"]))
             return output($response, ['error' =>
                 $_ENV['DETAILED_ERRORS'] === 'true' ? 
                     $user :
-                    'Unknown error'
+                    'Erreur inconnue'
             ], 500);
 
         if (empty($user))
-            return output($response, ['error' => 'Unknown user'], 401);
+            return output($response, ['error' => 'Utilisateur inconnu'], 401);
         if (!password_verify($data['password'], $user[0]['password']))
-            return output($response, ['error' => 'Invalid password'], 401);
+            return output($response, ['error' => 'Mot de passe invalide'], 401);
 
         // Generate a token for the user that expires at midnight
         $payload = [
@@ -48,5 +48,6 @@ class Login {
 
         return output($response, ['token' => $token]);
     }
+
 }
 
