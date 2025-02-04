@@ -25,11 +25,11 @@ export function AddUserElement({
     e.preventDefault();
 
     // Hash the password
-    const hashedPassword: string = await bcrypt.hash(password, 10);
+    //const hashedPassword: string = await bcrypt.hash(password, 10);
     const token = getToken();
 
     try {
-      const response = await fetch(`/Route.php`, {
+      const response = await fetch(`/postgrest/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,12 +37,12 @@ export function AddUserElement({
         },
         body: JSON.stringify({
           username,
-          password: hashedPassword,
+          password,
         }),
       });
 
       if (response.ok) {
-        const newUser: user = { username, password: hashedPassword };
+        const newUser: user = { username, password };
         setUsers([...users, newUser]);
         setMessage(userMessage.addUser);
         setUsername("");
