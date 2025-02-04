@@ -25,7 +25,7 @@ export function AddUserElement({
     e.preventDefault();
 
     // Hash the password
-    // const hashedPassword: string = await bcrypt.hash(password, 10);
+    const hashedPassword: string = await bcrypt.hash(password, 10);
     const token = getToken();
 
     try {
@@ -37,12 +37,12 @@ export function AddUserElement({
         },
         body: JSON.stringify({
           username,
-          password: $password,
+          password: hashedPassword,
         }),
       });
 
       if (response.ok) {
-        const newUser: user = { username, password: $password };
+        const newUser: user = { username, password: hashedPassword };
         setUsers([...users, newUser]);
         setMessage(userMessage.addUser);
         setUsername("");
