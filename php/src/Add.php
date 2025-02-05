@@ -11,30 +11,57 @@ class Add
 {
     public function __invoke(Request $request, Response $response, mixed $args): Response
     {
-       $data = json_decode(file_get_contents("php://input"), true );
 
-       $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
+        $data = json_decode(file_get_contents("php://input"), true);
 
-       if (!isset($data['username']) || !isset($data['password']))
-           return output($response, ['error' => 'Entrées requise'], 400);
 
-       $token = JWT::encode(['role' => 'web_login', 'exp' => time()], $_ENV['JWT_SECRET'], 'HS256');
-       $user = callAPI('POST', $_ENV['POSTGREST_API'] . '/user', [], ["Authorization" => "Bearer $token"]);
+        $user = getallheaders()['Authorization'];
+
+        if (!isset($user['Authorization'])) {
+            return output($response, ['Erreur' => 'Non-autorisé N°1'], 401);
+        }
+
+        $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
+
+        if (!is_array($data) || !isset($data['username']) || !isset($data['password'])) {
+            return output($response, ['error' => 'Données invalides'], 400);
+        }
+
+        $decoded = JWT::decode($user, new Key($_ENV['JWT_SECRET'], 'HS256'));
+        if ($decoded->role !== 'web_user')
+            return output($response, ['Erreur' => 'Non-autorisé N°2'], 401);
+
+        $user = callAPI(
+            'POST',
+            $_ENV['POSTGREST_API'] . '/users',
+            [
+                'username' => $data['username'],
+                'password' => $hashedPassword
+            ],
+            [
+                "Authorization" => "Bearer $decoded->token",
+                "Content-Type" => "application/json"
+            ]
+        );
+
 
         if ($user === false)
             return output($response, ['error' =>
                 $_ENV['DETAILED_ERRORS'] === 'true' ?
-                    "Connexion à l'API impossible":
-                    'Erreur inconnue N°1'
-            ], 500);
-        $user = json_decode($user, true);
-        if (isset($user["message"]))
-            return output($response, ['error' =>
-                $_ENV['DETAILED_ERRORS'] === 'true' ?
-                    $user :
-                    'Erreur inconnue N°2'
+                    "Connexion à l'API impossible" :
+                    'Erreur inconnue'
             ], 500);
 
-        return output($response, ['token' => $token]);
+
+        return output(
+            $response,
+            [
+                ['username' => $data['username']],
+                ['password' => $hashedPassword],
+                ['token' => $decoded]
+            ]
+        );
     }
+
+
 }
