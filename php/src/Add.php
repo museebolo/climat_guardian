@@ -11,25 +11,28 @@ class Add
 {
     public function __invoke(Request $request, Response $response, mixed $args): Response
     {
+        $headers = getallheaders();
+        if (!isset($headers['Authorization'])) {
+            return output($response, ['Erreur' => 'Non-autorisé'], 401);
+        }
+
+        try {
+            $decoded = JWT::decode($token, new Key($_ENV['JWT_SECRET'], 'HS256'));
+        } catch (\Exception $e) {
+            return output($response, ['Erreur' => 'Token invalide'], 401);
+        }
+
+        if (!isset($decoded->role) || $decoded->role !== 'web_user') {
+            return output($response, ['Erreur' => 'Non-autorisé'], 401);
+        }
 
         $data = json_decode(file_get_contents("php://input"), true);
-
-
-        $user = getallheaders()['Authorization'];
-
-        if (!isset($user['Authorization'])) {
-            return output($response, ['Erreur' => 'Non-autorisé N°1'], 401);
-        }
-
-        $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
-
         if (!is_array($data) || !isset($data['username']) || !isset($data['password'])) {
-            return output($response, ['error' => 'Données invalides'], 400);
+            return output($response, ['Erreur' => 'Données invalides'], 400);
         }
 
-        $decoded = JWT::decode($user, new Key($_ENV['JWT_SECRET'], 'HS256'));
-        if ($decoded->role !== 'web_user')
-            return output($response, ['Erreur' => 'Non-autorisé N°2'], 401);
+        // Hachage du mot de passe
+        $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
 
         $user = callAPI(
             'POST',
@@ -39,29 +42,25 @@ class Add
                 'password' => $hashedPassword
             ],
             [
-                "Authorization" => "Bearer $decoded->token",
+                "Authorization" => "Bearer " . $token,
                 "Content-Type" => "application/json"
             ]
         );
 
-
-        if ($user === false)
-            return output($response, ['error' =>
-                $_ENV['DETAILED_ERRORS'] === 'true' ?
-                    "Connexion à l'API impossible" :
-                    'Erreur inconnue'
+        if ($user === false) {
+            return output($response, [
+                'Erreur' => $_ENV['DETAILED_ERRORS'] === 'true'
+                    ? "Connexion à l'API impossible"
+                    : "Erreur inconnue"
             ], 500);
+        }
 
-
-        return output(
-            $response,
-            [
-                ['username' => $data['username']],
-                ['password' => $hashedPassword],
-                ['token' => $decoded]
-            ]
-        );
+        // Retour de la réponse sans le mot de passe haché pour des raisons de sécurité
+        return output($response, [
+            'username' => $data['username'],
+            'password' => $hashedPassword,
+            'role' => $decoded->role,
+            'token' => $token,
+        ]);
     }
-
-
 }
