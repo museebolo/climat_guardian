@@ -29,7 +29,7 @@ export function AddUserElement({
     const token = getToken();
 
     try {
-      const response = await fetch(`/users`, {
+      const response = await fetch(`/php/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
