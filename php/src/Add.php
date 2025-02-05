@@ -7,8 +7,11 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-class Delete {
+class Add {
     public function __invoke(Request $request, Response $response, mixed $args): Response {
-        die("test");
+        $message = "Appel de la page fonctionnel";
+        echo "<script>alert('$message');</script>";
+
+        return $response;
     }
 }
