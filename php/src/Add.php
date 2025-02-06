@@ -13,19 +13,20 @@ class Add
     {
         $headers = getallheaders();
         if (!isset($headers['Authorization'])) {
-            return output($response, ['Erreur' => 'Non-autorisé'], 401);
+            return output($response, ['Erreur' => 'Non-autorisé (headers)'], 401);
         }
 
-        $token = JWT::encode(['role' => 'web_user'], $_ENV['JWT_SECRET'], 'HS256');
-
         try {
-            $decoded = JWT::decode($token, new Key($_ENV['JWT_SECRET'], 'HS256'));
+            $authHeader = $headers['Authorization'] ?? '';
+            $jwt = str_replace('Bearer ', '', $authHeader);
+
+            $decodedToken = JWT::decode($jwt, new Key($_ENV['JWT_SECRET'], 'HS256'));
         } catch (\Exception $e) {
             return output($response, ['Erreur' => 'Token invalide'], 401);
         }
 
-        if (!isset($decoded->role) || $decoded->role !== 'web_user') {
-            return output($response, ['Erreur' => 'Non-autorisé'], 401);
+        if (!isset($decodedToken->role) || $decodedToken->role !== 'web_user') {
+            return output($response, ['Erreur' => 'Non-autorisé (rôle)'], 401);
         }
 
         $data = json_decode(file_get_contents("php://input"), true);
@@ -37,15 +38,15 @@ class Add
         $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
 
         $user = callAPI(
-            'POST',
-            $_ENV['POSTGREST_API'] . '/users',
-            [
+            method: 'POST',
+            url: $_ENV['POSTGREST_API'] . '/users',
+            headers:[
+                "Authorization" => "Bearer " . $jwt,
+                "Content-Type" => "application/json"
+            ],
+            data: [
                 'username' => $data['username'],
                 'password' => $hashedPassword
-            ],
-            [
-                "Authorization" => "Bearer " . $token,
-                "Content-Type" => "application/json"
             ]
         );
 
@@ -57,12 +58,15 @@ class Add
             }
         }
 
-        // Retour de la réponse sans le mot de passe haché pour des raisons de sécurité
+        if (isset($user['error'])) {
+            return output($response, ['Erreur' => $user['error']], 400);
+        }
+
         return output(
             $response,
             [
                 'username' => $data['username'],
-                'password' => $hashedPassword,
+                // 'password' => $hashedPassword,
             ],
         );
     }
