@@ -16,6 +16,8 @@ class Add
             return output($response, ['Erreur' => 'Non-autorisé'], 401);
         }
 
+        $token = JWT::encode(['role' => 'web_user'], $_ENV['JWT_SECRET'], 'HS256');
+
         try {
             $decoded = JWT::decode($token, new Key($_ENV['JWT_SECRET'], 'HS256'));
         } catch (\Exception $e) {
@@ -48,19 +50,20 @@ class Add
         );
 
         if ($user === false) {
-            return output($response, [
-                'Erreur' => $_ENV['DETAILED_ERRORS'] === 'true'
-                    ? "Connexion à l'API impossible"
-                    : "Erreur inconnue"
-            ], 500);
+            if ($_ENV['DETAILED_ERRORS'] === 'true') {
+                return output($response, ['Erreur' => "Connexion à l'API impossible"], 500);
+            } else {
+                return output($response, ['Erreur' => "Erreur inconnue"], 500);
+            }
         }
 
         // Retour de la réponse sans le mot de passe haché pour des raisons de sécurité
-        return output($response, [
-            'username' => $data['username'],
-            'password' => $hashedPassword,
-            'role' => $decoded->role,
-            'token' => $token,
-        ]);
+        return output(
+            $response,
+            [
+                'username' => $data['username'],
+                'password' => $hashedPassword,
+            ],
+        );
     }
 }

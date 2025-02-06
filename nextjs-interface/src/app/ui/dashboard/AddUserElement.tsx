@@ -36,7 +36,6 @@ export function AddUserElement({
         body: JSON.stringify({
           username,
           password,
-          token
         }),
       });
 
