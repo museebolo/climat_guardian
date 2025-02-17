@@ -48,7 +48,7 @@ export default function EditUsersData({
     }
 
     try {
-      const response = await fetch(`/postgrest/users?username=eq.${username}`, {
+      const response = await fetch(`/users?username=eq.${username}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
