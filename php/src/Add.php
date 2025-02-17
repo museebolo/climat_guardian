@@ -25,9 +25,13 @@ class Add
             return output($response, ['Erreur' => 'Token invalide'], 401);
         }
 
+
+
         if (!isset($decodedToken->role) || $decodedToken->role !== 'web_user') {
             return output($response, ['Erreur' => 'Non-autorisé (rôle)'], 401);
         }
+
+        echo($jwt);
 
         $data = json_decode(file_get_contents("php://input"), true);
         if (!is_array($data) || !isset($data['username']) || !isset($data['password'])) {
@@ -46,7 +50,7 @@ class Add
             ],
             data: [
                 'username' => $data['username'],
-                'password' => $hashedPassword
+                $hashedPassword,
             ]
         );
 
@@ -65,8 +69,7 @@ class Add
         return output(
             $response,
             [
-                'username' => $data['username'],
-                // 'password' => $hashedPassword,
+                'username' => $data['username']
             ],
         );
     }
