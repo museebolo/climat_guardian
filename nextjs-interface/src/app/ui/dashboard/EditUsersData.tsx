@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
-import { getToken } from "@/lib/context";
+import { getToken, user } from "@/lib/context";
 import { Edit } from "lucide-react";
 import {
   Popover,
@@ -11,17 +11,21 @@ import {
 
 import bcrypt from "bcryptjs";
 
+import { userMessage } from "@/app/dashboard/message";
+
 export default function EditUsersData({
   username,
-  password,
+  onChange,
+  setMessage,
 }: {
   username: string;
-  password: string;
+  onChange: (username: string, editedUsername: Partial<user>) => void;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
 
-  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
 
   const [confirm, setConfirm] = React.useState(false);
 
@@ -29,7 +33,7 @@ export default function EditUsersData({
     const token = getToken();
 
     // Construire dynamiquement les données à envoyer
-    const updateData: Record<string, string> = {};
+    const updateData: Partial<any> = {};
     if (newUsername.trim() !== "") {
       updateData.username = newUsername;
     }
@@ -44,7 +48,7 @@ export default function EditUsersData({
     }
 
     try {
-      const response = await fetch(`/postgrest/users?username=eq.${username}`, {
+      const response = await fetch(`/users?username=eq.${username}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -54,24 +58,23 @@ export default function EditUsersData({
       });
 
       if (response.ok) {
-        setMessage("Utilisateur modifié avec succès !");
-        window.location.href = `/dashboard/users`;
+        setMessage(userMessage.editUser);
+        setNewUsername("");
+        setNewPassword("");
+        setOpen(false);
+
+        onChange(username, updateData);
       } else {
-        const errorData = await response.json();
-        console.error(`An error occurred: ${response.status}`, errorData);
-        setMessage("Erreur lors de la modification de l'utilisateur");
+        setMessage(userMessage.errorEditUser);
       }
-    } catch (error) {
-      console.error(error);
-      setMessage(
-        "Une erreur s'est produite lors de la modification de l'utilisateur",
-      );
+    } catch (error: any) {
+      console.error("Erreur: " + error.message);
     }
   };
 
   return (
     <div className="flex cursor-pointer gap-2">
-      <Popover>
+      <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Edit />
         </PopoverTrigger>

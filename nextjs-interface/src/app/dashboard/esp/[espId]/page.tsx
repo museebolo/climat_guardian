@@ -23,7 +23,7 @@ import { differenceInDays, endOfWeek, format, startOfWeek } from "date-fns";
 import { DateRange } from "react-day-picker";
 import React, { useState, useEffect } from "react";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { notFound, useRouter, useSearchParams } from "next/navigation";
 
 import RenameElement from "@/app/ui/dashboard/RenameElement";
 import { Trash2 } from "lucide-react";
@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/select";
 import { getToken } from "@/lib/context";
 import DeleteEsp from "@/app/ui/dashboard/DeleteEsp";
+// import NotFound from "@/app/dashboard/esp/[espId]/not-found";
 
 // main component
 export default function Page({ params }: { params: any }) {
@@ -84,6 +85,15 @@ export default function Page({ params }: { params: any }) {
   };
 
   useEffect(() => {
+    if (ip === "No IP") {
+      console.log("ID inexistant...");
+      notFound();
+    } else {
+      console.log("ID existant");
+    }
+  }, [ip]);
+
+  useEffect(() => {
     const precisionParam = searchParams.get("precision");
     const fromParam = searchParams.get("from");
     const toParam = searchParams.get("to");
@@ -98,7 +108,14 @@ export default function Page({ params }: { params: any }) {
         to: new Date(toParam),
       });
     }
-  }, [searchParams]);
+
+    // if (!ip) {
+    //     console.log("ID inexistant...")
+    //     // window.location.href = "/dashboard";
+    // } else {
+    //     console.log("ID existant")
+    // }
+  }, [searchParams, router, ip]);
 
   const handleSelect = (value: any) => {
     setPrecision(value);
