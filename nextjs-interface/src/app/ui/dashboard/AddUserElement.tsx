@@ -2,30 +2,30 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { getToken, user } from "@/lib/context";
-import bcrypt from "bcryptjs";
+
+import { userMessage } from "@/app/dashboard/message";
 
 export function AddUserElement({
   users,
   setUsers,
+  setMessage,
 }: {
   users: user[];
   setUsers: Dispatch<SetStateAction<user[]>>;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
 
   const handleAddUser = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.preventDefault();
 
-    // Hash the password
-    const hashedPassword: string = await bcrypt.hash(password, 10);
     const token = getToken();
 
     try {
-      const response = await fetch(`/postgrest/users`, {
+      const response = await fetch(`/php/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,21 +33,21 @@ export function AddUserElement({
         },
         body: JSON.stringify({
           username,
-          password: hashedPassword,
+          password,
         }),
       });
 
       if (response.ok) {
-        const newUser: user = { username, password: hashedPassword };
+        const newUser: user = { username, password };
         setUsers([...users, newUser]);
-        setMessage("Utilisateur ajouté avec succés !");
+        setMessage(userMessage.addUser);
         setUsername("");
         setPassword("");
       } else {
-        setMessage("Erreur à l'ajout de l'utilisateur. Veuillez réessayer.");
+        setMessage(userMessage.errorAddUser);
       }
     } catch (error: any) {
-      setMessage("Error: " + error.message);
+      console.error("Erreur: " + error.message);
     }
   };
 
@@ -74,7 +74,6 @@ export function AddUserElement({
 
         <Button onClick={handleAddUser}>Ajouter utilisateur</Button>
       </div>
-      {message && <p className="mt-6 text-emerald-600">{message}</p>}
     </div>
   );
 }

@@ -31,6 +31,7 @@ function callAPI(string $method, string $url, array $data = [], array $headers =
             curl_setopt($ch, CURLOPT_POST, 1);
 
             if (!empty($data))
+                $data = json_encode($data);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             break;
         case "PUT":
@@ -42,8 +43,7 @@ function callAPI(string $method, string $url, array $data = [], array $headers =
     }
 
     // Optional Authentication:
-    foreach ($headers as $value)
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array($value));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
