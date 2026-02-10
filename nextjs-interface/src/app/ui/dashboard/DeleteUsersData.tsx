@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { /*useEffect,*/ useState } from "react";
 import { getToken, user } from "@/lib/context";
 import {
   Popover,
@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/popover";
 import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useAllUsers } from "@/lib/data";
+//import { useAllUsers } from "@/lib/data";
 
 import { userMessage } from "@/app/dashboard/message";
 
@@ -27,9 +27,9 @@ export default function DeleteUserData({
     setIsOpen(false);
   };
 
-  const openPopover = () => {
-    setIsOpen(true);
-  };
+  // const openPopover = () => {
+  //   setIsOpen(true);
+  // };
 
   // Function to delete a user
   const [users, setUsers] = useState<user[]>([]);
