@@ -7,8 +7,8 @@ import { RotateCcw, ZoomIn, ZoomOut } from "lucide-react";
 
 export default function Plan() {
   const [hoveredCircle, setHoveredCircle] = useState<string>("");
-  const [newX, setNewX] = useState(0);
-  const [newY, setNewY] = useState(0);
+  //const [newX, setNewX] = useState(0);
+  //const [newY, setNewY] = useState(0);
   const [zoomMessage, setZoomMessage] = useState<string>("");
   const [showZoomMessage, setShowZoomMessage] = useState<boolean>(false);
 
@@ -18,10 +18,10 @@ export default function Plan() {
 
   const esp = useAllEsp();
 
-  const getPosition = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setNewX(((event.clientX - rect.left) / rect.width) * 100);
-    setNewY(((event.clientY - rect.top) / rect.height) * 100);
+  const getPosition = (/*event: React.MouseEvent<SVGSVGElement, MouseEvent>*/) => {
+    //const rect = event.currentTarget.getBoundingClientRect();
+    //setNewX(((event.clientX - rect.left) / rect.width) * 100);
+    //setNewY(((event.clientY - rect.top) / rect.height) * 100);
   };
 
   const [zoomLevel, setZoomLevel] = useState(1);

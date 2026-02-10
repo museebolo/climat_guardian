@@ -30,8 +30,7 @@ export default function RenameElement({ id }: { id: string }) {
       const errorData = await response.json();
       console.error(`An error occurred: ${response.status}`, errorData);
       throw new Error(`An error occurred: ${response.status}`);
-    } else {
-    }
+    } 
   };
   const ip = useFindIpById(id);
 
