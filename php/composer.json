@@ -8,8 +8,8 @@
         }
     },
     "require": {
-        "firebase/php-jwt": "^6.10",
-        "symfony/dotenv": "^8.0",
+        "firebase/php-jwt": "^7.0",
+        "symfony/dotenv": "^7.0",
         "ext-curl": "*",
         "slim/slim": "^4.13",
         "slim/psr7": "^1.7",
