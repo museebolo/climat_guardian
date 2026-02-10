@@ -219,22 +219,49 @@ interface DataRecord {
   // Ajoutez d'autres propriétés si nécessaire
 }
 
-export const useFetchToken = (ip: any) => {
+export const useFetchToken = (ip?: string) => {
   const [data, setData] = useState<string>("");
-  const url = `/php/esp`;
-  const response = fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken()}`,
-    },
-    body: JSON.stringify({ ip: ip }),
-  })
-    .then((response) => response.json())
-    .then((data: { token: string }) => {
-      setData(data.token);
+
+  useEffect(() => {
+    if (!ip) return;
+
+    const controller = new AbortController();
+
+    fetch("/php/esp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+      body: JSON.stringify({ ip }),
+      signal: controller.signal,
     })
-    .catch((e) => console.error("Une erreur s'est produite : ", e));
+      .then((res) => res.json())
+      .then((data: { token: string }) => {
+        setData(data.token);
+      })
+      .catch((err) => {
+        if (err.name !== "AbortError") {
+          console.error("Erreur token : ", err);
+        }
+      });
+    return () => controller.abort();
+  }, [ip]);
+
+  //const url = `/php/esp`;
+  //const response = fetch(url, {
+  //  method: "POST",
+  //  headers: {
+  //    "Content-Type": "application/json",
+  //    Authorization: `Bearer ${getToken()}`,
+  //  },
+  //  body: JSON.stringify({ ip: ip }),
+  //})
+  //  .then((response) => response.json())
+  //  .then((data: { token: string }) => {
+  //    setData(data.token);
+  //  })
+  //  .catch((e) => console.error("Une erreur s'est produite : ", e));
   return data;
 };
 
