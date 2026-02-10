@@ -26,7 +26,6 @@ import React, { useState, useEffect } from "react";
 import { notFound, useRouter, useSearchParams } from "next/navigation";
 
 import RenameElement from "@/app/ui/dashboard/RenameElement";
-import { Trash2 } from "lucide-react";
 import useFindIpById from "@/lib/data";
 import {
   Select,
@@ -35,7 +34,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { getToken } from "@/lib/context";
 import DeleteEsp from "@/app/ui/dashboard/DeleteEsp";
 // import NotFound from "@/app/dashboard/esp/[espId]/not-found";
 
