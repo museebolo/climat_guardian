@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import {
   LineChart,
@@ -12,10 +13,11 @@ import {
 } from "recharts";
 import React, {
   useContext,
-  useEffect,
+  //useEffect,
   useState,
   Suspense,
-  useRef,
+  useMemo,
+  //useRef,
 } from "react";
 import {
   Select,
@@ -32,13 +34,19 @@ import useFindIpById, {
 import { differenceInDays, endOfWeek, format, startOfWeek } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { DateRangeElement } from "@/app/ui/dashboard/DateRangeElement";
-import { useRouter } from "next/navigation";
+//import { useRouter } from "next/navigation";
 import { Check, CornerLeftDown, CornerRightDown } from "lucide-react";
 import { ThemeContext } from "@/lib/Theme";
 import { avgData } from "@/lib/context";
 
 export default function DataGraph() {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const selectedEsp = searchParams.get("esp1") ?? undefined;
+  const selectedEsp2 = searchParams.get("esp2") ?? undefined;
+  const precision = searchParams.get("precision") ?? "Day";
 
   const [date, setDate] = useState<DateRange | undefined>(() => {
     const now = new Date();
@@ -48,51 +56,136 @@ export default function DataGraph() {
     };
   });
 
-  const [selectedEsp, setSelectedEsp] = useState<string | undefined>(undefined);
-  const [selectedEsp2, setSelectedEsp2] = useState<string | undefined>(
-    undefined,
-  );
+  //const [selectedEsp, setSelectedEsp] = useState<string | undefined>(undefined);
+  //const [selectedEsp, setSelectedEsp] = useState<string | undefined>(() => {
+  //	if (typeof window === "undefined") return undefined;
+  //	return new URLSearchParams(window.location.search).get("esp1") ?? undefined;
+  //});
+
+  //const [selectedEsp2, setSelectedEsp2] = useState<string | undefined>(
+  //  undefined,
+  //);
+  //const [selectedEsp2, setSelectedEsp2] = useState<string | undefined>(() => {
+  //	if (typeof window === "undefined") return undefined;
+  //	return new URLSearchParams(window.location.search).get("esp2") ?? undefined;
+  //});
   const [selectedOption, setSelectedOption] = useState<string>("1");
 
   const dateRangeInDays =
     date?.from && date?.to ? differenceInDays(date.to, date.from) : 0;
+
+  const effectivePrecision = dateRangeInDays > 7 ? "Day" : precision;
 
   const ip1 = useFindIpById(selectedEsp ? selectedEsp : "");
   const ip2 = useFindIpById(selectedEsp2 ? selectedEsp2 : "");
 
   const from = date?.from ? format(date.from, "yyyy-MM-dd") : "";
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
-  const [precision, setPrecision] = useState("Day");
+  //const [precision, setPrecision] = useState("Day");
   const esp = useAllEsp();
 
-  let allDataEsp1: avgData[] | null = useFetchData(precision, ip1, from, to);
-  let allDataEsp2: avgData[] | null = useFetchData(precision, ip2, from, to);
+  let allDataEsp1: avgData[] | null = useFetchData(
+    effectivePrecision,
+    ip1,
+    from,
+    to,
+  );
+  let allDataEsp2: avgData[] | null = useFetchData(
+    effectivePrecision,
+    ip2,
+    from,
+    to,
+  );
 
-  let currentDataEsp1 = useRef(allDataEsp1);
-  let currentDataEsp2 = useRef(allDataEsp2);
+  const setQuery = (updates: Record<string, string | undefined>) => {
+    const params = new URLSearchParams(searchParams.toString());
 
-  const combinedDataMap = new Map<string, any>();
+    for (const [k, v] of Object.entries(updates)) {
+      if (v === undefined || v === "") params.delete(k);
+      else params.set(k, v);
+    }
+    router.replace(`${pathname}?${params.toString()}`);
+  };
 
-  const allDataEsp = useFetchAllData(precision, from, to);
+  //let currentDataEsp1 = useRef(allDataEsp1);
+  //let currentDataEsp2 = useRef(allDataEsp2);
 
-  if (selectedOption === "1" && Array.isArray(allDataEsp)) {
-    allDataEsp.forEach((data) => {
-      if (!combinedDataMap.has(data.date)) {
-        combinedDataMap.set(data.date, {
-          date: data.date,
-          avg_temperature: [],
-          avg_humidity: [],
-        });
-      }
-      const existingData = combinedDataMap.get(data.date);
-      existingData.avg_temperature.push(data.avg_temperature);
-      existingData.avg_humidity.push(data.avg_humidity);
-      combinedDataMap.set(data.date, existingData);
-    });
-  } else {
-    if (Array.isArray(currentDataEsp1)) {
-      currentDataEsp1.current.forEach((data) => {
-        combinedDataMap.set(data.date, {
+  //const combinedDataMap = new Map<string, any>();
+  //
+  //const allDataEsp = useFetchAllData(precision, from, to);
+  //
+  //if (selectedOption === "1" && Array.isArray(allDataEsp)) {
+  //  allDataEsp.forEach((data) => {
+  //    if (!combinedDataMap.has(data.date)) {
+  //      combinedDataMap.set(data.date, {
+  //        date: data.date,
+  //        avg_temperature: [],
+  //        avg_humidity: [],
+  //      });
+  //    }
+  //    const existingData = combinedDataMap.get(data.date);
+  //    existingData.avg_temperature.push(data.avg_temperature);
+  //    existingData.avg_humidity.push(data.avg_humidity);
+  //    combinedDataMap.set(data.date, existingData);
+  //  });
+  //} else {
+  //  if (Array.isArray(currentDataEsp1)) {
+  //    currentDataEsp1.current.forEach((data) => {
+  //      combinedDataMap.set(data.date, {
+  //        ...data,
+  //        avg_temperature_esp1: data.avg_temperature,
+  //        avg_humidity_esp1: data.avg_humidity,
+  //      });
+  //    });
+  //  }
+  //
+  //  if (Array.isArray(currentDataEsp2)) {
+  //    currentDataEsp2.current.forEach((data) => {
+  //      if (combinedDataMap.has(data.date)) {
+  //        const existingData = combinedDataMap.get(data.date);
+  //        combinedDataMap.set(data.date, {
+  //          ...existingData,
+  //          avg_temperature_esp2: data.avg_temperature,
+  //          avg_humidity_esp2: data.avg_humidity,
+  //        });
+  //      } else {
+  //        combinedDataMap.set(data.date, {
+  //          ...data,
+  //          avg_temperature_esp2: data.avg_temperature,
+  //          avg_humidity_esp2: data.avg_humidity,
+  //        });
+  //      }
+  //    });
+  //  }
+  //}
+  //
+  //const combinedData = Array.from(combinedDataMap.values());
+
+  const allDataEsp = useFetchAllData(effectivePrecision, from, to);
+
+  const combinedData = useMemo(() => {
+    const map = new Map<string, any>();
+
+    if (selectedOption === "1" && Array.isArray(allDataEsp)) {
+      allDataEsp.forEach((data) => {
+        if (!map.has(data.date)) {
+          map.set(data.date, {
+            date: data.date,
+            avg_temperature: [],
+            avg_humidity: [],
+          });
+        }
+        const existing = map.get(data.date);
+        existing.avg_temperature.push(data.avg_temperature);
+        existing.avg_humidity.push(data.avg_humidity);
+        map.set(data.date, existing);
+      });
+      return Array.from(map.values());
+    }
+
+    if (Array.isArray(allDataEsp1)) {
+      allDataEsp1.forEach((data) => {
+        map.set(data.date, {
           ...data,
           avg_temperature_esp1: data.avg_temperature,
           avg_humidity_esp1: data.avg_humidity,
@@ -100,17 +193,17 @@ export default function DataGraph() {
       });
     }
 
-    if (Array.isArray(currentDataEsp2)) {
-      currentDataEsp2.current.forEach((data) => {
-        if (combinedDataMap.has(data.date)) {
-          const existingData = combinedDataMap.get(data.date);
-          combinedDataMap.set(data.date, {
-            ...existingData,
+    if (Array.isArray(allDataEsp2)) {
+      allDataEsp2.forEach((data) => {
+        if (map.has(data.date)) {
+          const existing = map.get(data.date);
+          map.set(data.date, {
+            ...existing,
             avg_temperature_esp2: data.avg_temperature,
             avg_humidity_esp2: data.avg_humidity,
           });
         } else {
-          combinedDataMap.set(data.date, {
+          map.set(data.date, {
             ...data,
             avg_temperature_esp2: data.avg_temperature,
             avg_humidity_esp2: data.avg_humidity,
@@ -118,68 +211,74 @@ export default function DataGraph() {
         }
       });
     }
-  }
 
-  const combinedData = Array.from(combinedDataMap.values());
+    return Array.from(map.values());
+  }, [selectedOption, allDataEsp, allDataEsp1, allDataEsp2]);
 
   const { darkMode } = useContext(ThemeContext);
   let textColor = darkMode ? "white" : "";
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const esp1 = params.get("esp1");
-    const esp2 = params.get("esp2");
+  //useEffect(() => {
+  //  const params = new URLSearchParams(window.location.search);
+  //  const esp1 = params.get("esp1");
+  //  const esp2 = params.get("esp2");
+  //
+  //  if (esp1) setSelectedEsp(esp1);
+  //  if (esp2) setSelectedEsp2(esp2);
+  //}, []);
 
-    if (esp1) setSelectedEsp(esp1);
-    if (esp2) setSelectedEsp2(esp2);
-  }, []);
-
-  useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    if (selectedEsp) query.set("esp1", selectedEsp);
-    if (selectedEsp2) query.set("esp2", selectedEsp2);
-
-    if (selectedOption === "1") {
-      query.delete("esp1");
-      query.delete("esp2");
-      currentDataEsp1.current = [];
-      currentDataEsp2.current = [];
-    }
-
-    if (dateRangeInDays > 7) {
-      setPrecision("Day");
-      query.set("precision", "Day");
-    } else {
-      query.set("precision", precision);
-    }
-
-    router.push(`?${query.toString()}`);
-  }, [
-    selectedEsp,
-    selectedEsp2,
-    selectedOption,
-    precision,
-    dateRangeInDays,
-    router,
-  ]);
+  //useEffect(() => {
+  //  const query = new URLSearchParams(window.location.search);
+  //  if (selectedEsp) query.set("esp1", selectedEsp);
+  //  if (selectedEsp2) query.set("esp2", selectedEsp2);
+  //
+  //  if (selectedOption === "1") {
+  //    setQuery({ esp1: undefined, esp2: undefined });
+  //query.delete("esp1");
+  //query.delete("esp2");
+  //currentDataEsp1.current = [];
+  //currentDataEsp2.current = [];
+  //  }
+  //
+  //if (dateRangeInDays > 7) {
+  //  setPrecision("Day");
+  //  query.set("precision", "Day");
+  //} else {
+  //  query.set("precision", precision);
+  //}
+  //	query.set("precision", effectivePrecision);
+  //
+  //  router.push(`?${query.toString()}`);
+  //}, [
+  //  selectedEsp,
+  //  selectedEsp2,
+  //  selectedOption,
+  //  effectivePrecision,
+  //  dateRangeInDays,
+  //  router,
+  //]);
 
   const handleDateChange = (newDate: DateRange | undefined) => {
-    const from = newDate?.from ? newDate.from.toISOString() : "";
-    const to = newDate?.to ? newDate.to.toISOString() : "";
+    const fromIso = newDate?.from?.toISOString();
+    const toIso = newDate?.to?.toISOString();
 
-    router.push(`?precision=${precision}&from=${from}&to=${to}`);
+    setDate(newDate);
+    setQuery({ from: fromIso, to: toIso });
   };
 
   const handleSelect = (value: any) => {
-    const query = new URLSearchParams(window.location.search);
-    if (dateRangeInDays > 7 && value === "Hour") {
-      value = "Day";
-    }
-    setPrecision(value);
-    query.set("precision", value);
-    router.push(
-      `?${query.toString()}&from=${date?.from?.toISOString()}&to=${date?.to?.toISOString()}`,
-    );
+    //const query = new URLSearchParams(window.location.search);
+    const nextPrecision =
+      dateRangeInDays > 7 && value === "Hour" ? "Day" : value;
+    setQuery({ precision: nextPrecision });
+    //if (dateRangeInDays > 7 && value === "Hour") {
+    //  value = "Day";
+    //}
+    //setPrecision(nextPrecision);
+    //query.set("precision", nextPrecision);
+    //router.push(
+    //  `?${query.toString()}&from=${date?.from?.toISOString()}&to=${date?.to?.toISOString()}`,
+    //);
   };
 
   const colorPalette = [
@@ -240,7 +339,11 @@ export default function DataGraph() {
           <div className="flex max-h-full w-full items-center gap-2 overflow-x-auto overflow-y-auto p-6">
             <div className="flex w-fit items-center">
               <Select
-                onValueChange={(value) => setSelectedOption(value)}
+                onValueChange={(value) => {
+                  setSelectedOption(value);
+                  if (value === "1")
+                    setQuery({ esp1: undefined, esp2: undefined });
+                }}
                 value={selectedOption}
               >
                 <SelectTrigger
@@ -273,7 +376,7 @@ export default function DataGraph() {
               <div className="flex gap-2 rounded">
                 <div className="flex w-fit items-center gap-2">
                   <Select
-                    onValueChange={(value) => setSelectedEsp(value)}
+                    onValueChange={(value) => setQuery({ esp1: value })}
                     value={selectedEsp}
                   >
                     <SelectTrigger
@@ -309,7 +412,7 @@ export default function DataGraph() {
 
                 <div className="flex items-center">
                   <Select
-                    onValueChange={(value) => setSelectedEsp2(value)}
+                    onValueChange={(value) => setQuery({ esp2: value })}
                     value={selectedEsp2}
                   >
                     <SelectTrigger
