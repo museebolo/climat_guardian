@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState /*, useEffect*/ } from "react";
 import { useAllUsers } from "@/lib/data";
-import { User, Trash2 } from "lucide-react";
+import { User } from "lucide-react";
 import { AddUserElement } from "@/app/ui/dashboard/AddUserElement";
 import {
   Card,
@@ -10,22 +10,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getToken, user } from "@/lib/context";
+import { user } from "@/lib/context";
 import EditUsersData from "@/app/ui/dashboard/EditUsersData";
 import DeleteUsersData from "@/app/ui/dashboard/DeleteUsersData";
-import { userMessage } from "@/app/dashboard/message";
 
 export default function Page() {
-  const [users, setUsers] = useState<user[]>([]);
   const allUsers = useAllUsers();
+  const [users, setUsers] = useState<user[]>(() => allUsers ?? []);
 
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    if (allUsers) {
-      setUsers(allUsers);
-    }
-  }, [allUsers]);
+  if (users.length === 0 && Array.isArray(allUsers) && allUsers.length > 0) {
+    setUsers(allUsers);
+  }
+
+  //useEffect(() => {
+  //  if (allUsers) {
+  //    setUsers(allUsers);
+  //  }
+  //}, [allUsers]);
 
   const handleUserDelete = (username: string) => {
     setUsers((prevUsers) =>
