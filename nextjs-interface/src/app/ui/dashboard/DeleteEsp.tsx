@@ -16,9 +16,9 @@ export default function DeleteEsp({ id }: { id: string }) {
     setIsOpen(false);
   };
 
-  const openPopover = () => {
-    setIsOpen(true);
-  };
+  //const openPopover = () => {
+  //  setIsOpen(true);
+  //};
 
   const deleteEsp = async (id: string) => {
     // Get the id in the URL of the page
