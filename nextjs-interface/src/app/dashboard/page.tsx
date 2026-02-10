@@ -10,8 +10,8 @@ export default function Page() {
     <>
       <div>
         <Suspense fallback={<div>Chargement...</div>}>
-					<DataGraph />
-				</Suspense>
+          <DataGraph />
+        </Suspense>
       </div>
 
       <br />

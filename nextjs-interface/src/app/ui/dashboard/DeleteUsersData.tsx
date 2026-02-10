@@ -27,9 +27,9 @@ export default function DeleteUserData({
     setIsOpen(false);
   };
 
-// const openPopover = () => {
-//   setIsOpen(true);
-// };
+  // const openPopover = () => {
+  //   setIsOpen(true);
+  // };
 
   // Function to delete a user
   const [users, setUsers] = useState<user[]>([]);

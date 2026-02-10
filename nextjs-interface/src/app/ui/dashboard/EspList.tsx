@@ -4,13 +4,13 @@ import DataCircle from "@/app/ui/dashboard/DataCircle";
 import { useAllEsp } from "@/lib/data";
 
 export default function EspList() {
-	const ESPList = useAllEsp();
-	
-	return (
+  const ESPList = useAllEsp();
+
+  return (
     <div className="px-auto grid h-fit w-full grid-cols-1 gap-10 xl:grid-cols-2 2xl:grid-cols-3">
       {ESPList.map((esp, index) => (
         <DataCircle key={index} esp={esp} />
       ))}
     </div>
-	);
+  );
 }

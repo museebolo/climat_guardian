@@ -18,11 +18,12 @@ export default function Plan() {
 
   const esp = useAllEsp();
 
-  const getPosition = (/*event: React.MouseEvent<SVGSVGElement, MouseEvent>*/) => {
-    //const rect = event.currentTarget.getBoundingClientRect();
-    //setNewX(((event.clientX - rect.left) / rect.width) * 100);
-    //setNewY(((event.clientY - rect.top) / rect.height) * 100);
-  };
+  const getPosition =
+    (/*event: React.MouseEvent<SVGSVGElement, MouseEvent>*/) => {
+      //const rect = event.currentTarget.getBoundingClientRect();
+      //setNewX(((event.clientX - rect.left) / rect.width) * 100);
+      //setNewY(((event.clientY - rect.top) / rect.height) * 100);
+    };
 
   const [zoomLevel, setZoomLevel] = useState(1);
 

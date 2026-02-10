@@ -39,11 +39,14 @@ export default [
       "no-undef": "off",
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",
-      
+
       "react/no-unescaped-entities": "off",
-      
+
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
+      ],
       ...reactHooks.configs.recommended.rules,
     },
     settings: {

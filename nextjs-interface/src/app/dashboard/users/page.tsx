@@ -1,5 +1,5 @@
 "use client";
-import React, { useState/*, useEffect*/ } from "react";
+import React, { useState /*, useEffect*/ } from "react";
 import { useAllUsers } from "@/lib/data";
 import { User } from "lucide-react";
 import { AddUserElement } from "@/app/ui/dashboard/AddUserElement";
@@ -17,12 +17,12 @@ import DeleteUsersData from "@/app/ui/dashboard/DeleteUsersData";
 export default function Page() {
   const allUsers = useAllUsers();
   const [users, setUsers] = useState<user[]>(() => allUsers ?? []);
-  
+
   const [message, setMessage] = useState("");
 
-	if (users.length === 0 && Array.isArray(allUsers) && allUsers.length > 0) {
-		setUsers(allUsers);
-	}
+  if (users.length === 0 && Array.isArray(allUsers) && allUsers.length > 0) {
+    setUsers(allUsers);
+  }
 
   //useEffect(() => {
   //  if (allUsers) {
