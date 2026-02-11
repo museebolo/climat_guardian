@@ -9,10 +9,10 @@
     },
     "require": {
         "firebase/php-jwt": "^7.0",
-        "symfony/dotenv": "^7.0",
+        "symfony/dotenv": "^8.0",
         "ext-curl": "*",
         "slim/slim": "^4.13",
-        "slim/psr7": "^1.7",
+        "slim/psr7": "^1.8",
         "psr/http-server-middleware": "^1.0"
     },
     "require-dev": {
