@@ -1,5 +1,4 @@
 # Use postgres/example user/password credentials
-version: "3.9"
 services:
   esphome:
     image: esphome/esphome:2024.4
@@ -50,8 +49,8 @@ services:
 
   php:
     build:
-      context: .
-      dockerfile: Dockerfile/Php.Dockerfile
+      context: ./php
+      dockerfile: ../Dockerfile/Php.Dockerfile
     image: php-memoires-info
     depends_on:
       - postg-rest
