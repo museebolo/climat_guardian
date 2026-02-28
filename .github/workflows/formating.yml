@@ -1,0 +1,47 @@
+name: Check formatting of project files with Prettier
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: nextjs-interface/package-lock.json
+      - name: Install dependencies
+        run: npm install
+        working-directory: nextjs-interface/
+      - name: Check code style with Prettier
+        run: npm run format:check
+        working-directory: nextjs-interface/
+
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: nextjs-interface/package-lock.json
+      - name: Install dependencies
+        run: npm install
+        working-directory: nextjs-interface/
+      - name: Lint code with Eslint
+        run: npm run lint
+        working-directory: nextjs-interface/
