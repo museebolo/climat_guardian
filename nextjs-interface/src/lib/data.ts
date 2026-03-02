@@ -39,7 +39,7 @@ export const fetchWithAuth = async (url: string) => {
       if (response.status === 401) {
         window.location.href = "/login";
       }
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      new Error(`HTTP error! Status: ${response.status}`);
     }
     return await response.json();
   } catch (error) {
