@@ -1,0 +1,97 @@
+# Use postgres/example user/password credentials
+services:
+  esphome:
+    image: esphome/esphome:2024.4
+    volumes:
+      - "${ESP_PATH}:/config"
+      - /etc/localtime:/etc/localtime:ro
+      - /dev/ttyUSB0:/dev/ttyUSB0
+    privileged: true
+
+  db:
+    image: postgres:16.3-alpine
+    shm_size: 128mb
+    volumes:
+      - "${DB_PATH}:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: memoires-info
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d memoires-info"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  migration:
+    image: sqitch/sqitch:v1.4.1.1
+    environment:
+      SQITCH_TARGET: "db:pg://postgres:${POSTGRES_PASSWORD}@db:5432/memoires-info"
+    volumes:
+      - "./database/migration:/repo"
+    command:
+      - "deploy"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  adminer:
+    image: adminer
+    depends_on:
+      - db
+
+  postg-rest:
+    image: postgrest/postgrest:v12.0.3
+    environment:
+      PGRST_JWT_SECRET: "${JWT_SECRET}"
+      PGRST_DB_URI: "postgres://postgres:${POSTGRES_PASSWORD}@db:5432/memoires-info"
+      PGRST_DB_ANO: role = "web_anon"
+      PGRST_DB_SCHEMAS: "api"
+      PGRST_OPENAPI_SERVE: proxy-uri = "http://0.0.0.0:3000"
+    depends_on:
+      migration:
+        condition: service_completed_successfully
+
+  php:
+    build:
+      context: ./php
+      dockerfile: ../Dockerfile/Php.dev.Dockerfile
+    image: php-memoires-info
+    volumes:
+      - "./php:/var/www/memoires-info/php/"
+    depends_on:
+      - postg-rest
+    environment:
+      POSTGREST_API: ${POSTGREST_API}
+      DETAILED_ERRORS: ${DETAILED_ERRORS}
+      JWT_SECRET: ${JWT_SECRET}
+
+
+  interface:
+    build:
+      context: .
+      dockerfile: Dockerfile/Node.dev.Dockerfile
+    image: interface-memoires-info
+    volumes:
+      - "./nextjs-interface:/var/www/memoires-info/html/"
+
+  web:
+    build:
+      dockerfile: Dockerfile/Nginx.Dockerfile
+    image: nginx:1.26-alpine-otel
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./.env:/var/www/memoires-info/html/.env"
+      - "./nginx.conf:/etc/nginx/conf.d/default.conf"
+      - "./php:/var/www/memoires-info/php/"
+        # Nginx certificats
+      - "./climateguardian_dev.com.pem:/etc/nginx/climateguardian_dev.com.pem"
+      - "./climateguardian_dev.com-key.pem:/etc/nginx/climateguardian_dev.com-key.pem"
+    depends_on:
+      - php
+      - postg-rest
+      - interface
+      - adminer
+      - esphome
