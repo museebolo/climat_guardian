@@ -590,10 +590,12 @@ function DataGraphContent() {
                   padding={{ top: 50, bottom: 10 }}
                 />
                 <Tooltip
-                  formatter={(value: number, name: string) => [
-                    `${value.toFixed(2)}`,
-                    name,
-                  ]}
+                  formatter={(value, name) => {
+                    const numericValue =
+                      typeof value === "number" ? value : Number(value ?? 0);
+
+                    return [numericValue.toFixed(2), String(name)];
+                  }}
                   labelFormatter={(label: string) => {
                     const date = new Date(label);
                     return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
@@ -673,10 +675,12 @@ function DataGraphContent() {
                   padding={{ top: 50, bottom: 10 }}
                 />
                 <Tooltip
-                  formatter={(value: number, name: string) => [
-                    `${value.toFixed(2)}`,
-                    name,
-                  ]}
+                  formatter={(value, name) => {
+                    const numericValue =
+                      typeof value === "number" ? value : Number(value ?? 0);
+
+                    return [numericValue.toFixed(2), String(name)];
+                  }}
                   labelFormatter={(label: string) => {
                     const date = new Date(label);
                     return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
