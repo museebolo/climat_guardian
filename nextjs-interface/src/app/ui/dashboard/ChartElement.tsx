@@ -14,20 +14,26 @@ import { ThemeContext } from "@/lib/Theme";
 import { useRouter, usePathname } from "next/navigation";
 import { ScanSearch } from "lucide-react";
 
+type ChartClickEvent = {
+  activePayload?: Array<{
+    payload: avgData;
+  }>;
+};
+
 export function ChartElement({ data }: { data: avgData[] }) {
   const { darkMode } = useContext(ThemeContext);
   const pathname = usePathname();
   const router = useRouter();
-  const [message, setMessage] = useState<string | null>(null);
+  const [message, setMessage] = useState<React.ReactNode | null>(null);
 
   let textColor = darkMode ? "white" : "";
 
-  if (!Array.isArray(data) || data === undefined) {
+  if (!Array.isArray(data)) {
     console.error("Les données ne sont pas un array ou ne sont pas définie");
     return null;
   }
 
-  const dateChanges = data.reduce((acc: any[], curr, index, src) => {
+  const dateChanges = data.reduce<string[]>((acc, curr, index, src) => {
     if (
       index > 0 &&
       curr?.date &&
@@ -43,8 +49,7 @@ export function ChartElement({ data }: { data: avgData[] }) {
     <div>
       {message && (
         <div className="animate-slide-in fixed right-5 top-5 z-50 flex items-center gap-2 rounded border-l-4 border-l-green-900 bg-green-50 p-4 text-green-900 shadow-lg dark:border-l-green-700 dark:bg-green-900 dark:text-green-50">
-          <ScanSearch />{" "}
-          <span dangerouslySetInnerHTML={{ __html: message }}></span>
+          <ScanSearch /> <span>{message}</span>
         </div>
       )}
 
@@ -54,30 +59,32 @@ export function ChartElement({ data }: { data: avgData[] }) {
           height={500}
           data={data}
           onClick={(event) => {
-            if (
-              event &&
-              event.activePayload &&
-              event.activePayload.length > 0
-            ) {
-              const clickedDate = new Date(event.activePayload[0].payload.date);
-              const from = new Date(clickedDate);
-              const to = new Date(clickedDate);
-              to.setDate(to.getDate() + 1);
+            const chartEvent = event as ChartClickEvent | undefined;
+            const payload = chartEvent?.activePayload?.[0]?.payload;
 
-              const espId = pathname.split("/").pop();
-              router.push(
-                `/dashboard/esp/${espId}?precision=Hour&from=${from.toISOString()}&to=${to.toISOString()}`,
-              );
-              const swissDateFormat = from.toLocaleDateString("fr-CH", {
-                year: "numeric",
-                month: "long",
-                day: "2-digit",
-              });
-              setMessage(
-                `Jour du <strong>${swissDateFormat}</strong> affiché en détail`,
-              );
-              setTimeout(() => setMessage(null), 5000);
-            }
+            if (!payload?.date) return;
+
+            const clickedDate = new Date(payload.date);
+            const from = new Date(clickedDate);
+            const to = new Date(clickedDate);
+            to.setDate(to.getDate() + 1);
+
+            const espId = pathname.split("/").pop();
+
+            router.push(
+              `/dashboard/esp/${espId}?precision=Hour&from=${from.toISOString()}&to=${to.toISOString()}`,
+            );
+            const swissDateFormat = from.toLocaleDateString("fr-CH", {
+              year: "numeric",
+              month: "long",
+              day: "2-digit",
+            });
+            setMessage(
+              <>
+                Jour du <strong>{swissDateFormat}</strong> affiché en détail
+              </>,
+            );
+            setTimeout(() => setMessage(null), 5000);
           }}
         >
           <XAxis
@@ -146,12 +153,12 @@ export function ChartElement({ data }: { data: avgData[] }) {
             dataKey="avg_humidity"
             stroke="#8884d8"
             activeDot={{ r: 8 }}
-            strokeWidth="2px"
+            strokeWidth={2}
           />
           <Line
             type="monotone"
             dataKey="avg_temperature"
-            strokeWidth="2px"
+            strokeWidth={2}
             stroke="#82ca9d"
           />
           {dateChanges.map((date, index) => (
