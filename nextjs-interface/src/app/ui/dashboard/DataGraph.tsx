@@ -596,8 +596,15 @@ function DataGraphContent() {
 
                     return [numericValue.toFixed(2), String(name)];
                   }}
-                  labelFormatter={(label: string) => {
-                    const date = new Date(label);
+                  labelFormatter={(label) => {
+                    if (label === undefined || label === null) return "";
+
+                    const date = new Date(String(label));
+
+                    if (Number.isNaN(date.getTime())) {
+                      return String(label);
+                    }
+
                     return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
                   }}
                 />
@@ -681,8 +688,15 @@ function DataGraphContent() {
 
                     return [numericValue.toFixed(2), String(name)];
                   }}
-                  labelFormatter={(label: string) => {
-                    const date = new Date(label);
+                  labelFormatter={(label) => {
+                    if (label === undefined || label === null) return "";
+
+                    const date = new Date(String(label));
+
+                    if (Number.isNaN(date.getTime())) {
+                      return String(label);
+                    }
+
                     return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
                   }}
                 />
