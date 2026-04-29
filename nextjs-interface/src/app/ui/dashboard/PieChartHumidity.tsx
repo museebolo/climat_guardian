@@ -6,13 +6,8 @@ import { getHumiColor } from "@/lib/getColor";
 import { ThemeContext } from "@/lib/Theme";
 
 interface CustomizedLabelProps {
-  cx: number;
-  cy: number;
-  midAngle: number;
-  innerRadius: number;
-  outerRadius: number;
-  percent: number;
-  index: number;
+  cx?: number | string;
+  cy?: number | string;
 }
 
 export function PieChartHumidity({ data }: { data: any }) {
@@ -20,9 +15,11 @@ export function PieChartHumidity({ data }: { data: any }) {
   const { darkMode } = useContext(ThemeContext);
 
   // display the data at the center of the graph
-  const renderCustomizedLabel = ({ cx, cy }: CustomizedLabelProps) => {
-    let textColor;
-    darkMode ? (textColor = "white") : (textColor = "black");
+  const renderCustomizedLabel = (props: CustomizedLabelProps) => {
+    const cx = Number(props.cx ?? 0);
+    const cy = Number(props.cy ?? 0);
+    const textColor = darkMode ? "white" : "black";
+
     return (
       <text
         x={cx}
@@ -32,7 +29,7 @@ export function PieChartHumidity({ data }: { data: any }) {
         dominantBaseline="central"
         fontSize={24}
       >
-        {data === null ? "Aucune donnée" : `${data.toFixed(2)}%`}
+        {data === null ? "Aucune donnée" : `${Number(data).toFixed(2)}%`}
       </text>
     );
   };
@@ -59,7 +56,7 @@ export function PieChartHumidity({ data }: { data: any }) {
           innerRadius={60}
           outerRadius={80}
           fill={newFade}
-          label={renderCustomizedLabel}
+          label={(props) => renderCustomizedLabel(props)}
           labelLine={false}
         />
       </PieChart>
