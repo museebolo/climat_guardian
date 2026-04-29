@@ -15,15 +15,17 @@ export const useFetchTemperatureAndHumidity = (
   const [data, setData] = useState<TemperatureAndHumidityData[]>([]);
 
   useEffect(() => {
+    if (!precision || !ip || !from || !to || ip === "No IP") {
+      return;
+    }
+
     const url = `/postgrest/rpc/avg_date?delta=${precision}&ip=eq.${ip}&and=(date.gte.${from},date.lt.${to})`;
-    fetchWithAuth(url);
-    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
-      .then((response) => response.json())
-      .then((apiData: TemperatureAndHumidityData[]) => {
-        setData(apiData);
-      })
+
+    fetchWithAuth(url)
+      .then((apiData: TemperatureAndHumidityData[]) => setData(apiData))
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
+        setData([]);
       });
   }, [from, ip, precision, to]);
 
@@ -39,7 +41,7 @@ export const fetchWithAuth = async (url: string) => {
       if (response.status === 401) {
         window.location.href = "/login";
       }
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      throw new Error(`HTTP error! Status: ${response.status} URL: ${url}`);
     }
     return await response.json();
   } catch (error) {
@@ -57,15 +59,17 @@ export const useFetchData = (
   const [data, setData] = useState<avgData[]>([]);
 
   useEffect(() => {
+    if (!precision || !ip || !from || !to || ip === "No IP") {
+      return;
+    }
+
     const url = `/postgrest/rpc/avg_date?delta=${precision}&ip=eq.${ip}&and=(date.gte.${from},date.lt.${to})`;
-    fetchWithAuth(url);
-    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
-      .then((response) => response.json())
-      .then((apiData: avgData[]) => {
-        setData(apiData);
-      })
+
+    fetchWithAuth(url)
+      .then((apiData: avgData[]) => setData(apiData))
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
+        setData([]);
       });
   }, [from, ip, precision, to]);
   return data;
@@ -79,15 +83,17 @@ export const useFetchAllData = (
   const [data, setData] = useState<avgData[]>([]);
 
   useEffect(() => {
+    if (!precision || !from || !to) {
+      return;
+    }
+
     const url = `/postgrest/rpc/avg_date?delta=${precision}&and=(date.gte.${from},date.lt.${to})`;
-    fetchWithAuth(url);
-    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
-      .then((response) => response.json())
-      .then((apiData: avgData[]) => {
-        setData(apiData);
-      })
+
+    fetchWithAuth(url)
+      .then((apiData: avgData[]) => setData(apiData))
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
+        setData([]);
       });
   }, [from, precision, to]);
   return data;
@@ -97,10 +103,13 @@ export function useLastData(type: string, ip: string) {
   const [value, setValue] = useState<number | undefined>(undefined);
 
   useEffect(() => {
+    if (!type || !ip) {
+      return;
+    }
+
     const url = `/postgrest/data_view?limit=1&order=timestamp.desc&ip=eq.${ip}`;
-    fetchWithAuth(url);
-    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
-      .then((response) => response.json())
+
+    fetchWithAuth(url)
       .then((apiData: data[]) => {
         if (apiData && apiData.length > 0) {
           if (type == "humidity") {
@@ -120,14 +129,11 @@ export const useAllEsp = () => {
 
   useEffect(() => {
     const url = `/postgrest/esp`;
-    fetchWithAuth(url);
-    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
-      .then((response) => response.json())
-      .then((apiEsp: esp[]) => {
-        setEsp(apiEsp);
-      })
+    fetchWithAuth(url)
+      .then((apiEsp: esp[]) => setEsp(apiEsp))
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
+        setEsp([]);
       });
   }, []);
   return esp;
@@ -137,19 +143,19 @@ export default function useFindIpById(id: string) {
   const [ip, setIp] = useState<string>("");
 
   useEffect(() => {
+    if (!id) {
+      return;
+    }
+
     const url = `/postgrest/esp?select=ip&id=eq.${id}`;
-    fetchWithAuth(url);
-    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
-      .then((response) => response.json())
+
+    fetchWithAuth(url)
       .then((apiIp: esp[]) => {
-        if (apiIp.length > 0) {
-          setIp(apiIp[0].ip);
-        } else {
-          setIp("No IP");
-        }
+        setIp(apiIp.length > 0 ? apiIp[0].ip : "");
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
+        setIp("");
       });
   }, [id]);
   return ip;
@@ -159,15 +165,17 @@ export function useFindNameById(id: string) {
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
+    if (!id) {
+      return;
+    }
     const url = `/postgrest/esp?select=name&id=eq.${id}`;
-    fetchWithAuth(url);
-    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
-      .then((response) => response.json())
+    fetchWithAuth(url)
       .then((apiIp: esp[]) => {
-        setName(apiIp[0].name);
+        setName(apiIp.length > 0 ? apiIp[0].name : "");
       })
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
+        setName("");
       });
   }, [id]);
   return name;
@@ -178,14 +186,11 @@ export function useAllUsers() {
 
   useEffect(() => {
     const url = `/postgrest/users`;
-    fetchWithAuth(url);
-    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
-      .then((response) => response.json())
-      .then((apiUsers: user[]) => {
-        setUsers(apiUsers);
-      })
+    fetchWithAuth(url)
+      .then((apiUsers: user[]) => setUsers(apiUsers))
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
+        setUsers([]);
       });
   }, []);
   return users;
@@ -195,17 +200,18 @@ export function GetEspPosition(id: string) {
   const [position, setPosition] = useState<esp[]>([]);
 
   useEffect(() => {
+    if (!id) {
+      return;
+    }
     const url = `/postgrest/esp?select=x,y,name,ip&id=eq.${id}`;
-    fetchWithAuth(url);
-    fetch(url, { headers: { Authorization: `Bearer ${getToken()}` } })
-      .then((response) => response.json())
-      .then((apiPosition: esp[]) => {
-        setPosition(apiPosition);
-      })
+    fetchWithAuth(url)
+      .then((apiPosition: esp[]) => setPosition(apiPosition))
       .catch((e) => {
         console.error("Une erreur s'est produite :", e);
+        setPosition([]);
       });
   }, [id]);
+
   if (position.length == 0 || position[0].x == null || position[0].y == null) {
     return { x: 0, y: 0, name: "", ip: "" };
   }

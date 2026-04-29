@@ -44,7 +44,18 @@ export default function Page({ params }: { params: any }) {
 
   // Date range selector
   const [date, setDate] = useState<DateRange | undefined>(() => {
+    const fromParam = searchParams.get("from");
+    const toParam = searchParams.get("to");
+
+    if (fromParam && toParam) {
+      return {
+        from: new Date(fromParam),
+        to: new Date(toParam),
+      };
+    }
+
     const now = new Date();
+
     return {
       from: startOfWeek(now),
       to: endOfWeek(now),
@@ -56,7 +67,9 @@ export default function Page({ params }: { params: any }) {
   // Get data from the selected esp and date range
   const from = date?.from ? format(date.from, "yyyy-MM-dd") : "";
   const to = date?.to ? format(date.to, "yyyy-MM-dd") : "";
-  const [precision, setPrecision] = useState("Day");
+  const [precision, setPrecision] = useState(() => {
+    return searchParams.get("precision") ?? "Day";
+  });
 
   // Get the ip of the selected esp and fetch the data for the graphic
   const ip = useFindIpById(params.espId);
@@ -92,20 +105,20 @@ export default function Page({ params }: { params: any }) {
   }, [ip]);
 
   useEffect(() => {
-    const precisionParam = searchParams.get("precision");
-    const fromParam = searchParams.get("from");
-    const toParam = searchParams.get("to");
+    //const precisionParam = searchParams.get("precision");
+    const _fromParam = searchParams.get("from");
+    const _toParam = searchParams.get("to");
 
-    if (precisionParam) {
-      setPrecision(precisionParam);
-    }
+    //if (precisionParam) {
+    //  setPrecision(precisionParam);
+    //}
 
-    if (fromParam && toParam) {
-      setDate({
-        from: new Date(fromParam),
-        to: new Date(toParam),
-      });
-    }
+    //if (fromParam && toParam) {
+    //  setDate({
+    //    from: new Date(fromParam),
+    //    to: new Date(toParam),
+    //  });
+    //}
 
     // if (!ip) {
     //     console.log("ID inexistant...")

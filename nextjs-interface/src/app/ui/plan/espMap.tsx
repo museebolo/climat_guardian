@@ -29,6 +29,8 @@ export function EspMap({
   const temperature = useLastData("temperature", ip) ?? 0;
   const humidity = useLastData("humidity", ip) ?? 0;
 
+  const [newPosition, setNewPosition] = useState({ x: cx, y: cy });
+
   const mouseDown = useCallback(
     (e: { clientX: number; clientY: number }) => {
       const startX = e.clientX;
@@ -54,8 +56,6 @@ export function EspMap({
     },
     [position],
   );
-
-  const [newPosition, setNewPosition] = useState({ x: cx, y: cy });
 
   const updatePosition = async () => {
     const apiurl = `/postgrest/esp?ip=eq.${ip}`;

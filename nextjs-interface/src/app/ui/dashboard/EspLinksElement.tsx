@@ -1,7 +1,7 @@
 "use client";
 
 // import nextjs and react
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -33,9 +33,9 @@ export default function EspLinksElement() {
   const [allLinks, setAllLinks] = useState<esp[]>(links);
   const [newLink, setNewLink] = useState({ name: "", ip: "" });
 
-  useEffect(() => {
-    setAllLinks(links);
-  }, [links]);
+  //useEffect(() => {
+  //  setAllLinks(links);
+  //}, [links]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewLink({ ...newLink, [e.target.id]: e.target.value });
