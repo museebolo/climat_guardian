@@ -81,14 +81,14 @@ export default function Plan() {
       </div>
 
       {/* <button
-                className="bg-blue-300 dark:bg-red-300 absolute m-5 ml-14 z-50 px-2.5 rounded shadow focus:ring-1 border-white border text-blue-50"
+                className="bg-blue-300 dark:bg-red-300 absolute m-5 ml-14 z-50 px-2.5 rounded shadow-sm focus:ring-1 border-white border text-blue-50"
                 onClick={zoomOut}
 
             >
                 <ZoomOut />
             </button>*/}
 
-      <div className="flex h-[90vh] w-full items-center justify-center overflow-auto p-2 shadow">
+      <div className="flex h-[90vh] w-full items-center justify-center overflow-auto p-2 shadow-sm">
         <svg
           className="xl:h-[1000px] xl:w-[1000px]"
           xmlns="http://www.w3.org/2000/svg"

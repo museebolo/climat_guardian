@@ -67,14 +67,14 @@ export default function DeleteUserData({
           <Trash2 />
         </PopoverTrigger>
 
-        <PopoverContent className="mr-5 mt-2 flex w-fit flex-col gap-2 dark:bg-zinc-800">
+        <PopoverContent className="mt-2 mr-5 flex w-fit flex-col gap-2 dark:bg-zinc-800">
           <p>Supprimer {username} ?</p>
           <Button onClick={handleDelete} className="w-72">
             OUI
           </Button>
           <Button
             onClick={hidePopover}
-            className="w-72 data-[state=closed]:animate-out"
+            className="data-[state=closed]:animate-out w-72"
           >
             NON
           </Button>

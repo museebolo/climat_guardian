@@ -15,7 +15,7 @@ const DarkModeToggle = () => {
       {darkMode ? (
         <Sun className="h-full w-full rounded-full p-2 transition dark:bg-zinc-800" />
       ) : (
-        <Moon className="h-full w-full rounded-full bg-secondary p-2" />
+        <Moon className="bg-secondary h-full w-full rounded-full p-2" />
       )}
     </div>
   );

@@ -334,9 +334,9 @@ function DataGraphContent() {
   return (
     <div>
       <Card className="flex h-fit w-full flex-col items-center text-center dark:border-zinc-700 dark:bg-zinc-900">
-        <CardTitle className="w-full border-b-2 pb-5 pt-5 text-center text-gray-800 dark:border-zinc-700 dark:text-white">
+        <CardTitle className="w-full border-b-2 pt-5 pb-5 text-center text-gray-800 dark:border-zinc-700 dark:text-white">
           Comparaison de la température et de l'humidité
-          <span className="font-normal italic text-gray-400">
+          <span className="font-normal text-gray-400 italic">
             (Du {from || "..."} au {to || "..."} )
           </span>
         </CardTitle>
@@ -483,13 +483,13 @@ function DataGraphContent() {
                 </SelectItem>
                 <SelectItem
                   value="Day"
-                  className="cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700"
+                  className="border-secondary cursor-pointer rounded-none border-t-2 dark:border-gray-700"
                 >
                   Jour
                 </SelectItem>
                 <SelectItem
                   value="Hour"
-                  className={`cursor-pointer rounded-none border-t-2 border-secondary dark:border-gray-700 ${dateRangeInDays > 7 ? "cursor-not-allowed opacity-50" : ""}`}
+                  className={`border-secondary cursor-pointer rounded-none border-t-2 dark:border-gray-700 ${dateRangeInDays > 7 ? "cursor-not-allowed opacity-50" : ""}`}
                   disabled={dateRangeInDays > 7}
                 >
                   Heure
@@ -530,7 +530,7 @@ function DataGraphContent() {
           )}
         </div>
 
-        <div className="w-full pl-20 pt-10">
+        <div className="w-full pt-10 pl-20">
           <div className="flex items-center gap-2">
             {selectedEsp && selectedOption === "2" && (
               <div className="flex min-w-44 flex-col justify-start gap-y-2 rounded border-l-4 border-l-purple-600 p-2 pl-5">

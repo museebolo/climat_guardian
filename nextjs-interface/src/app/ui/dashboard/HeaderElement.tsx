@@ -24,14 +24,14 @@ const logout = () => {
 export function HeaderElement() {
   return (
     <div className="flex flex-col">
-      <header className="flex h-14 w-full items-center justify-between gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-5">
+      <header className="bg-muted/40 flex h-14 w-full items-center justify-between gap-4 border-b px-4 lg:h-[60px] lg:px-5">
         <div className="flex flex-row gap-5 pt-5 lg:pt-0">
           <Sheet>
             <SheetTrigger asChild>
               <Button
                 variant="outline"
                 size="icon"
-                className="shrink-0 dark:bg-zinc-800 lg:hidden"
+                className="shrink-0 lg:hidden dark:bg-zinc-800"
               >
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Toggle navigation menu</span>
