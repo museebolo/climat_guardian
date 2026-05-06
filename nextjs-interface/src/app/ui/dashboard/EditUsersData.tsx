@@ -78,7 +78,7 @@ export default function EditUsersData({
         <PopoverTrigger asChild>
           <Edit />
         </PopoverTrigger>
-        <PopoverContent className="mr-5 mt-2 flex w-fit flex-col gap-2 dark:bg-zinc-800">
+        <PopoverContent className="mt-2 mr-5 flex w-fit flex-col gap-2 dark:bg-zinc-800">
           <div className="flex flex-row gap-x-5">
             <Input
               type="text"
