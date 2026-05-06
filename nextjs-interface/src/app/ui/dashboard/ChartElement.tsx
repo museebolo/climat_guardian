@@ -48,7 +48,7 @@ export function ChartElement({ data }: { data: avgData[] }) {
   return (
     <div>
       {message && (
-        <div className="animate-slide-in fixed right-5 top-5 z-50 flex items-center gap-2 rounded border-l-4 border-l-green-900 bg-green-50 p-4 text-green-900 shadow-lg dark:border-l-green-700 dark:bg-green-900 dark:text-green-50">
+        <div className="animate-slide-in fixed top-5 right-5 z-50 flex items-center gap-2 rounded border-l-4 border-l-green-900 bg-green-50 p-4 text-green-900 shadow-lg dark:border-l-green-700 dark:bg-green-900 dark:text-green-50">
           <ScanSearch /> <span>{message}</span>
         </div>
       )}
@@ -116,7 +116,7 @@ export function ChartElement({ data }: { data: avgData[] }) {
               if (!active || !payload || payload.length === 0) return null;
               return (
                 <>
-                  <div className="w-[250px] rounded-xl bg-secondary dark:bg-gray-900">
+                  <div className="bg-secondary w-[250px] rounded-xl dark:bg-gray-900">
                     <div className="p-5">
                       <div className="flex flex-col">
                         <h1 className="text-black dark:text-zinc-50">

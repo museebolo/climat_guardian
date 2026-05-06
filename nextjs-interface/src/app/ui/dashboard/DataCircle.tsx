@@ -10,7 +10,7 @@ export default function DataCircle({ esp }: { esp: any }) {
 
   return (
     <Card className="flex h-fit flex-col items-center text-center dark:border-zinc-700 dark:bg-zinc-900">
-      <CardTitle className="w-full border-b-2 pb-5 pt-5 text-center text-gray-800 dark:border-zinc-700 dark:text-white">
+      <CardTitle className="w-full border-b-2 pt-5 pb-5 text-center text-gray-800 dark:border-zinc-700 dark:text-white">
         {esp.name}
       </CardTitle>
       <CardContent className="sm:py-auto flex h-full w-full flex-row py-14 max-sm:flex-col max-sm:justify-center">

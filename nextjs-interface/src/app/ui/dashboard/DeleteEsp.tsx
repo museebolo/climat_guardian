@@ -61,7 +61,7 @@ export default function DeleteEsp({ id }: { id: string }) {
           <Trash2 />
         </PopoverTrigger>
 
-        <PopoverContent className="mr-5 mt-2 flex w-fit flex-col gap-2 dark:bg-zinc-800">
+        <PopoverContent className="mt-2 mr-5 flex w-fit flex-col gap-2 dark:bg-zinc-800">
           <p>Supprimer cet ESP ?</p>
           <Button
             onClick={async () => {

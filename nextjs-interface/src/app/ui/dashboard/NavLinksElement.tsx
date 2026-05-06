@@ -25,7 +25,7 @@ export default function NavLinksElement() {
             key={link.name}
             href={link.href}
             className={clsx(
-              "flex items-center gap-3 rounded-lg py-2 text-lg text-gray-500 transition-all hover:text-primary",
+              "hover:text-primary flex items-center gap-3 rounded-lg py-2 text-lg text-gray-500 transition-all",
               {
                 "text-zinc-950 dark:text-zinc-50": pathname === link.href,
               },
