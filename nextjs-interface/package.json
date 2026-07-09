@@ -40,7 +40,7 @@
   "devDependencies": {
     "@eslint/js": "^9.39.4",
     "@next/eslint-plugin-next": "^16.2.9",
-    "@tailwindcss/postcss": "^4.3.1",
+    "@tailwindcss/postcss": "^4.3.2",
     "@types/bcryptjs": "^3.0.0",
     "@types/node": "^26.0.1",
     "@types/react": "^19.2.17",
