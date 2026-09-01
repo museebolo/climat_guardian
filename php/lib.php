@@ -28,14 +28,14 @@ function callAPI(string $method, string $url, array $data = [], array $headers =
 
     switch ($method) {
         case "POST":
-            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POST, true);
 
             if (!empty($data))
                 $data = json_encode($data);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             break;
         case "PUT":
-            curl_setopt($ch, CURLOPT_PUT, 1);
+            curl_setopt($ch, CURLOPT_PUT, true);
             break;
         default:
             if ($data)
@@ -46,7 +46,7 @@ function callAPI(string $method, string $url, array $data = [], array $headers =
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
     $result = curl_exec($ch);
 
