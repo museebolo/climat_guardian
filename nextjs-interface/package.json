@@ -27,8 +27,8 @@
     "clsx": "^2.1.1",
     "concat-map": "^0.0.2",
     "date-fns": "^4.4.0",
-    "lucide-react": "^1.55.0",
     "next": "^16.4.1",
+    "lucide-react": "^1.61.0",
     "react": "19.3.1",
     "react-day-picker": "^10.0.2",
     "react-dom": "19.3.0",
@@ -36,7 +36,7 @@
     "recharts": "^3.9.2",
     "tailwind-merge": "^3.7.0",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
