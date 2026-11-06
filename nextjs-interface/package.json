@@ -27,8 +27,8 @@
     "clsx": "^2.1.1",
     "concat-map": "^0.0.2",
     "date-fns": "^4.4.0",
-    "next": "^16.4.3",
     "lucide-react": "^1.61.0",
+    "next": "^16.4.3",
     "react": "19.3.1",
     "react-day-picker": "^10.0.2",
     "react-dom": "19.3.0",
@@ -61,6 +61,9 @@
     "next": {
       "postcss": "^8.5.12",
       "sharp": "0.35.5"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.5"
     }
   }
 }
